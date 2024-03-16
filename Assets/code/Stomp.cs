@@ -8,6 +8,7 @@ public class Stomp : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject parent;
   
+  
 
     // Start is called before the first frame update
     void Start()
@@ -23,11 +24,12 @@ public class Stomp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Destroy(parent);
+           
+            parent.GetComponent<Animator>().SetBool("hit", true);
             collision.gameObject.GetComponent<Rigidbody2D>().velocity= new Vector2(rb.velocity.x, bounce);
             
         }
 
-        
     }
+
 }

@@ -91,7 +91,7 @@ public class movement : MonoBehaviour
         }
     }
 
-    private void DieAndRespawn()
+    public void DieAndRespawn()
     {
         // Imposta la posizione del giocatore sul punto di respawn
         transform.position = checkpoint.position;
