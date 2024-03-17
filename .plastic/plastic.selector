@@ -1,0 +1,4 @@
+repository "Progetto-SVG@unity_9AFF537E85A4495E0485@cloud"
+  path "/"
+    br "/main"
+    co "/main"

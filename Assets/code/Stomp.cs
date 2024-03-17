@@ -7,6 +7,8 @@ public class Stomp : MonoBehaviour
     public float bounce=6;
     public Rigidbody2D rb;
     public GameObject parent;
+    public GameObject slime;
+    public GameObject slime_bee;
   
   
 
@@ -27,7 +29,14 @@ public class Stomp : MonoBehaviour
            
             parent.GetComponent<Animator>().SetBool("hit", true);
             collision.gameObject.GetComponent<Rigidbody2D>().velocity= new Vector2(rb.velocity.x, bounce);
-            
+
+            //Se lo slime si trova sul nemico, cambia aspetto e acquisisce un'abilità
+            slime_bee.transform.position = slime.transform.position;
+            slime.SetActive(false);
+
+            slime_bee.SetActive(true);
+
+
         }
 
     }

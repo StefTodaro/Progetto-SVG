@@ -98,7 +98,7 @@ public class movement : MonoBehaviour
 
         // Esegui altre azioni di morte, ad esempio perdere punti vita o visualizzare un'animazione di morte
     }
-
+    
 
 
 }

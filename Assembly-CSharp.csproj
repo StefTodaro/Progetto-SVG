@@ -56,14 +56,14 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\code\Mob_shooting.cs" />
+    <Compile Include="Assets\code\Mob_bullet_script.cs" />
     <Compile Include="Assets\code\Stomp.cs" />
+    <Compile Include="Assets\code\Mob_chase.cs" />
+    <Compile Include="Assets\code\Destroy_mob.cs" />
     <Compile Include="Assets\code\movement.cs" />
     <Compile Include="Assets\code\Create_dust.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
-    <Compile Include="Assets\code\Destroy_mob.cs" />
-    <Compile Include="Assets\code\Mob_chase.cs" />
-    <Compile Include="Assets\code\Mob_shooting.cs" />
-    <Compile Include="Assets\code\Mob_bullet_script.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
