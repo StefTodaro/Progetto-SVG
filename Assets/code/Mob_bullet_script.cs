@@ -8,6 +8,7 @@ public class Mob_bullet_script : MonoBehaviour
     private Rigidbody2D rb;
     public float force;
     public float timer=0 ;
+    public LayerMask targetLayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,6 +40,13 @@ public class Mob_bullet_script : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             player.GetComponent<movement>().DieAndRespawn();
+            Destroy(gameObject);
+        }
+
+        // Verifica se la collisione è avvenuta con un oggetto del layer desiderato
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+            // Distruggi l'oggetto corrente
             Destroy(gameObject);
         }
     }
