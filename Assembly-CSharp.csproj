@@ -67,6 +67,7 @@
     <Compile Include="Assets\code\Camera_Follow.cs" />
     <Compile Include="Assets\code\Create_dust.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
+    <Compile Include="Assets\code\Death_reload.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

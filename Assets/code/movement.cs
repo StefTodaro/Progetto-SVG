@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.XR;
 
 public class movement : MonoBehaviour
@@ -82,6 +83,8 @@ public class movement : MonoBehaviour
 
         }
 
+        
+
     }
 
     private void Flip()
@@ -99,12 +102,49 @@ public class movement : MonoBehaviour
 
             Hit();
         }
+ }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+
+
+        if (collision.gameObject.CompareTag("checkpoint"))
+        {
+
+            
+
+            if (transformed)
+            {
+                baseSlime.GetComponent<movement>().checkpoint = collision.transform;
+            }
+            else
+            {
+                checkpoint = collision.transform;
+            }
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
+        {
+
+            if (transformed)
+            {
+                LosePower();
+
+            }
+            DieAndRespawn();
+
+        }
+
+       
+
     }
 
     public void DieAndRespawn()
     {
         // Imposta la posizione del giocatore sul punto di respawn
         transform.position = checkpoint.position;
+      //  SceneManager.LoadScene("SampleScene");
+        gameObject.transform.position = checkpoint.position;
 
         // Esegui altre azioni di morte, ad esempio perdere punti vita o visualizzare un'animazione di morte
     }
@@ -117,6 +157,12 @@ public class movement : MonoBehaviour
     public void  SetTransformed(bool value)
     {
         transformed=value;
+    }
+
+
+    public Transform getcheckpoint()
+    {
+        return checkpoint;
     }
 
     private void LosePower()

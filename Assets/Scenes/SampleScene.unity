@@ -128,11 +128,63 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3336525665605778066, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
   m_PrefabInstance: {fileID: 3336525665494122795}
   m_PrefabAsset: {fileID: 0}
---- !u!4 &161987517 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 3336525665605778070, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
-  m_PrefabInstance: {fileID: 3336525665494122795}
+--- !u!1 &177337366
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 177337368}
+  - component: {fileID: 177337367}
+  m_Layer: 0
+  m_Name: chekpoint  (1)
+  m_TagString: checkpoint
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!61 &177337367
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177337366}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.6662245, y: 0.012113214}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.332449, y: 1.9932795}
+  m_EdgeRadius: 0
+--- !u!4 &177337368
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 177337366}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 21.06, y: 0.02, z: -3.5598483}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &240216141 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4447508088658662322, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
@@ -179,6 +231,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1721018766}
+  - {fileID: 1829845807}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -476,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2291656496974211818, guid: 82eff19bea386184ab29e2ebff4f85f1, type: 3}
       propertyPath: m_RootOrder
-      value: 9
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 2291656496974211818, guid: 82eff19bea386184ab29e2ebff4f85f1, type: 3}
       propertyPath: m_LocalPosition.x
@@ -536,7 +589,7 @@ PrefabInstance:
       objectReference: {fileID: 343506410}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 82eff19bea386184ab29e2ebff4f85f1, type: 3}
---- !u!1 &1481936904
+--- !u!1 &1651321502
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -544,27 +597,54 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 1481936905}
+  - component: {fileID: 1651321504}
+  - component: {fileID: 1651321503}
   m_Layer: 0
-  m_Name: 'chekpoint '
-  m_TagString: Untagged
+  m_Name: chekpoint  (2)
+  m_TagString: checkpoint
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &1481936905
+--- !u!61 &1651321503
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1651321502}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.6662245, y: 0.012113214}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.332449, y: 1.9932795}
+  m_EdgeRadius: 0
+--- !u!4 &1651321504
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1481936904}
+  m_GameObject: {fileID: 1651321502}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.27141172, y: 0.26808813, z: -3.5598483}
+  m_LocalPosition: {x: 1.13, y: 0.02, z: -3.5598483}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1721018765
 GameObject:
@@ -2486,7 +2566,7 @@ MonoBehaviour:
   m_Priority: 10
   m_StandbyUpdate: 2
   m_LookAt: {fileID: 0}
-  m_Follow: {fileID: 161987517}
+  m_Follow: {fileID: 0}
   m_Lens:
     FieldOfView: 60
     OrthographicSize: 5.8
@@ -2515,7 +2595,7 @@ Transform:
   m_Children:
   - {fileID: 910870357}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1748106520
 MonoBehaviour:
@@ -2529,6 +2609,63 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06254f34bb9178241ad42832d5e1ff93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &1829845806
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1829845807}
+  - component: {fileID: 1829845808}
+  m_Layer: 7
+  m_Name: deathzone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1829845807
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829845806}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -7.68, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 307513296}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &1829845808
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1829845806}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 3.249277, y: 0.38665795}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 52.096508, y: 1.7733159}
+  m_EdgeRadius: 0
 --- !u!1001 &2291656496094532834
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2539,7 +2676,7 @@ PrefabInstance:
     - target: {fileID: 2291656496544182206, guid: 82eff19bea386184ab29e2ebff4f85f1, type: 3}
       propertyPath: slime
       value: 
-      objectReference: {fileID: 161987513}
+      objectReference: {fileID: 0}
     - target: {fileID: 2291656496544182206, guid: 82eff19bea386184ab29e2ebff4f85f1, type: 3}
       propertyPath: slime_bee
       value: 
@@ -2632,10 +2769,10 @@ PrefabInstance:
     - target: {fileID: 3336525665605778069, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
       propertyPath: checkpoint
       value: 
-      objectReference: {fileID: 1481936905}
+      objectReference: {fileID: 0}
     - target: {fileID: 3336525665605778070, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3336525665605778070, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2737,7 +2874,7 @@ PrefabInstance:
     - target: {fileID: 4447508088658662318, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
       propertyPath: checkpoint
       value: 
-      objectReference: {fileID: 1481936905}
+      objectReference: {fileID: 0}
     - target: {fileID: 4447508088658662322, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
       propertyPath: m_Name
       value: slime_bee
