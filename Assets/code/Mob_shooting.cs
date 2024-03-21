@@ -16,14 +16,17 @@ public class Mob_shooting : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        
         anim = gameObject.GetComponent<Animator>();
         
     }
 
     // Update is called once per frame
     void Update()
-    {   //altezza del giocatore rispetto al mob
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+
+        //altezza del giocatore rispetto al mob
         float playerRelativeY = player.transform.position.y - transform.position.y;
 
         //distanza reltiva dal mob

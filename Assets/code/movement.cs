@@ -13,6 +13,9 @@ public class movement : MonoBehaviour
     public Animator anim;
     public Transform checkpoint;
     
+    public bool transformed=false;
+    public GameObject baseSlime;
+    
 
 
     private Rigidbody2D rb;
@@ -72,6 +75,13 @@ public class movement : MonoBehaviour
             rb.velocity += Vector2.down * slumForce ;
         }
 
+        if (Input.GetKeyDown(KeyCode.W) && transformed == true)
+        {
+
+            LosePower();
+
+        }
+
     }
 
     private void Flip()
@@ -86,8 +96,8 @@ public class movement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Mob"))
         {
-            // Il giocatore è morto, respawnare al checkpoint
-            DieAndRespawn();
+
+            Hit();
         }
     }
 
@@ -98,7 +108,42 @@ public class movement : MonoBehaviour
 
         // Esegui altre azioni di morte, ad esempio perdere punti vita o visualizzare un'animazione di morte
     }
-    
+
+    public bool getTransformed()
+    {
+        return transformed;
+    }
+
+    public void  SetTransformed(bool value)
+    {
+        transformed=value;
+    }
+
+    private void LosePower()
+    {
+        baseSlime.transform.position = gameObject.transform.position;
+
+        gameObject.SetActive(false);
+
+        baseSlime.SetActive(true);
+
+        transformed = false;
+    }
+
+
+    public void Hit()
+    {
+
+        if (transformed)
+        {
+            LosePower();
+        }
+        else
+        {
+            DieAndRespawn();
+        }
+    }
+   
 
 
 }
