@@ -120,6 +120,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   force: 6
   timer: 0
+  targetLayer:
+    serializedVersion: 2
+    m_Bits: 8
 --- !u!70 &8054048249270176385
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
