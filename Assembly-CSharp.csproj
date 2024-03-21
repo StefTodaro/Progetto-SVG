@@ -65,8 +65,11 @@
     <Compile Include="Assets\code\Camera_Follow.cs" />
     <Compile Include="Assets\code\Create_dust.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
+<<<<<<< HEAD
     <Compile Include="Assets\code\Slime_stinger_shoot.cs" />
     <Compile Include="Assets\code\Slime_stinger_script.cs" />
+=======
+>>>>>>> dc428ae8cf36d7b5d0071ca4bba5d9ec66960bc0
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
