@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Mob_atrol : MonoBehaviour
+public class Mob_patrol : MonoBehaviour
 {
     public float moveSpeed = 3f; // Velocità di movimento del nemico
     public Transform[] patrolPoints; // Punti di pattuglia che il nemico deve seguire
