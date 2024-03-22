@@ -63,11 +63,14 @@
     <Compile Include="Assets\code\Stomp.cs" />
     <Compile Include="Assets\code\Mob_chase.cs" />
     <Compile Include="Assets\code\Destroy_mob.cs" />
+    <Compile Include="Assets\code\Slime_rino_movement.cs" />
     <Compile Include="Assets\code\Slime_stinger_shoot.cs" />
     <Compile Include="Assets\code\movement.cs" />
     <Compile Include="Assets\code\Camera_Follow.cs" />
     <Compile Include="Assets\code\Create_dust.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
+    <Compile Include="Assets\code\Transformation_handler.cs" />
+    <Compile Include="Assets\code\checkpoint_handler.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

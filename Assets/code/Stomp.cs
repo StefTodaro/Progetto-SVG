@@ -27,23 +27,20 @@ public class Stomp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-           
+
+            if (!collision.GetComponent<Transformation_handler>().transformed)
+            {
+                slime_form.transform.position = slime.transform.position;
+                slime.SetActive(false);
+                slime_form.SetActive(true);
+            }
+
             parent.GetComponent<Animator>().SetBool("hit", true);
             collision.gameObject.GetComponent<Rigidbody2D>().velocity= new Vector2(rb.velocity.x, bounce);
 
             
 
-            if (!collision.GetComponent<movement>().getTransformed())
-            {
-                
-                //Se lo slime si trova sul nemico, cambia aspetto e acquisisce un'abilità
-                slime_form.transform.position = slime.transform.position;
-                slime_form.GetComponent<movement>().SetTransformed(true);
-
-                slime.SetActive(false);
-
-                slime_form.SetActive(true);
-            }
+         
 
 
         }

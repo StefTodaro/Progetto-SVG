@@ -39,7 +39,6 @@ public class Mob_bullet_script : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            player.GetComponent<movement>().Hit();
             Destroy(gameObject);
         }
 

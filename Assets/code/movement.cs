@@ -6,20 +6,14 @@ using UnityEngine.XR;
 
 public class movement : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 10f;
+    public float moveSpeed = 3.5f;
+    public float jumpForce = 6.5f;
     public float slumForce = 8f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator anim;
-    public Transform checkpoint;
-    
-    public bool transformed=false;
-    public GameObject baseSlime;
-    
 
-
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
     public  bool isGrounded;
     public bool facingRight;
 
@@ -73,18 +67,8 @@ public class movement : MonoBehaviour
 
         if (!isGrounded && Input.GetKeyDown(KeyCode.S))
         {
-            rb.velocity += Vector2.down * slumForce ;
+            rb.velocity += Vector2.down * slumForce;
         }
-
-        if (Input.GetKeyDown(KeyCode.W) && transformed == true)
-        {
-
-            LosePower();
-
-        }
-
-        
-
     }
 
     private void Flip()
@@ -99,7 +83,6 @@ public class movement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Mob"))
         {
-
             Hit();
         }
  }
@@ -108,30 +91,22 @@ public class movement : MonoBehaviour
     {
 
 
-        if (collision.gameObject.CompareTag("checkpoint"))
+        if (collision.gameObject.CompareTag("Mob"))
         {
-
-            
-
-            if (transformed)
-            {
-                baseSlime.GetComponent<movement>().checkpoint = collision.transform;
-            }
-            else
-            {
-                checkpoint = collision.transform;
-            }
+            Hit();
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
         {
 
-            if (transformed)
+            DieAndRespawn();
+
+            if (gameObject.GetComponent<Transformation_handler>().transformed)
             {
-                LosePower();
+                gameObject.GetComponent<Transformation_handler>().LosePower();
 
             }
-            DieAndRespawn();
+            
 
         }
 
@@ -142,47 +117,20 @@ public class movement : MonoBehaviour
     public void DieAndRespawn()
     {
         // Imposta la posizione del giocatore sul punto di respawn
-        transform.position = checkpoint.position;
+        transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
       //  SceneManager.LoadScene("SampleScene");
-        gameObject.transform.position = checkpoint.position;
+        gameObject.transform.position = transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
 
         // Esegui altre azioni di morte, ad esempio perdere punti vita o visualizzare un'animazione di morte
-    }
-
-    public bool getTransformed()
-    {
-        return transformed;
-    }
-
-    public void  SetTransformed(bool value)
-    {
-        transformed=value;
-    }
-
-
-    public Transform getcheckpoint()
-    {
-        return checkpoint;
-    }
-
-    private void LosePower()
-    {
-        baseSlime.transform.position = gameObject.transform.position;
-
-        gameObject.SetActive(false);
-
-        baseSlime.SetActive(true);
-
-        transformed = false;
-    }
+    }  
 
 
     public void Hit()
     {
 
-        if (transformed)
+        if (gameObject.GetComponent<Transformation_handler>().transformed)
         {
-            LosePower();
+            gameObject.GetComponent<Transformation_handler>().LosePower();
         }
         else
         {
