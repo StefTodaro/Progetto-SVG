@@ -8,11 +8,13 @@ public class Mob_patrol : MonoBehaviour
     public Transform[] patrolPoints; // Punti di pattuglia che il nemico deve seguire
     private int currentPatrolIndex = 0; // Indice del punto di pattuglia corrente
     private bool movingForward = true; // Flag per tenere traccia della direzione di movimento
+    private Animator anim;
 
 
     // Start is called before the first frame update
     void Start()
     {
+        anim = gameObject.GetComponent<Animator>();
        
     }
 
@@ -32,9 +34,11 @@ public class Mob_patrol : MonoBehaviour
             {
                 movingForward = true;
             }
-
-            // Incrementa o decrementa l'indice del punto di pattuglia in base alla direzione di movimento
             currentPatrolIndex += movingForward ? 1 : -1;
+
+            // Inverti la scala sull'asse X per girare lo sprite nella direzione corretta
+            anim.SetFloat("speed", moveSpeed);
+            gameObject.GetComponent<SpriteRenderer>().flipX = movingForward;
         }
 
         // Muovi il nemico verso il punto di pattuglia corrente

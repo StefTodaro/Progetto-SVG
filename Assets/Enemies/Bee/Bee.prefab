@@ -103,8 +103,8 @@ MonoBehaviour:
   bounce: 6
   rb: {fileID: 2291656496974211815}
   parent: {fileID: 2291656496974211814}
-  slime: {fileID: 0}
-  slime_bee: {fileID: 0}
+  slime: {fileID: 3336525665605778066, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
+  slime_form: {fileID: 4447508088658662322, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
 --- !u!1 &2291656496966796986
 GameObject:
   m_ObjectHideFlags: 0
@@ -178,8 +178,8 @@ MonoBehaviour:
   bounce: 6
   rb: {fileID: 2291656496974211815}
   parent: {fileID: 2291656496974211814}
-  slime: {fileID: 0}
-  slime_bee: {fileID: 0}
+  slime: {fileID: 3336525665605778066, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
+  slime_form: {fileID: 4447508088658662322, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
 --- !u!1 &2291656496974211814
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,5 +462,5 @@ MonoBehaviour:
   bounce: 6
   rb: {fileID: 2291656496974211815}
   parent: {fileID: 2291656496974211814}
-  slime: {fileID: 0}
-  slime_bee: {fileID: 0}
+  slime: {fileID: 3336525665605778066, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
+  slime_form: {fileID: 4447508088658662322, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}

@@ -8,7 +8,7 @@ public class Stomp : MonoBehaviour
     public Rigidbody2D rb;
     public GameObject parent;
     public GameObject slime;
-    public GameObject slime_bee;
+    public GameObject slime_form;
     
   
   
@@ -37,12 +37,12 @@ public class Stomp : MonoBehaviour
             {
                 
                 //Se lo slime si trova sul nemico, cambia aspetto e acquisisce un'abilità
-                slime_bee.transform.position = slime.transform.position;
-                slime_bee.GetComponent<movement>().SetTransformed(true);
+                slime_form.transform.position = slime.transform.position;
+                slime_form.GetComponent<movement>().SetTransformed(true);
 
                 slime.SetActive(false);
 
-                slime_bee.SetActive(true);
+                slime_form.SetActive(true);
             }
 
 
