@@ -119,7 +119,7 @@ public class movement : MonoBehaviour
         // Imposta la posizione del giocatore sul punto di respawn
         transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
       //  SceneManager.LoadScene("SampleScene");
-        gameObject.transform.position = transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
+        gameObject.transform.position = transform.position;
 
         // Esegui altre azioni di morte, ad esempio perdere punti vita o visualizzare un'animazione di morte
     }  

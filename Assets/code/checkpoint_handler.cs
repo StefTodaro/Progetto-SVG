@@ -7,7 +7,7 @@ public class checkpoint_handler : MonoBehaviour
 {
 
     public Transform checkpoint;
-    public GameObject baseSlime;
+   
 
    // public GameObject baseSlime;
     // Start is called before the first frame update

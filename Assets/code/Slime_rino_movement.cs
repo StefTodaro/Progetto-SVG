@@ -23,6 +23,10 @@ public class Slime_rino_movement : MonoBehaviour
     private bool canDash = true;
     public bool isDashing = false;
 
+    public GameObject baseSlime;
+
+    public Transform dashEnd;
+
     void OnEnable()
     {
         move = GetComponent<movement>();
@@ -46,10 +50,11 @@ public class Slime_rino_movement : MonoBehaviour
 
         anim.SetBool("onGround", isGrounded);
 
-        // Movimento orizzontale
-        float moveInput = Input.GetAxisRaw("Horizontal");
         if (!isDashing)
         {
+            // Movimento orizzontale
+            float moveInput = Input.GetAxisRaw("Horizontal");
+
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
             anim.SetFloat("speed", Mathf.Abs(moveInput));
 
@@ -68,7 +73,7 @@ public class Slime_rino_movement : MonoBehaviour
             {
                 anim.SetBool("jump", false);
             }
-        }
+
 
             if (moveInput < 0 && facingRight)
             {
@@ -81,6 +86,7 @@ public class Slime_rino_movement : MonoBehaviour
                 facingRight = true;
                 Flip();
             }
+        } 
         
 
 
@@ -97,26 +103,53 @@ public class Slime_rino_movement : MonoBehaviour
         canDash = false;
         isDashing = true;
         var originalGravity = rb.gravityScale;
-
+        
 
 
         rb.velocity = Vector2.zero;
         rb.gravityScale = 0;
-        if (facingRight)
+        float dashTimer = 0f;
+
+        isDashing = true;
+        Vector3 dashTarget=dashEnd.position;
+
+
+        
+
+
+        /*
+                if (facingRight)
+                {
+                    // Applica una forza per il dash
+                    rb.velocity = transform.right * dashSpeed;
+                }
+                else
+                {
+                    // Applica una forza per il dash
+                    rb.velocity = -transform.right * dashSpeed;
+                }*/
+        while (dashTimer < dashDuration && Vector3.Distance(transform.position, dashTarget) > 0.1f && isDashing)
         {
-            // Applica una forza per il dash
-            rb.velocity = transform.right * dashSpeed;
-        }
-        else
-        {
-            // Applica una forza per il dash
-            rb.velocity = -transform.right * dashSpeed;
+            // Continua il movimento fino a quando il giocatore non raggiunge la posizione di destinazione o il dash non viene interrotto
+            
+                rb.velocity = (dashTarget - transform.position).normalized * dashSpeed;
+            
+           
+            dashTimer += Time.deltaTime; // Aggiorna il timer
+            yield return null;
+
+            /*
+            yield return new WaitForSeconds(dashDuration);
+            isDashing = false;
+            rb.gravityScale = originalGravity;*/
         }
 
-        // Attendi la durata del dash
-        yield return new WaitForSeconds(dashDuration);
-        isDashing = false;
-        rb.gravityScale = originalGravity;
+        // Se il dash non è stato interrotto, reimposta lo stato
+       
+            rb.velocity = Vector2.zero;
+            isDashing = false;
+            rb.gravityScale = originalGravity;
+        
 
 
 
@@ -132,16 +165,33 @@ public class Slime_rino_movement : MonoBehaviour
         scale.x *= -1;
         transform.localScale = scale;
     }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Mob"))
         {
             Hit();
         }
+          if (isDashing)
+       {
+           Collider2D[] hitColliders = Physics2D.OverlapCircleAll(transform.position, 0.4f, LayerMask.NameToLayer("ground"));
+           foreach (Collider2D collider in hitColliders)
+           {
+
+               if (collider.gameObject.CompareTag("Obstacles"))
+               {
+                   Destroy(collider.gameObject); // Distruggi la tile individuale
+                }
+               
+           }
+       }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+     
+
 
 
         if (collision.gameObject.CompareTag("Mob"))
@@ -159,17 +209,17 @@ public class Slime_rino_movement : MonoBehaviour
                 gameObject.GetComponent<Transformation_handler>().LosePower();
 
             }
-
-
         }
+
+       
     }
 
         public void DieAndRespawn()
     {
         // Imposta la posizione del giocatore sul punto di respawn
-        transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
+       transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
         //  SceneManager.LoadScene("SampleScene");
-        gameObject.transform.position = transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
+        baseSlime.transform.position = transform.position;
 
         // Esegui altre azioni di morte, ad esempio perdere punti vita o visualizzare un'animazione di morte
     }
