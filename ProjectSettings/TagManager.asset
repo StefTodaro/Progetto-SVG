@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Mob
   - checkpoint
+  - Obstacles
   layers:
   - Default
   - TransparentFX
