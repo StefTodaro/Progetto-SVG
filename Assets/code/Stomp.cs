@@ -5,7 +5,6 @@ using UnityEngine;
 public class Stomp : MonoBehaviour
 {
     public float bounce=6;
-    public Rigidbody2D rb;
     public GameObject parent;
     public GameObject slime;
     public GameObject slime_form;
@@ -16,6 +15,7 @@ public class Stomp : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        parent = gameObject.transform.parent.gameObject;
         
     }
 
@@ -27,20 +27,21 @@ public class Stomp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-
-            if (!collision.GetComponent<Transformation_handler>().transformed)
+            if (slime_form != null)
             {
-                slime_form.transform.position = slime.transform.position;
-                slime.SetActive(false);
-                slime_form.SetActive(true);
+                if (!collision.GetComponent<Transformation_handler>().transformed)
+                {
+                    slime_form.transform.position = slime.transform.position;
+                    slime.SetActive(false);
+                    slime_form.SetActive(true);
+                }
             }
+                parent.GetComponent<Animator>().SetBool("hit", true);
+                collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
 
-            parent.GetComponent<Animator>().SetBool("hit", true);
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity= new Vector2(rb.velocity.x, bounce);
+
 
             
-
-         
 
 
         }
