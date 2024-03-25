@@ -7,12 +7,14 @@ public class checkpoint_handler : MonoBehaviour
 {
 
     public Transform checkpoint;
+    public Transformation_handler tr;
    
 
    // public GameObject baseSlime;
     // Start is called before the first frame update
     void Start()
     {
+        tr = gameObject.GetComponent<Transformation_handler>();
         
     }
 
@@ -29,6 +31,7 @@ public class checkpoint_handler : MonoBehaviour
         if (collision.gameObject.CompareTag("checkpoint"))
         {
             checkpoint = collision.transform;
+            tr.baseSlime.GetComponent<checkpoint_handler>().checkpoint = collision.transform;
         }
     }
     }

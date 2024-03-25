@@ -12,6 +12,8 @@ public class movement : MonoBehaviour
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator anim;
+    public float moveInput;
+    public bool isSlamming;
 
     public Rigidbody2D rb;
     public  bool isGrounded;
@@ -26,20 +28,18 @@ public class movement : MonoBehaviour
     private void Update()
     {
         // Controlla se il personaggio è a terra
-        RaycastHit2D hit= Physics2D.Raycast(groundCheck.position, Vector2.down, 0.5f, groundLayer);
-        isGrounded = hit;
-       
+        
         anim.SetBool("onGround", isGrounded);
 
         // Movimento orizzontale
-        float moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+
+        Movement();
         anim.SetFloat("speed", Mathf.Abs(moveInput));
 
         // Salto
         if (isGrounded && Input.GetKeyDown(KeyCode.Space))
         {
-            rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            Jump();
             anim.SetBool("jump", true);
         }
 
@@ -67,10 +67,36 @@ public class movement : MonoBehaviour
 
         if (!isGrounded && Input.GetKeyDown(KeyCode.S))
         {
-            rb.velocity += Vector2.down * slumForce;
+            Slam();
         }
     }
 
+    public void Movement()
+    {
+        moveInput = Input.GetAxisRaw("Horizontal");
+        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+    }
+
+    public void Jump()
+    {
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+    }
+
+    public void GroundCheck()
+    {
+        isGrounded = true;
+
+        if (isGrounded &&  isSlamming)
+        {
+            isSlamming = false;
+        }
+    }
+
+    private void Slam()
+    {
+        isSlamming = true;
+        rb.velocity += Vector2.down * slumForce;
+    }
     private void Flip()
     {
         
@@ -85,7 +111,21 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
- }
+        //controllo se il giocatore è a contatto con il  terreno
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+            isGrounded = true;
+        }
+    }
+
+    void OnCollisionExit2D(Collision2D collision)
+    {
+        // Quando il giocatore esce dalla collisione con l'oggetto del terreno, consideralo non più a contatto con il terreno
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+            isGrounded = false;
+        }
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
