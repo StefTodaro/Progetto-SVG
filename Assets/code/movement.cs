@@ -13,7 +13,12 @@ public class movement : MonoBehaviour
     public LayerMask groundLayer;
     public Animator anim;
     public float moveInput;
+
+
     public bool isSlamming;
+    public bool canSlam=true;
+    public float slamTimer;
+    public float slamTimecharge = 0.75f;
 
     public Rigidbody2D rb;
     public  bool isGrounded;
@@ -32,8 +37,10 @@ public class movement : MonoBehaviour
         anim.SetBool("onGround", isGrounded);
 
         // Movimento orizzontale
-
-        Movement();
+        if (!isSlamming)
+        {
+            Movement();
+        }
         anim.SetFloat("speed", Mathf.Abs(moveInput));
 
         // Salto
@@ -65,10 +72,20 @@ public class movement : MonoBehaviour
         }
 
 
-        if (!isGrounded && Input.GetKeyDown(KeyCode.S))
+        SlamCharge();
+
+        if (!isGrounded && Input.GetKeyDown(KeyCode.S) && canSlam)
         {
             Slam();
         }
+
+        if (isGrounded && isSlamming)
+        {
+            isSlamming = false;
+            canSlam = true;
+        }
+
+        
     }
 
     public void Movement()
@@ -82,20 +99,25 @@ public class movement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
-    public void GroundCheck()
-    {
-        isGrounded = true;
-
-        if (isGrounded &&  isSlamming)
-        {
-            isSlamming = false;
-        }
-    }
 
     private void Slam()
     {
+        canSlam = false;
         isSlamming = true;
         rb.velocity += Vector2.down * slumForce;
+    }
+
+    public void SlamCharge()
+    {
+        if (!canSlam)
+        {
+            slamTimer += Time.deltaTime;
+            if (slamTimer >= slamTimecharge)
+            {
+                canSlam = true;
+                slamTimer = 0;
+            }
+        }
     }
     private void Flip()
     {
@@ -115,6 +137,7 @@ public class movement : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             isGrounded = true;
+
         }
     }
 

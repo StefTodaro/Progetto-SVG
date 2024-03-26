@@ -49,6 +49,7 @@ public class Slime_rock_slam : MonoBehaviour
             {
                 Destroy(collision.gameObject);
                 mov.isGrounded = false;
+                mov.isSlamming = true;
             }
 
         }

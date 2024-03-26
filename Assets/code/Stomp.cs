@@ -27,6 +27,7 @@ public class Stomp : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
+          
             if (slime_form != null)
             {
                 if (!collision.GetComponent<Transformation_handler>().transformed)
@@ -38,10 +39,8 @@ public class Stomp : MonoBehaviour
             }
                 parent.GetComponent<Animator>().SetBool("hit", true);
                 collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
+                collision.gameObject.GetComponent<movement>().isSlamming = false; 
 
-
-
-            
 
 
         }

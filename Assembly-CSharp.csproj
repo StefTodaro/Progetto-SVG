@@ -75,6 +75,7 @@
     <Compile Include="Assets\code\Animation_codes\HitFalse.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
+    <Compile Include="Assets\code\Slime_bird_double_jump.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
