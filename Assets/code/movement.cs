@@ -133,22 +133,22 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
-        //controllo se il giocatore è a contatto con il  terreno
+      /*  //controllo se il giocatore è a contatto con il  terreno
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             isGrounded = true;
 
-        }
+        }*/
     }
 
-    void OnCollisionExit2D(Collision2D collision)
+  /*  void OnCollisionExit2D(Collision2D collision)
     {
         // Quando il giocatore esce dalla collisione con l'oggetto del terreno, consideralo non più a contatto con il terreno
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             isGrounded = false;
         }
-    }
+    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -161,7 +161,7 @@ public class movement : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
         {
-
+            
             DieAndRespawn();
 
             if (gameObject.GetComponent<Transformation_handler>().transformed)
@@ -169,12 +169,26 @@ public class movement : MonoBehaviour
                 gameObject.GetComponent<Transformation_handler>().LosePower();
 
             }
-            
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+           
+            isGrounded = true;
 
         }
 
-       
 
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+       
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+            
+            isGrounded = false;
+        }
     }
 
     public void DieAndRespawn()
