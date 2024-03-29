@@ -60,6 +60,7 @@
     <Compile Include="Assets\code\checkpoint_handler.cs" />
     <Compile Include="Assets\code\Death_reload.cs" />
     <Compile Include="Assets\code\Mob_bullet_script.cs" />
+    <Compile Include="Assets\code\Slime_bird_double_jump.cs" />
     <Compile Include="Assets\code\Slime_stinger_script.cs" />
     <Compile Include="Assets\code\Slime_rock_slam.cs" />
     <Compile Include="Assets\code\Stomp.cs" />
@@ -75,7 +76,6 @@
     <Compile Include="Assets\code\Animation_codes\HitFalse.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
-    <Compile Include="Assets\code\Slime_bird_double_jump.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
@@ -299,6 +299,9 @@
     </Reference>
     <Reference Include="UnityEditor.UnityConnectModule">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
+    </Reference>
+    <Reference Include="Pathfinding.Ionic.Zip.Reduced">
+      <HintPath>Assets\AstarPathfindingProject\Plugins\DotNetZip\Pathfinding.Ionic.Zip.Reduced.dll</HintPath>
     </Reference>
     <Reference Include="netstandard">
       <HintPath>C:\Program Files\Unity\Hub\Editor\2020.3.33f1\Editor\Data\NetStandard\ref\2.0.0\netstandard.dll</HintPath>
@@ -743,6 +746,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
+      <Project>{95B32825-F019-5F29-6559-FFB7B2F61E85}</Project>
+      <Name>AstarPathfindingProjectEditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="AstarPathfindingProject.csproj">
+      <Project>{79270B2A-0160-138E-EEE6-7C577DAB3445}</Project>
+      <Name>AstarPathfindingProject</Name>
+    </ProjectReference>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{8A201B8C-EC20-093D-14FC-BF4137F26656}</Project>
+      <Name>PackageToolsEditor</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="GenerateTargetFrameworkMonikerAttribute" />
