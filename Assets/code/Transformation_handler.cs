@@ -6,9 +6,12 @@ public class Transformation_handler : MonoBehaviour
 {
     public bool transformed = false;
     public GameObject baseSlime;
+    public float transformJump=5f;
+    public Rigidbody2D rb;
     // Start is called before the first frame update
     void Start()
     {
+        rb = baseSlime.GetComponent<Rigidbody2D>();
         
     }
 
@@ -19,6 +22,7 @@ public class Transformation_handler : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.W) && transformed == true)
         {
             LosePower();
+            rb.velocity = new Vector2(rb.velocity.x, transformJump);
         }
 
     }
