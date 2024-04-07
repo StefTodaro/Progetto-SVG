@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Tilemaps;
 using UnityEngine.XR;
 
 public class movement : MonoBehaviour
@@ -14,6 +15,8 @@ public class movement : MonoBehaviour
     public Animator anim;
     public float moveInput;
 
+    public bool onPlatform;
+    Collider2D platformCollider;
 
     public bool isSlamming;
     public bool canSlam=true;
@@ -23,6 +26,7 @@ public class movement : MonoBehaviour
     public Rigidbody2D rb;
     public  bool isGrounded;
     public bool facingRight;
+
 
     private void Start()
     {
@@ -85,7 +89,14 @@ public class movement : MonoBehaviour
             canSlam = true;
         }
 
-        
+        if (onPlatform && Input.GetKeyDown(KeyCode.S))
+        {
+
+            // Avvia la coroutine per disabilitare temporaneamente il collider della piattaforma
+            StartCoroutine(DisablePlatformCollider(platformCollider));
+        }
+
+
     }
 
     public void Movement()
@@ -127,6 +138,18 @@ public class movement : MonoBehaviour
         transform.localScale = scale;
     }
 
+    private IEnumerator DisablePlatformCollider(Collider2D platformCollider)
+    {
+        // Disabilita il collider della piattaforma
+        platformCollider.enabled = false;
+
+        // Attendere per la durata specificata
+        yield return new WaitForSeconds(0.5f);
+
+        // Riabilita il collider della piattaforma
+        platformCollider.enabled = true;
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Mob"))
@@ -160,14 +183,25 @@ public class movement : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
-           
             isGrounded = true;
-
         }
+
+        if (collision.gameObject.CompareTag("Mob"))
+        {
+            Hit();
+        }
+
+        if (collision.gameObject.CompareTag("platform") )
+        {
+            onPlatform = true;
+            platformCollider = collision.gameObject.GetComponent<Collider2D>();
+        }
+
 
 
     }
 
+   
     private void OnTriggerExit2D(Collider2D collision)
     {
        
@@ -176,7 +210,14 @@ public class movement : MonoBehaviour
             
             isGrounded = false;
         }
+
+        if (collision.gameObject.CompareTag("platform"))
+        {
+            onPlatform = false;
+        }
+
     }
+
 
     public void DieAndRespawn()
     {
