@@ -119,7 +119,7 @@ public class movement : MonoBehaviour
             }
         }
     }
-    private void Flip()
+    public void Flip()
     {
         
         Vector3 scale = transform.localScale;
@@ -133,22 +133,9 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
-      /*  //controllo se il giocatore è a contatto con il  terreno
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
-        {
-            isGrounded = true;
-
-        }*/
+      
     }
 
-  /*  void OnCollisionExit2D(Collision2D collision)
-    {
-        // Quando il giocatore esce dalla collisione con l'oggetto del terreno, consideralo non più a contatto con il terreno
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
-        {
-            isGrounded = false;
-        }
-    }*/
 
     private void OnTriggerEnter2D(Collider2D collision)
     {

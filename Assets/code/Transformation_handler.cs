@@ -19,7 +19,7 @@ public class Transformation_handler : MonoBehaviour
     void Update()
     {
 
-        if (Input.GetKeyDown(KeyCode.W) && transformed == true)
+        if (Input.GetKeyDown(KeyCode.LeftShift) && transformed == true)
         {
             LosePower();
             rb.velocity = new Vector2(rb.velocity.x, transformJump);

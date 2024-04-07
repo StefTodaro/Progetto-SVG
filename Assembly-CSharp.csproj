@@ -56,6 +56,8 @@
     <Analyzer Include="C:\Program Files\Microsoft Visual Studio\2022\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\code\Slime_slug_logic.cs" />
+    <Compile Include="Assets\code\Snail_stomp.cs" />
     <Compile Include="Assets\code\Mob_shooting.cs" />
     <Compile Include="Assets\code\checkpoint_handler.cs" />
     <Compile Include="Assets\code\Death_reload.cs" />
@@ -75,6 +77,7 @@
     <Compile Include="Assets\code\Create_dust.cs" />
     <Compile Include="Assets\code\Animation_codes\HitFalse.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
+    <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -746,17 +749,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
-      <Project>{95B32825-F019-5F29-6559-FFB7B2F61E85}</Project>
-      <Name>AstarPathfindingProjectEditor</Name>
+    <ProjectReference Include="PackageToolsEditor.csproj">
+      <Project>{8A201B8C-EC20-093D-14FC-BF4137F26656}</Project>
+      <Name>PackageToolsEditor</Name>
     </ProjectReference>
     <ProjectReference Include="AstarPathfindingProject.csproj">
       <Project>{79270B2A-0160-138E-EEE6-7C577DAB3445}</Project>
       <Name>AstarPathfindingProject</Name>
     </ProjectReference>
-    <ProjectReference Include="PackageToolsEditor.csproj">
-      <Project>{8A201B8C-EC20-093D-14FC-BF4137F26656}</Project>
-      <Name>PackageToolsEditor</Name>
+    <ProjectReference Include="AstarPathfindingProjectEditor.csproj">
+      <Project>{95B32825-F019-5F29-6559-FFB7B2F61E85}</Project>
+      <Name>AstarPathfindingProjectEditor</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
