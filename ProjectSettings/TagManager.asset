@@ -8,6 +8,9 @@ TagManager:
   - checkpoint
   - Obstacles
   - Wall
+  - platform
+  - Object
+  - inObjects
   layers:
   - Default
   - TransparentFX
