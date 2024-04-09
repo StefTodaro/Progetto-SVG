@@ -28,12 +28,16 @@ public class Slime_stinger_script : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Mob"))
         {
-           collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
+            if (!collision.GetComponent<Snail_logic>())
+            {
+                collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
+               
+            }
             Destroy(gameObject);
         }
 
         // Verifica se la collisione è avvenuta con un oggetto del layer desiderato
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground") && !collision.gameObject.CompareTag("platform"))
         {
             // Distruggi l'oggetto corrente
             Destroy(gameObject);

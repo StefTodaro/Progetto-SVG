@@ -4852,6 +4852,7 @@ GameObject:
   - component: {fileID: 3017548570609559880}
   - component: {fileID: 3017548570609559879}
   - component: {fileID: 3017548570609559889}
+  - component: {fileID: 5504759005797822736}
   m_Layer: 0
   m_Name: slime_rino
   m_TagString: Player
@@ -5009,6 +5010,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformed: 1
   baseSlime: {fileID: 0}
+  transformJump: 5
+  rb: {fileID: 0}
 --- !u!114 &3017548570609559880
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5060,7 +5063,25 @@ MonoBehaviour:
     m_Bits: 8
   anim: {fileID: 3017548570609559882}
   moveInput: 0
+  onPlatform: 0
   isSlamming: 0
+  canSlam: 1
+  slamTimer: 0
+  slamTimecharge: 0.75
   rb: {fileID: 3017548570609559885}
   isGrounded: 0
   facingRight: 0
+--- !u!114 &5504759005797822736
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3017548570609559878}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b2f798bd7023142baa089ee546b2d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 1
+  inObject: {fileID: 0}

@@ -4822,6 +4822,7 @@ GameObject:
   - component: {fileID: 5808798366177168410}
   - component: {fileID: 5808798366177168409}
   - component: {fileID: 5808798366177168406}
+  - component: {fileID: 7610757364099803940}
   m_Layer: 0
   m_Name: slime_bee
   m_TagString: Player
@@ -4999,6 +5000,12 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   anim: {fileID: 5808798366177168415}
+  moveInput: 0
+  onPlatform: 0
+  isSlamming: 0
+  canSlam: 1
+  slamTimer: 0
+  slamTimecharge: 0.75
   rb: {fileID: 5808798365072792030}
   isGrounded: 0
   facingRight: 0
@@ -5015,6 +5022,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpoint: {fileID: 0}
+  tr: {fileID: 0}
 --- !u!114 &5808798366177168406
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5029,3 +5037,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformed: 1
   baseSlime: {fileID: 0}
+  transformJump: 5
+  rb: {fileID: 0}
+--- !u!114 &7610757364099803940
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5808798366177168417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b2f798bd7023142baa089ee546b2d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 1
+  inObject: {fileID: 0}

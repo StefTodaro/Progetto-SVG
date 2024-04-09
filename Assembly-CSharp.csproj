@@ -62,8 +62,10 @@
     <Compile Include="Assets\code\checkpoint_handler.cs" />
     <Compile Include="Assets\code\Death_reload.cs" />
     <Compile Include="Assets\code\Mob_bullet_script.cs" />
+    <Compile Include="Assets\code\Slime_objects_logic.cs" />
     <Compile Include="Assets\code\Slime_bird_double_jump.cs" />
     <Compile Include="Assets\code\Slime_stinger_script.cs" />
+    <Compile Include="Assets\code\Incorporated_objects_list.cs" />
     <Compile Include="Assets\code\Slime_rock_slam.cs" />
     <Compile Include="Assets\code\Stomp.cs" />
     <Compile Include="Assets\code\Mob_chase.cs" />
@@ -79,6 +81,7 @@
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
+    <Compile Include="Assets\code\Barrell_animation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

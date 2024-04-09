@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 7686495617596264265}
   - component: {fileID: 8849405289576974548}
   - component: {fileID: 8849405289576974544}
+  - component: {fileID: 2575750793633177509}
   m_Layer: 0
   m_Name: slime_rock
   m_TagString: Player
@@ -170,6 +171,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   transformed: 1
   baseSlime: {fileID: 0}
+  transformJump: 5
+  rb: {fileID: 0}
 --- !u!114 &7686495617596264265
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -191,7 +194,11 @@ MonoBehaviour:
     m_Bits: 8
   anim: {fileID: 8849405289576974548}
   moveInput: 0
+  onPlatform: 0
   isSlamming: 0
+  canSlam: 1
+  slamTimer: 0
+  slamTimecharge: 0.75
   rb: {fileID: 7686495617596264245}
   isGrounded: 0
   facingRight: 0
@@ -226,6 +233,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fccc468bd45a0a24d819a0b0c0ede221, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2575750793633177509
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7686495617596264242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3b2f798bd7023142baa089ee546b2d1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectionRadius: 1
+  inObject: {fileID: 0}
 --- !u!1 &7686495618144507594
 GameObject:
   m_ObjectHideFlags: 0
