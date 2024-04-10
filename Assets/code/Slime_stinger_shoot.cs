@@ -25,8 +25,6 @@ public class Slime_stinger_shoot : MonoBehaviour
             // Sparare il proiettile nella direzione del mouse
             Shoot(fireDirection);
             nextShot = Time.time + fireDelay;
-
-         
         }
     }
 

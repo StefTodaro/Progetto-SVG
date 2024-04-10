@@ -14,6 +14,7 @@ public class movement : MonoBehaviour
     public LayerMask groundLayer;
     public Animator anim;
     public float moveInput;
+    
 
     public bool onPlatform;
     Collider2D platformCollider;
@@ -132,10 +133,9 @@ public class movement : MonoBehaviour
     }
     public void Flip()
     {
-        
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        // Specchia lo sprite sull'asse x
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
     private IEnumerator DisablePlatformCollider(Collider2D platformCollider)

@@ -10,7 +10,9 @@ public class Slime_objects_logic : MonoBehaviour
     public float incorporateTimer;
     public float incorporateTime = 0.8f;
     public bool canIncorporate = true;
-    
+    SpriteRenderer spriteRenderer;
+
+
 
 
     // Start is called before the first frame update
@@ -44,8 +46,7 @@ public class Slime_objects_logic : MonoBehaviour
 
         // Interagisci solo con l'oggetto più vicino se è stato trovato e il giocatore preme il tasto
         if (nearestCollider != null && Input.GetButtonDown("Fire2") && canIncorporate)
-        {
-            canIncorporate = false;
+        { 
             inObject.GetComponent<Incorporated_objects_list>().list.Add(nearestCollider.gameObject);
             nearestCollider.gameObject.SetActive(false);
         }
@@ -61,6 +62,7 @@ public class Slime_objects_logic : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.E))
         {
+            canIncorporate = false;
             inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1].SetActive(true);
 
             // Posiziona l'oggetto sotto i piedi del giocatore
