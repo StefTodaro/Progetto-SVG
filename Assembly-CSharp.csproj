@@ -57,12 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets\code\Slime_slug_logic.cs" />
+    <Compile Include="Assets\code\slime_lizard_logic.cs" />
     <Compile Include="Assets\code\Snail_stomp.cs" />
     <Compile Include="Assets\code\Mob_shooting.cs" />
     <Compile Include="Assets\code\checkpoint_handler.cs" />
+    <Compile Include="Assets\code\slime_tongue_script.cs" />
     <Compile Include="Assets\code\Death_reload.cs" />
     <Compile Include="Assets\code\Mob_bullet_script.cs" />
+    <Compile Include="Assets\code\Barrell_animation.cs" />
     <Compile Include="Assets\code\Slime_objects_logic.cs" />
+    <Compile Include="Assets\code\tonguePivotLogic.cs" />
     <Compile Include="Assets\code\Slime_bird_double_jump.cs" />
     <Compile Include="Assets\code\Slime_stinger_script.cs" />
     <Compile Include="Assets\code\Incorporated_objects_list.cs" />
@@ -76,12 +80,12 @@
     <Compile Include="Assets\code\Slime_stinger_shoot.cs" />
     <Compile Include="Assets\code\movement.cs" />
     <Compile Include="Assets\code\Camera_Follow.cs" />
+    <Compile Include="Assets\code\pivotTOngueLogic.cs" />
     <Compile Include="Assets\code\Create_dust.cs" />
     <Compile Include="Assets\code\Animation_codes\HitFalse.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
-    <Compile Include="Assets\code\Barrell_animation.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

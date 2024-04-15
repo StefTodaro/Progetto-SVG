@@ -15,6 +15,7 @@ public class Slime_slug_logic : MonoBehaviour
     public float wallJumpTimer;
     public bool hasWallJumped = false;
 
+
     public float canWallJumpTimer;
     public float canWallJumpTime = 0.15f;
 
@@ -39,6 +40,7 @@ public class Slime_slug_logic : MonoBehaviour
             {
                 mov.isSlamming = false;
             }
+
             if (mov.facingRight)
             {
                 transform.rotation = Quaternion.Euler(0, 0, 90);
@@ -171,10 +173,8 @@ public class Slime_slug_logic : MonoBehaviour
 
     private void FlipVertical()
     {
-
-        Vector3 scale = transform.localScale;
-        scale.x *= -1;
-        transform.localScale = scale;
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
 

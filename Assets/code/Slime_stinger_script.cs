@@ -18,7 +18,7 @@ public class Slime_stinger_script : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 5f)
+        if (timer > 2f)
         {
             Destroy(gameObject);
         }
