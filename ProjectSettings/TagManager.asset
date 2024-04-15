@@ -11,6 +11,7 @@ TagManager:
   - platform
   - Object
   - inObjects
+  - pivot
   layers:
   - Default
   - TransparentFX

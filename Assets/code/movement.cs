@@ -19,6 +19,8 @@ public class movement : MonoBehaviour
     public bool onPlatform;
     Collider2D platformCollider;
 
+    public bool isSwinging;
+
     public bool isSlamming;
     public bool canSlam=true;
     public float slamTimer;
@@ -41,9 +43,18 @@ public class movement : MonoBehaviour
         
         anim.SetBool("onGround", isGrounded);
 
-        // Movimento orizzontale
-        if (!isSlamming)
+        //controllo se il personaggio ha la per l'oscillazione e se sta oscillando
+        if(GetComponent<slime_lizard_logic>() && GetComponent<slime_lizard_logic>().swing.isSwinging)
         {
+            isSwinging = true;
+        }
+        else
+        {
+            isSwinging = false;
+        }
+
+        // Movimento orizzontale
+        if (!isSlamming && !isSwinging) {
             Movement();
         }
         anim.SetFloat("speed", Mathf.Abs(moveInput));
@@ -84,7 +95,7 @@ public class movement : MonoBehaviour
             Slam();
         }
 
-        if (isGrounded && isSlamming)
+        if ((isGrounded || isSwinging )&& isSlamming)
         {
             isSlamming = false;
             canSlam = true;
