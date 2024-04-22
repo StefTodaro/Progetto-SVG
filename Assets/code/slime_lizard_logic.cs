@@ -6,9 +6,9 @@ public class slime_lizard_logic : MonoBehaviour
 {
     public GameObject tongue;
     public tonguePivotLogic swing;
-    public float pivotDistance=3.5f;
-    public float rotationSpeed=3f; // Forza di rotazione
+    public float pivotDistance=2.5f;
     public bool attached;
+    public movement mov;
 
 
 
@@ -16,6 +16,7 @@ public class slime_lizard_logic : MonoBehaviour
 
     void Start()
     {
+        mov = GetComponent<movement>();
         
     }
 
@@ -54,9 +55,14 @@ public class slime_lizard_logic : MonoBehaviour
             }
         }
 
-
-        tongue.transform.position = new Vector2(gameObject.transform.position.x+2, gameObject.transform.position.y);
-
+        if (mov.facingRight)
+        {
+            tongue.transform.position = new Vector2(gameObject.transform.position.x + 2, gameObject.transform.position.y);
+        }
+        else
+        {
+            tongue.transform.position = new Vector2(gameObject.transform.position.x - 2, gameObject.transform.position.y);
+        }
 
         if (swing.pivot==null)
         {

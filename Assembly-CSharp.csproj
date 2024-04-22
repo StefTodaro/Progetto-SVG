@@ -61,6 +61,7 @@
     <Compile Include="Assets\code\Snail_stomp.cs" />
     <Compile Include="Assets\code\Mob_shooting.cs" />
     <Compile Include="Assets\code\checkpoint_handler.cs" />
+    <Compile Include="Assets\code\Lizard_logic.cs" />
     <Compile Include="Assets\code\slime_tongue_script.cs" />
     <Compile Include="Assets\code\Death_reload.cs" />
     <Compile Include="Assets\code\Mob_bullet_script.cs" />
@@ -86,6 +87,7 @@
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
+    <Compile Include="Assets\code\Mob_onGround_chase.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">
