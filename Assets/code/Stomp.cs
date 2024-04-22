@@ -37,12 +37,18 @@ public class Stomp : MonoBehaviour
                     slime.SetActive(false);
                     slime_form.SetActive(true);
                 }
+
+               
             }
-                parent.GetComponent<Animator>().SetBool("hit", true);
-                collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
-                collision.gameObject.GetComponent<movement>().isSlamming = false; 
 
-
+            if (collision.GetComponent<movement>().isSlamming)
+            {
+                collision.GetComponent<movement>().isSlamming = false;
+                collision.GetComponent<movement>().canSlam = true;
+            }
+            parent.GetComponent<Animator>().SetBool("hit", true);
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
+                
 
         }
 
