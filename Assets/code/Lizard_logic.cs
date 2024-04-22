@@ -42,7 +42,7 @@ public class Lizard_logic : MonoBehaviour
     {
 
         player = GameObject.FindGameObjectWithTag("Player").transform;
-        float distanceToPlayer = Vector3.Distance(transform.position, player.position);
+        float distanceToPlayer = Vector2.Distance(transform.position, player.position);
         RaycastHit2D hitl = Physics2D.Raycast(transform.position, Vector2.left, 1f, LayerMask.GetMask("ground"));
         RaycastHit2D hitr = Physics2D.Raycast(transform.position, Vector2.right, 1f, LayerMask.GetMask("ground"));
         
@@ -71,29 +71,41 @@ public class Lizard_logic : MonoBehaviour
             // Rendi il nemico invisibile
             FadeOut();
         }
-
+        //il nemico attacca se il player è nel range
         if (distanceToPlayer <= attackRange && canAttack  )
         {
             anim.SetBool("attack", true);
             canAttack = false;
         }
-
+        
+        //dopo che il nemico ha attaccato parte il timer
         if (!canAttack)
         {
             attackTimer += Time.deltaTime;
         }
-
-        if (!canAttack && attackTimer>=1.5f)
+        //il nemico può attaccare di nuovo
+        if (!canAttack && attackTimer>=2.5f)
         {
             canAttack = true;
             attackTimer = 0;
         }
 
+        //se il nemico è a terra e insegue il giocatore quando incontra un ostacolo salta
         if ((hitr.collider!=null || hitl.collider!=null) && chase.onGround && chase.isChasing)
         {
             Jump();
         }
-      
+        //se il giocatore si trova sopra il mob questo salta 
+        if(chase.isChasing && distanceToPlayer <= 2.5f && chase.onGround && player.position.y>=transform.position.y)
+        { 
+            Jump();
+        }
+        //se il mob è in aria non può attaccare
+        if (chase.onGround == false)
+        {
+            canAttack = false;
+        }
+        //indica se il nemico ha saltato
         if(chase.onGround && hasJumped)
         {
             hasJumped = false;
@@ -128,7 +140,8 @@ public class Lizard_logic : MonoBehaviour
     }
 
     public void OnTriggerExit2D(Collider2D collision)
-    {
+    {   
+        //il mob salta se non è più a terra 
          if (collision.gameObject.layer == LayerMask.NameToLayer("ground") && !hasJumped)
             {
 
