@@ -59,7 +59,17 @@ public class Snail_stomp : MonoBehaviour
                 hasSlammed = false;
 
             }
-            
+
+            if (collision.GetComponent<Slime_bird_double_jump>())
+            {
+                Debug.Log("UDIO");
+                if (!collision.GetComponent<Slime_bird_double_jump>().canDoubleJump)
+                {
+                    collision.GetComponent<Slime_bird_double_jump>().canDoubleJump = true;
+                    collision.GetComponent<Slime_bird_double_jump>().jumped = false;
+                }
+            }
+
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
             collision.gameObject.GetComponent<movement>().isSlamming = false;
 

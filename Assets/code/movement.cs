@@ -208,6 +208,15 @@ public class movement : MonoBehaviour
             platformCollider = collision.gameObject.GetComponent<Collider2D>();
         }
 
+        if (collision.gameObject.CompareTag("Object"))
+        {
+
+            if (isSlamming)
+            {
+                Destroy(collision.gameObject);
+            }
+        }
+
 
 
     }
@@ -227,13 +236,20 @@ public class movement : MonoBehaviour
             onPlatform = false;
         }
 
+       
+
     }
 
 
     public void DieAndRespawn()
     {
         // Imposta la posizione del giocatore sul punto di respawn
-        transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
+        if (gameObject.GetComponent<Transformation_handler>().transformed)
+        {
+            gameObject.GetComponent<Transformation_handler>().LosePower();
+        }
+
+        transform.position = GetComponent<checkpoint_handler>().checkpoint_base.position;
       //  SceneManager.LoadScene("SampleScene");
         gameObject.transform.position = transform.position;
 

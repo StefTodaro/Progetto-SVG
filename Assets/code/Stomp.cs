@@ -46,6 +46,17 @@ public class Stomp : MonoBehaviour
                 collision.GetComponent<movement>().isSlamming = false;
                 collision.GetComponent<movement>().canSlam = true;
             }
+
+            //controllo per far effettuare un ulteriore salto allo slime_bird
+            if (collision.GetComponent<Slime_bird_double_jump>())
+            {
+                Debug.Log("UDIO");
+                if (!collision.GetComponent<Slime_bird_double_jump>().canDoubleJump)
+                {
+                    collision.GetComponent<Slime_bird_double_jump>().canDoubleJump = true;
+                    collision.GetComponent<Slime_bird_double_jump>().jumped = false;
+                }
+            }
             parent.GetComponent<Animator>().SetBool("hit", true);
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
                 

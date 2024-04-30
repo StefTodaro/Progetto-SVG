@@ -51,6 +51,16 @@ public class Rock_stomp : MonoBehaviour
                 //off y 0.31  size x 0.42
 
             }
+
+            if (collision.GetComponent<Slime_bird_double_jump>())
+            {
+                Debug.Log("UDIO");
+                if (!collision.GetComponent<Slime_bird_double_jump>().canDoubleJump)
+                {
+                    collision.GetComponent<Slime_bird_double_jump>().canDoubleJump = true;
+                    collision.GetComponent<Slime_bird_double_jump>().jumped = false;
+                }
+            }
         }
 
 

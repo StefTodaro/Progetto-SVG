@@ -39,6 +39,7 @@ public class Slime_bird_double_jump : MonoBehaviour
             canDoubleJump = false;
             anim.SetBool("doubleJump", true);
             jumped = true;
+            
         }
 
         if(mov.isGrounded && !canDoubleJump)
@@ -55,5 +56,8 @@ public class Slime_bird_double_jump : MonoBehaviour
     public void DoubleJump()
     {
         rb.velocity = new Vector2(rb.velocity.x, DoubleJumpForce);
+        anim.SetBool("doubleJump", false);
     }
+
+  
 }
