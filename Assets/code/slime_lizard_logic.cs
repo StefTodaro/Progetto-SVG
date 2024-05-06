@@ -10,15 +10,12 @@ public class slime_lizard_logic : MonoBehaviour
     public bool attached;
     public movement mov;
 
-
-
- 
-
     void Start()
     {
         mov = GetComponent<movement>();
         
     }
+
 
     void Update()
     {
@@ -55,6 +52,7 @@ public class slime_lizard_logic : MonoBehaviour
             }
         }
 
+        //controlla in che direzione il giocatore si deve girare per osservare il pivot
         if (mov.facingRight)
         {
             tongue.transform.position = new Vector2(gameObject.transform.position.x + 2, gameObject.transform.position.y);
@@ -68,7 +66,7 @@ public class slime_lizard_logic : MonoBehaviour
         {
             if (Input.GetButtonDown("Fire1"))
             {
-                StartCoroutine(Tongue_stretch());
+                //inserire script nel caso la lingua sia un elemento separato dallo slime 
 
             }
         }//condizione per avviare il dondolio quando c'è un oggetto pivot vicino al personaggio
@@ -89,20 +87,5 @@ public class slime_lizard_logic : MonoBehaviour
         }
 
     }
-
-
-    IEnumerator Tongue_stretch()
-    {
-        
-        tongue.SetActive(true);
-
-        // Attendi per la durata specificata
-        yield return new WaitForSeconds(0.3f);
-
-        // Disattiva l'oggetto dopo il tempo specificato
-        tongue.SetActive(false);
-    }
-
-    
 
 }

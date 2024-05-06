@@ -21,11 +21,6 @@ public class Barrell_animation : MonoBehaviour
             if (!collision.GetComponent<movement>().isGrounded)
             {
                 GetComponent<Animator>().SetBool("jumpOn", true);
-
-                if (collision.GetComponent<movement>().isSlamming)
-                {
-                    Destroy(gameObject);
-                }
             }
         }
     }

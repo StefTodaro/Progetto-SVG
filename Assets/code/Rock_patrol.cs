@@ -25,7 +25,7 @@ public class Rock_patrol : MonoBehaviour
         if (hit >= 1)
         {
             // Controlla se il nemico è arrivato al punto di pattuglia corrente
-            if (Vector2.Distance(transform.position, patrolPoints[currentPatrolIndex].position) < 0.1f)
+            if (Vector2.Distance(transform.position, patrolPoints[currentPatrolIndex].position) <= 0.4f)
             {
                 // Se il nemico è arrivato all'ultimo punto di pattuglia, inverti la direzione
                 if (currentPatrolIndex == patrolPoints.Length - 1)

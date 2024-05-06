@@ -82,12 +82,16 @@
     <Compile Include="Assets\code\Slime_stinger_shoot.cs" />
     <Compile Include="Assets\code\movement.cs" />
     <Compile Include="Assets\code\Camera_Follow.cs" />
+    <Compile Include="Assets\code\Transformation_logic.cs" />
     <Compile Include="Assets\code\pivotTOngueLogic.cs" />
     <Compile Include="Assets\code\Create_dust.cs" />
     <Compile Include="Assets\code\Animation_codes\HitFalse.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
+<<<<<<< HEAD
+    <Compile Include="Assets\code\platform_logic.cs" />
+=======
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -112,6 +116,7 @@
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
+>>>>>>> 5d9c15ef3d9672a9cc061246635328b28964d872
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

@@ -14,10 +14,6 @@ public class movement : MonoBehaviour
     public LayerMask groundLayer;
     public Animator anim;
     public float moveInput;
-    
-
-    public bool onPlatform;
-    Collider2D platformCollider;
 
     public bool isSwinging;
 
@@ -40,7 +36,6 @@ public class movement : MonoBehaviour
     private void Update()
     {
         // Controlla se il personaggio è a terra
-        
         anim.SetBool("onGround", isGrounded);
 
         //controllo se il personaggio ha la per l'oscillazione e se sta oscillando
@@ -101,14 +96,6 @@ public class movement : MonoBehaviour
             canSlam = true;
         }
 
-        if (onPlatform && Input.GetKeyDown(KeyCode.S))
-        {
-
-            // Avvia la coroutine per disabilitare temporaneamente il collider della piattaforma
-            StartCoroutine(DisablePlatformCollider(platformCollider));
-        }
-
-
     }
 
     public void Movement()
@@ -127,7 +114,7 @@ public class movement : MonoBehaviour
     {
         canSlam = false;
         isSlamming = true;
-        rb.velocity += Vector2.down * slumForce;
+         rb.velocity += Vector2.down * slumForce;
     }
 
     public void SlamCharge()
@@ -149,17 +136,7 @@ public class movement : MonoBehaviour
         spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
-    private IEnumerator DisablePlatformCollider(Collider2D platformCollider)
-    {
-        // Disabilita il collider della piattaforma
-        platformCollider.enabled = false;
 
-        // Attendere per la durata specificata
-        yield return new WaitForSeconds(0.5f);
-
-        // Riabilita il collider della piattaforma
-        platformCollider.enabled = true;
-    }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -202,10 +179,13 @@ public class movement : MonoBehaviour
             Hit();
         }
 
-        if (collision.gameObject.CompareTag("platform") )
+
+        if (collision.gameObject.CompareTag("Object"))
         {
-            onPlatform = true;
-            platformCollider = collision.gameObject.GetComponent<Collider2D>();
+            if (isSlamming)
+            {
+                Destroy(collision.gameObject);
+            }
         }
 
 
@@ -214,18 +194,13 @@ public class movement : MonoBehaviour
 
    
     private void OnTriggerExit2D(Collider2D collision)
-    {
-       
+    {  
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             
             isGrounded = false;
         }
 
-        if (collision.gameObject.CompareTag("platform"))
-        {
-            onPlatform = false;
-        }
 
     }
 
@@ -233,11 +208,14 @@ public class movement : MonoBehaviour
     public void DieAndRespawn()
     {
         // Imposta la posizione del giocatore sul punto di respawn
-        transform.position = GetComponent<checkpoint_handler>().checkpoint.position;
+        if (gameObject.GetComponent<Transformation_handler>().transformed)
+        {
+            gameObject.GetComponent<Transformation_handler>().LosePower();
+        }
+
+        transform.position = GetComponent<checkpoint_handler>().checkpoint_base.position;
       //  SceneManager.LoadScene("SampleScene");
         gameObject.transform.position = transform.position;
-
-        // Esegui altre azioni di morte, ad esempio perdere punti vita o visualizzare un'animazione di morte
     }  
 
 

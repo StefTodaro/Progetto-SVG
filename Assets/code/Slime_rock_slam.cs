@@ -39,7 +39,7 @@ public class Slime_rock_slam : MonoBehaviour
         mov.isSlamming = false;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
        
 
@@ -47,6 +47,7 @@ public class Slime_rock_slam : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Obstacles"))
             {
+                
                 Destroy(collision.gameObject);
                 mov.isGrounded = false;
                 mov.isSlamming = true;

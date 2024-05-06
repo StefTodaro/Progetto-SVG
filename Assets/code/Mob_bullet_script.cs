@@ -43,7 +43,7 @@ public class Mob_bullet_script : MonoBehaviour
         }
 
         // Verifica se la collisione è avvenuta con un oggetto del layer desiderato
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground") && collision.gameObject.tag!="platform")
         {
             // Distruggi l'oggetto corrente
             Destroy(gameObject);
