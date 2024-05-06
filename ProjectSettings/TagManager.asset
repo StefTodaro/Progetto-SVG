@@ -12,6 +12,7 @@ TagManager:
   - Object
   - inObjects
   - pivot
+  - t_handler
   layers:
   - Default
   - TransparentFX

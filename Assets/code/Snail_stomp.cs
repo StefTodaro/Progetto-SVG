@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Serialization;
 using UnityEngine;
 
@@ -16,12 +17,17 @@ public class Snail_stomp : MonoBehaviour
     public Snail_logic snail;
     public Animator anim;
     public bool hasSlammed;
+
+    public Transformation_logic transformations;
+    public Transformation_handler handler;
     // Start is called before the first frame update
     void Start()
     {
         snail = GetComponentInParent<Snail_logic>();
         anim = GetComponentInParent<Animator>();
         parent = gameObject.transform.parent.gameObject;
+
+        transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
     }
 
     // Update is called once per frame
@@ -43,16 +49,16 @@ public class Snail_stomp : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
         {
 
-            if (slime_form != null && hasSlammed)
+            if (hasSlammed)
             {
-                if (!collision.GetComponent<Transformation_handler>().transformed)
+                if (!transformations.full)
                 {
-                    slime_form.transform.position = slime.transform.position;
-                    slime.SetActive(false);
-                    slime_form.SetActive(true);
+                    AddTransformation();
+                    handler.ChangeForm();
                 }
 
                 parent.GetComponent<Animator>().SetBool("hit", true);
@@ -62,7 +68,6 @@ public class Snail_stomp : MonoBehaviour
 
             if (collision.GetComponent<Slime_bird_double_jump>())
             {
-                Debug.Log("UDIO");
                 if (!collision.GetComponent<Slime_bird_double_jump>().canDoubleJump)
                 {
                     collision.GetComponent<Slime_bird_double_jump>().canDoubleJump = true;
@@ -77,5 +82,24 @@ public class Snail_stomp : MonoBehaviour
 
         }
 
+    }
+    public void AddTransformation()
+    {
+        //controlla che la trasformazione non sia già contenuta nella lista delle trasformazioni 
+        if (!transformations.transformations.Contains(slime_form))
+        {
+            //cerca la prima posizione in cui è possibile inserire la trasformazione appena ottenuta
+            for (int i = 0; i < 3; i++)
+            {
+                if (transformations.transformations[i] == transformations.baseSlime)
+                {
+                    //trasforma il giocatore nella forma appena ottenuta
+                    transformations.c = i;
+                    transformations.transformations[transformations.c] = slime_form;
+                    break;
+                }
+            }
+            transformations.t += 1;
+        }
     }
 }

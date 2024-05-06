@@ -136,13 +136,7 @@ public class tonguePivotLogic : MonoBehaviour
         
          if (isSwinging &&  Input.GetKeyUp(KeyCode.Mouse0))
         {
-            grappleRope.enabled = false;
-            m_springJoint2D.enabled = false;
-            distanceJoint.enabled = false;
-            player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
-            m_rigidbody.gravityScale = 1;
-            //indica che il giocatore ha smesso di dondolare 
-            hasSwang = true;
+            UndoGrapple();
             
         }
 
@@ -203,6 +197,17 @@ public class tonguePivotLogic : MonoBehaviour
         m_springJoint2D.enabled = true;
 
        
+    }
+
+    public void UndoGrapple()
+    {
+        grappleRope.enabled = false;
+        m_springJoint2D.enabled = false;
+        distanceJoint.enabled = false;
+        player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+        m_rigidbody.gravityScale = 1;
+        //indica che il giocatore ha smesso di dondolare 
+        hasSwang = true;
     }
 
     private void OnDrawGizmosSelected()

@@ -60,7 +60,7 @@ public class Slime_objects_logic : MonoBehaviour
             incorporateTimer = incorporateTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             canIncorporate = false;
             inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1].SetActive(true);

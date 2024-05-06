@@ -7,13 +7,12 @@ public class Slime_rino_dash : MonoBehaviour
     public float dashSpeed = 15f; // Velocità del dash
     public float dashDuration = 0.3f; // Durata del dash
     public float dashCooldown = 1f; // Tempo di recupero del dash
-    private bool canDash = true;
+    public bool canDash = true;
     public bool isDashing = false;
-
+    public float dashTimer = 0;
 
     private movement mov;
     private Rigidbody2D rb;
-    private float rockSlamForce = 11f;
 
     // Start is called before the first frame update
     void Start()
@@ -21,16 +20,25 @@ public class Slime_rino_dash : MonoBehaviour
         mov = gameObject.GetComponent<movement>();
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
-
     // Update is called once per frame
     void Update()
     {
+       
         if (canDash && Input.GetButtonDown("Fire1") && mov.isGrounded)
         {
             StartCoroutine(Dash());
         }
+        if (!canDash)
+        {
+            isDashing = false;
 
-
+            dashTimer += Time.deltaTime;
+            if (dashTimer >= dashCooldown)
+            {
+                canDash = true;
+                dashTimer = 0;
+            }
+        }
     }
 
     IEnumerator Dash()
@@ -38,15 +46,12 @@ public class Slime_rino_dash : MonoBehaviour
         // Imposta lo stato del dash
         canDash = false;
         isDashing = true;
-        var originalGravity = rb.gravityScale;
+
 
         var initialDirection= mov.moveInput;
 
-        rb.gravityScale = 0;
+        //indica la durata del dash
         float dashTimer = 0f;
-
-        isDashing = true;
-
 
         while (dashTimer < dashDuration)
         {
@@ -63,16 +68,7 @@ public class Slime_rino_dash : MonoBehaviour
             dashTimer += Time.deltaTime; // Aggiorna il timer
             yield return null;
         }
-
-        // Se il dash non è stato interrotto, reimposta lo stato
-
         rb.velocity = Vector2.zero;
-        isDashing = false;
-        rb.gravityScale = originalGravity;
-
-        // Riabilita il dash dopo la durata del dash
-        yield return new WaitForSeconds(dashCooldown);
-        canDash = true;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

@@ -18,14 +18,13 @@ public class Mob_chase : MonoBehaviour
     void Start()
     {
         path = GetComponent<AIPath>();
-        player = GameObject.FindGameObjectWithTag("Player").transform;
         initialPosition = gameObject.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-       
+        player = GameObject.FindGameObjectWithTag("Player").transform;
         float distanceToTarget = Vector2.Distance(transform.position, player.position);
 
         if (distanceToTarget <= activationDistance)
@@ -49,27 +48,8 @@ public class Mob_chase : MonoBehaviour
         {
             gameObject.GetComponent<SpriteRenderer>().flipX = false; // Orienta lo sprite verso sinistra
         }
-
-        /*   
-           float distanceToTarget = Vector3.Distance(transform.position, player.position);
-
-           // Se la distanza è maggiore della soglia di inseguimento, inizia ad inseguire il personaggio
-           if (distanceToTarget <= chaseDistance)
-           {
-               // Calcola la direzione in cui il nemico deve muoversi per raggiungere il personaggio
-               Vector3 moveDirection = (player.position - transform.position).normalized;
-
-               // Muovi il nemico nella direzione calcolata
-               transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-           }
-        */
     }
 
-    /* void OnDrawGizmosSelected()
-     {
-         Gizmos.color = Color.green;
-         Gizmos.DrawWireCube(transform.position, new Vector3(chaseDistance, chaseDistance));
-     }*/
 }
 
 
