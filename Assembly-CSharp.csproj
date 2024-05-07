@@ -75,6 +75,7 @@
     <Compile Include="Assets\code\Slime_rock_slam.cs" />
     <Compile Include="Assets\code\Stomp.cs" />
     <Compile Include="Assets\code\Mob_chase.cs" />
+    <Compile Include="Assets\code\platform_logic.cs" />
     <Compile Include="Assets\code\Transformation_handler.cs" />
     <Compile Include="Assets\code\Destroy_mob.cs" />
     <Compile Include="Assets\code\Slime_rino_dash.cs" />
@@ -89,9 +90,6 @@
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
-<<<<<<< HEAD
-    <Compile Include="Assets\code\platform_logic.cs" />
-=======
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -116,7 +114,6 @@
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
->>>>>>> 5d9c15ef3d9672a9cc061246635328b28964d872
   </ItemGroup>
   <ItemGroup>
     <Reference Include="UnityEngine">

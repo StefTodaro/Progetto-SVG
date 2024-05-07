@@ -59,6 +59,17 @@ public class tonguePivotLogic : MonoBehaviour
 
 
     }
+    //anulla tutte le informazioni per facilitare il cambio di forma
+    private void OnEnable()
+    {
+        grappleRope.enabled = false;
+        m_springJoint2D.enabled = false;
+        distanceJoint.enabled = false;
+
+        distanceJoint.distance = Vector2.Distance(transform.position, pivot.position);
+
+        player.transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+    }
 
     private void Update()
     {
