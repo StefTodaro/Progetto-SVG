@@ -13,6 +13,7 @@ TagManager:
   - inObjects
   - pivot
   - t_handler
+  - coin
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - UI
   - stomp
   - death
-  - 
+  - UII
   - 
   - 
   - 
