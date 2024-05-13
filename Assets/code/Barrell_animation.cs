@@ -18,10 +18,8 @@ public class Barrell_animation : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player")){
-            if (!collision.GetComponent<movement>().isGrounded)
-            {
                 GetComponent<Animator>().SetBool("jumpOn", true);
-            }
+            
         }
     }
 
