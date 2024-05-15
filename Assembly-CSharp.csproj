@@ -91,6 +91,7 @@
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
+    <Compile Include="Assets\code\Rino_Logic.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

@@ -9,9 +9,9 @@ public class Mob_patrol : MonoBehaviour
     private int currentPatrolIndex = 0; // Indice del punto di pattuglia corrente
     // Flag per tenere traccia della direzione di movimento
     //da settare in base allo sprite iniziale
-    private bool movingRight = false; 
+    public bool movingRight = false; 
     public bool isPatrolling=true;
-    private Animator anim;
+    public Animator anim;
 
 
     // Start is called before the first frame update
@@ -25,34 +25,55 @@ public class Mob_patrol : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
+        ChangePatrolPoint();
+
         if (isPatrolling)
         {
-            // Controlla se il nemico è arrivato al punto di pattuglia corrente
-            if (Vector2.Distance(transform.position, patrolPoints[currentPatrolIndex].position) < 1f)
-            {
-                currentPatrolIndex+=1;
-                
-                if(currentPatrolIndex>= patrolPoints.Length)
-                {
-                    currentPatrolIndex = 0;
-                }
 
-                if (gameObject.transform.position.x<= patrolPoints[currentPatrolIndex].position.x)
-                {
-                    movingRight = true;
-                }
-                else
-                {
-                    movingRight = false;
-                }
-
-                // Inverti la scala sull'asse X per girare lo sprite nella direzione corretta
-                anim.SetFloat("speed", moveSpeed);
-                gameObject.GetComponent<SpriteRenderer>().flipX = movingRight;
-            }
-
+            SetDirection();
+    
+            anim.SetFloat("speed", moveSpeed);
             // Muovi il nemico verso il punto di pattuglia corrente
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[currentPatrolIndex].position, moveSpeed * Time.deltaTime);
+        }
+
+        //per far girare  il mob nella direzione di movimento
+        if (movingRight)
+        {
+            transform.rotation = Quaternion.Euler(0, 180, 0);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 0);
+        }
+
+    }
+
+    private void ChangePatrolPoint()
+    {
+        // Controlla se il nemico è arrivato al punto di pattuglia corrente
+        if (Vector2.Distance(transform.position, patrolPoints[currentPatrolIndex].position) < 1f)
+        {
+            currentPatrolIndex += 1;
+
+            if (currentPatrolIndex >= patrolPoints.Length)
+            {
+                currentPatrolIndex = 0;
+            }
+
+        }
+    }
+
+    private void SetDirection()
+    {
+        if (gameObject.transform.position.x <= patrolPoints[currentPatrolIndex].position.x)
+        {
+            movingRight = true;
+        }
+        else
+        {
+            movingRight = false;
         }
     }
 }
