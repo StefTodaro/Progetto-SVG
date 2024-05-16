@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
@@ -25,6 +26,8 @@ public class movement : MonoBehaviour
     public Rigidbody2D rb;
     public  bool isGrounded;
     public bool facingRight;
+
+    public GameObject coinPrefab;
 
 
     private void Start()
@@ -184,6 +187,7 @@ public class movement : MonoBehaviour
         {
             if (isSlamming)
             {
+                coinPrefab.GetComponent<coinManager>().InstantiateCoin(transform.position);
                 Destroy(collision.gameObject);
             }
         }
