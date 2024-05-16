@@ -70,9 +70,11 @@
     <Compile Include="Assets\code\Slime_objects_logic.cs" />
     <Compile Include="Assets\code\tonguePivotLogic.cs" />
     <Compile Include="Assets\code\Slime_bird_double_jump.cs" />
+    <Compile Include="Assets\followCamera.cs" />
     <Compile Include="Assets\code\Slime_stinger_script.cs" />
     <Compile Include="Assets\code\Mob_onGround_chase.cs" />
     <Compile Include="Assets\code\Incorporated_objects_list.cs" />
+    <Compile Include="Assets\code\Rino_Logic.cs" />
     <Compile Include="Assets\coinManager.cs" />
     <Compile Include="Assets\code\Slime_rock_slam.cs" />
     <Compile Include="Assets\code\Stomp.cs" />
@@ -93,11 +95,6 @@
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
-<<<<<<< HEAD
-    <Compile Include="Assets\code\Rino_Logic.cs" />
-=======
-    <Compile Include="Assets\followCamera.cs" />
->>>>>>> main
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
