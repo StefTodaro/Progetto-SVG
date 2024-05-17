@@ -191,11 +191,11 @@ public class movement : MonoBehaviour
         }
 
 
-        
+        }
 
 
 
-    }
+    
 
    
     private void OnTriggerExit2D(Collider2D collision)
