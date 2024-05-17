@@ -147,7 +147,15 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
-      
+        if (collision.gameObject.CompareTag("Object"))
+        {
+            if (isSlamming)
+            {
+                coinPrefab.GetComponent<coinManager>().InstantiateCoin(transform.position);
+                Destroy(collision.gameObject);
+            }
+        }
+
     }
 
 
@@ -183,18 +191,11 @@ public class movement : MonoBehaviour
         }
 
 
-        if (collision.gameObject.CompareTag("Object"))
-        {
-            if (isSlamming)
-            {
-                coinPrefab.GetComponent<coinManager>().InstantiateCoin(transform.position);
-                Destroy(collision.gameObject);
-            }
         }
 
 
 
-    }
+    
 
    
     private void OnTriggerExit2D(Collider2D collision)

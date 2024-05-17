@@ -9,14 +9,22 @@ public class slime_lizard_logic : MonoBehaviour
     public float pivotDistance=2.5f;
     public bool attached;
     public movement mov;
+    public Animator anim;
 
     void Start()
     {
         mov = GetComponent<movement>();
-        
     }
 
-
+    void OnEnable()
+    {   
+        
+        mov = GetComponent<movement>();
+        swing.isSwinging = false;
+        attached = false;
+        swing.pivot = null;
+        anim = gameObject.GetComponent<Animator>();
+    }
     void Update()
     {
         //ricerca dei pivot circostanti
@@ -62,28 +70,22 @@ public class slime_lizard_logic : MonoBehaviour
             tongue.transform.position = new Vector2(gameObject.transform.position.x - 2, gameObject.transform.position.y);
         }
 
-        if (swing.pivot==null)
+        if (swing.pivot!=null)
         {
-            if (Input.GetButtonDown("Fire1"))
-            {
-                //inserire script nel caso la lingua sia un elemento separato dallo slime 
 
-            }
-        }//condizione per avviare il dondolio quando c'è un oggetto pivot vicino al personaggio
-        else{
-
-             if (Input.GetButtonDown("Fire1"))
+             if (Input.GetMouseButtonDown(0))
             {
                 swing.isSwinging = true;
                 attached = true;
+                anim.SetBool("attached", true);
 
-            }
-           
+            } 
         }
 
-        if(Input.GetButtonUp("Fire1") && attached)
+        if(Input.GetMouseButtonUp(0) && attached)
         {
             attached = false;
+            anim.SetBool("attached", false);
         }
 
     }

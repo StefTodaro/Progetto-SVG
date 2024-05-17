@@ -24,7 +24,7 @@ public class Slime_rino_dash : MonoBehaviour
     void Update()
     {
        
-        if (canDash && Input.GetButtonDown("Fire1") && mov.isGrounded)
+        if (canDash && Input.GetMouseButtonDown(0) && mov.isGrounded)
         {
             StartCoroutine(Dash());
         }
