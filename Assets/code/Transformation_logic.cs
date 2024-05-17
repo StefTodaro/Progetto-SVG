@@ -17,7 +17,7 @@ public class Transformation_logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        baseSlime = GameObject.Find("slime");
+        baseSlime = GameObject.FindGameObjectWithTag("Player");
         transformations[0] = baseSlime;
         transformations[1] = baseSlime;
         transformations[2] = baseSlime; 

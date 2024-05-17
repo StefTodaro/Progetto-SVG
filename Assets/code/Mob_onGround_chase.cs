@@ -86,6 +86,8 @@ public class Mob_onGround_chase : MonoBehaviour
     void MoveToWaypoint()
     {
 
+        // Controlla se il nemico è arrivato al waypoint corrente
+
         // Muovi il nemico verso il waypoint corrente
         if (initialPosition.x > transform.position.x) { 
         Vector2 direction = (initialPosition - transform.position).normalized;
