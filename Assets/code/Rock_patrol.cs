@@ -9,6 +9,8 @@ public class Rock_patrol : MonoBehaviour
     private int currentPatrolIndex = 0; // Indice del punto di pattuglia corrente
     private bool movingForward = true; // Flag per tenere traccia della direzione di movimento
     private Animator anim;
+    public float colliderX;
+    public float colliderY;
     public int hit = 0;
 
 
@@ -16,6 +18,8 @@ public class Rock_patrol : MonoBehaviour
     void Start()
     {
         anim = gameObject.GetComponent<Animator>();
+        colliderX= gameObject.GetComponent<BoxCollider2D>().size.x;
+        colliderY = gameObject.GetComponent<BoxCollider2D>().size.y;
 
     }
 
@@ -25,7 +29,7 @@ public class Rock_patrol : MonoBehaviour
         if (hit >= 1)
         {
             // Controlla se il nemico è arrivato al punto di pattuglia corrente
-            if (Vector2.Distance(transform.position, patrolPoints[currentPatrolIndex].position) <= 0.4f)
+            if (Vector2.Distance(transform.position, patrolPoints[currentPatrolIndex].position) <= 1.2f)
             {
                 // Se il nemico è arrivato all'ultimo punto di pattuglia, inverti la direzione
                 if (currentPatrolIndex == patrolPoints.Length - 1)
@@ -42,6 +46,19 @@ public class Rock_patrol : MonoBehaviour
                 // Inverti la scala sull'asse X per girare lo sprite nella direzione corretta
                 anim.SetFloat("speed", moveSpeed);
                 gameObject.GetComponent<SpriteRenderer>().flipX = movingForward;
+            }
+
+            //utile per il respawn
+            if(hit == 0)
+            {
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(colliderX, colliderY);
+            }
+
+
+            if (hit == 2)
+            {
+                gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.537901223f, 0.388528377f);
+
             }
 
             // Muovi il nemico verso il punto di pattuglia corrente

@@ -30,7 +30,7 @@ public class Stomp : MonoBehaviour
         if (collision.CompareTag("Player"))
         {
           
-            if (!transformations.full)
+            if (!transformations.full && slime_form!=null)
             {
                     AddTransformation();
                     handler.ChangeForm();
@@ -52,8 +52,13 @@ public class Stomp : MonoBehaviour
                 }
             }
 
-           
-            parent.GetComponent<Animator>().SetBool("hit", true);
+
+                parent.GetComponent<Animator>().SetBool("hit", true);
+            if(collision.GetComponent<movement>().isSlamming)
+            {
+                collision.GetComponent<movement>().isSlamming=false;
+            }
+
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);            
         }
 

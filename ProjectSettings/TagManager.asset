@@ -14,6 +14,7 @@ TagManager:
   - pivot
   - t_handler
   - coin
+  - game_manager
   layers:
   - Default
   - TransparentFX

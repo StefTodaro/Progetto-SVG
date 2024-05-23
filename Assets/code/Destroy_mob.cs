@@ -4,18 +4,16 @@ using UnityEngine;
 
 public class Destroy_mob : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-       
-       
-    }
-
     // Update is called once per frame
     void Update()
     {
-        Destroy(gameObject);
+        gameObject.SetActive(false);
         
+    }
+
+    //funzione con cui modificare il comportamento di tutti i mob per ucciderli
+    private void KillMob()
+    {
+        gameObject.SetActive(false);
     }
 }
