@@ -173,11 +173,6 @@ public class movement : MonoBehaviour
             
             DieAndRespawn();
 
-            if (gameObject.GetComponent<Transformation_handler>().transformed)
-            {
-                gameObject.GetComponent<Transformation_handler>().LosePower();
-
-            }
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
@@ -212,15 +207,7 @@ public class movement : MonoBehaviour
 
     public void DieAndRespawn()
     {
-        // Imposta la posizione del giocatore sul punto di respawn
-        if (gameObject.GetComponent<Transformation_handler>().transformed)
-        {
-            gameObject.GetComponent<Transformation_handler>().LosePower();
-        }
-
-        transform.position = GetComponent<checkpoint_handler>().checkpoint_base.position;
-      //  SceneManager.LoadScene("SampleScene");
-        gameObject.transform.position = transform.position;
+        GameManager_logic.Instance.RespawnPlayer(gameObject);
     }  
 
 
@@ -230,6 +217,7 @@ public class movement : MonoBehaviour
         if (gameObject.GetComponent<Transformation_handler>().transformed)
         {
             gameObject.GetComponent<Transformation_handler>().LosePower();
+
         }
         else
         {

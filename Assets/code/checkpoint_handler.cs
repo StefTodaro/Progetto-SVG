@@ -6,7 +6,10 @@ using UnityEngine.UIElements;
 public class checkpoint_handler : MonoBehaviour
 {
     //fornisce il punto di respawn allo slime di base
-    public Transform checkpoint_base;
+    public bool activated=false;
+    public GameObject game_manager;
+    public GameObject objectList;
+    public Animator anim;
     
     
    
@@ -15,8 +18,11 @@ public class checkpoint_handler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
-        
+        game_manager = GameObject.FindGameObjectWithTag("game_manager");
+        objectList= GameObject.FindGameObjectWithTag("inObjects");
+        anim = gameObject.GetComponent<Animator>();
+
+
     }
 
     // Update is called once per frame
@@ -26,16 +32,21 @@ public class checkpoint_handler : MonoBehaviour
     }
     private void OnEnable()
     {
-        checkpoint_base = GameObject.Find("slime").GetComponent<checkpoint_handler>().checkpoint_base;
+       // checkpoint_base = GameObject.Find("slime").GetComponent<checkpoint_handler>().checkpoint_base;
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
+  
 
-
-        if (collision.gameObject.CompareTag("checkpoint"))
+        private void OnTriggerEnter2D(Collider2D collision)
         {
-            checkpoint_base = collision.transform;
+            if (collision.CompareTag("Player")  && !activated)
+            {
+                activated = true;
+                game_manager.GetComponent<GameManager_logic>().SetCheckpoint(transform.position);
+                anim.SetBool("active", activated);
+            
+            }
         }
-    }
+    
+    
     }

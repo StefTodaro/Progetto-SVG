@@ -12,15 +12,11 @@ public class Rino_Logic : MonoBehaviour
     public float chargeDistance = 5;
     public bool canCharge = true;
     public float patrolSpeed;
-    public float chargeSpeed = 5.3f;
+    public float chargeSpeed = 6.5f;
     public bool stunned = false;
 
     public float bounceStength = 3;
-   
 
-    public float chargeTime = 1.75f;
-    public float chargeTimer=0;
-    public float chargeWait=2;
 
     public Mob_onGround_chase chase;
 
@@ -31,7 +27,7 @@ public class Rino_Logic : MonoBehaviour
         patrolSpeed = patrol.moveSpeed;
     }
 
-    // Update is called once per frame
+  
     void Update()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -39,7 +35,7 @@ public class Rino_Logic : MonoBehaviour
         //controllo se il giocatore si trova nella posizione giusta per effettuare la carica 
         if (Mathf.Abs(gameObject.transform.position.y - player.transform.position.y) <= 1.5f)
         {
-            if (Mathf.Abs(gameObject.transform.position.x - player.transform.position.x) <= 7f)
+            if (Mathf.Abs(gameObject.transform.position.x - player.transform.position.x) <= 10f)
             {
                 //controlla che il giocatore sia nella stessa direzione in cui si sta muovendo il rinoceronte
                 if (player.transform.position.x >= gameObject.transform.position.x && patrol.movingRight == true ||

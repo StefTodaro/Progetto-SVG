@@ -10,7 +10,7 @@ public class Slime_objects_logic : MonoBehaviour
     public float incorporateTimer;
     public float incorporateTime = 0.8f;
     public bool canIncorporate = true;
-    SpriteRenderer spriteRenderer;
+    
 
 
 
@@ -18,13 +18,16 @@ public class Slime_objects_logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        inObject = GameObject.FindGameObjectWithTag("inObjects");
+       
         incorporateTimer = incorporateTime;
+        inObject = GameObject.FindGameObjectWithTag("inObjects");
     }
 
+    
     // Update is called once per frame
     void Update()
     {
+        
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius);
 
         float minDistance = Mathf.Infinity;
@@ -37,7 +40,8 @@ public class Slime_objects_logic : MonoBehaviour
             float distance = Vector2.Distance(transform.position, collider.transform.position);
 
             // Se l'oggetto è più vicino dell'oggetto attualmente più vicino, aggiornalo
-            if (distance < minDistance && collider.CompareTag("Object") && inObject.GetComponent<Incorporated_objects_list>().list.Count<=6)
+            if (distance < minDistance && collider.CompareTag("Object") && 
+                inObject.GetComponent<Incorporated_objects_list>().list.Count<=6)
             {
                 minDistance = distance;
                 nearestCollider = collider;
