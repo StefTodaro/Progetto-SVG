@@ -147,14 +147,7 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
-        if (collision.gameObject.CompareTag("Object"))
-        {
-            if (isSlamming)
-            {
-                coinPrefab.GetComponent<coinManager>().InstantiateCoin(transform.position);
-                Destroy(collision.gameObject);
-            }
-        }
+        
 
     }
 
@@ -184,9 +177,26 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
-
-
+        if (collision.gameObject.CompareTag("Object"))
+        {
+            if (isSlamming)
+            {
+                coinManager coinManager = coinPrefab.GetComponent<coinManager>();
+                if (coinManager != null)
+                {
+                    coinManager.InstantiateCoin(collision.transform.position);
+                    Destroy(collision.gameObject);
+                }
+                else
+                {
+                    Debug.LogError("coinManager is null");
+                }
+                
+            }
         }
+
+
+    }
 
 
 
