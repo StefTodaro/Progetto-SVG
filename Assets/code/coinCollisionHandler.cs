@@ -15,7 +15,7 @@ public class CoinCollisionHandler : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         
-        coinManager.HandleCoinCollision(collision);
+       // coinManager.HandleCoinCollision(collision);
     }
     
 }

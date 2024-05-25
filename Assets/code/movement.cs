@@ -185,7 +185,7 @@ public class movement : MonoBehaviour
                 if (coinManager != null)
                 {
                     coinManager.InstantiateCoin(collision.transform.position);
-                    Destroy(collision.gameObject);
+                    collision.gameObject.SetActive(false);
                 }
                 else
                 {

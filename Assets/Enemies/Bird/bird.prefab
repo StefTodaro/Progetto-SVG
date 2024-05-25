@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8231707070793672658}
   - component: {fileID: 8231707070793672657}
   - component: {fileID: 8231707070793672656}
+  - component: {fileID: 2116801982057807429}
   m_Layer: 0
   m_Name: bird
   m_TagString: Mob
@@ -266,6 +267,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfdb1afb6ae39646ae71becde578f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &2116801982057807429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8231707070793672687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c665bb36c9380184ca74272afa14c4b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mob_manager: {fileID: 0}
+  respawnTimer: 0
 --- !u!1 &8231707070919490297
 GameObject:
   m_ObjectHideFlags: 0
