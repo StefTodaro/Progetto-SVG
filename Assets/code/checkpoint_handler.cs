@@ -12,7 +12,6 @@ public class checkpoint_handler : MonoBehaviour
     public Animator anim;
     
     
-    
    
 
    // public GameObject baseSlime;
@@ -45,11 +44,9 @@ public class checkpoint_handler : MonoBehaviour
                 activated = true;
                 game_manager.GetComponent<GameManager_logic>().SetCheckpoint(transform.position);
                 anim.SetBool("active", activated);
-                
-                
+            
             }
         }
-
     
     
     }

@@ -69,16 +69,13 @@
     <Compile Include="Assets\code\Object_logic.cs" />
     <Compile Include="Assets\code\Slime_objects_logic.cs" />
     <Compile Include="Assets\code\tonguePivotLogic.cs" />
-    <Compile Include="Assets\code\GameManager_logic.cs" />
     <Compile Include="Assets\code\Slime_bird_double_jump.cs" />
-    <Compile Include="Assets\code\followCamera.cs" />
+    <Compile Include="Assets\followCamera.cs" />
     <Compile Include="Assets\code\Slime_stinger_script.cs" />
     <Compile Include="Assets\code\Mob_onGround_chase.cs" />
-    <Compile Include="Assets\code\Rock_logic.cs" />
     <Compile Include="Assets\code\Incorporated_objects_list.cs" />
     <Compile Include="Assets\code\Rino_Logic.cs" />
-    <Compile Include="Assets\code\ResettableObjects.cs" />
-    <Compile Include="Assets\code\coinManager.cs" />
+    <Compile Include="Assets\coinManager.cs" />
     <Compile Include="Assets\code\Slime_rock_slam.cs" />
     <Compile Include="Assets\code\Stomp.cs" />
     <Compile Include="Assets\code\Mob_chase.cs" />
@@ -90,14 +87,15 @@
     <Compile Include="Assets\code\Slime_stinger_shoot.cs" />
     <Compile Include="Assets\code\movement.cs" />
     <Compile Include="Assets\code\Camera_Follow.cs" />
-    <Compile Include="Assets\code\coinCollisionHandler.cs" />
+    <Compile Include="Assets\coinCollisionHandler.cs" />
     <Compile Include="Assets\code\Transformation_logic.cs" />
     <Compile Include="Assets\code\pivotTOngueLogic.cs" />
     <Compile Include="Assets\code\Create_dust.cs" />
+    <Compile Include="Assets\code\Animation_codes\HitFalse.cs" />
     <Compile Include="Assets\code\Mob_patrol.cs" />
     <Compile Include="Assets\code\Snail_logic.cs" />
     <Compile Include="Assets\code\Rock_patrol.cs" />
-    <Compile Include="Assets\coinSetting.cs" />
+    <Compile Include="Assets\followCamera.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
