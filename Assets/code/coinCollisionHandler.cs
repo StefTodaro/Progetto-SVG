@@ -17,4 +17,5 @@ public class CoinCollisionHandler : MonoBehaviour
         
         coinManager.HandleCoinCollision(collision);
     }
+    
 }
