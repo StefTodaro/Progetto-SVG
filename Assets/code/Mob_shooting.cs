@@ -40,7 +40,7 @@ public class Mob_shooting : MonoBehaviour
             {
                 timer += Time.deltaTime;
 
-                if (timer > 1.75f)
+                if (timer > 2.5f)
                 {
                     timer = 0;
                     RotateTowardsTarget();

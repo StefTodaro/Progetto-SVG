@@ -33,7 +33,7 @@ public class checkpoint_handler : MonoBehaviour
     }
     private void OnEnable()
     {
-      // checkpoint_base = GameObject.Find("slime").GetComponent<checkpoint_handler>().checkpoint_base;
+       // checkpoint_base = GameObject.Find("slime").GetComponent<checkpoint_handler>().checkpoint_base;
     }
 
   

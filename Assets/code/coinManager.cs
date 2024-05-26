@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class coinManager : MonoBehaviour
 {
     public GameObject coinPrefab;
-    float bounceForce = 3.5f;
+    float bounceForce = 2f;
     private int coinCount = 0;
 
     public void InstantiateCoin(Vector3 spawnPosition)
@@ -17,8 +17,8 @@ public class coinManager : MonoBehaviour
         coin.SetActive(true);
         Rigidbody2D coinRB = coin.GetComponent<Rigidbody2D>();
 
+        coinRB.AddForce(Vector2.right * 2f, ForceMode2D.Impulse);
         coinRB.AddForce(Vector2.right * bounceForce, ForceMode2D.Impulse);
-        coinRB.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
 
     public void HandleCoinCollision(Collision2D collision)
@@ -52,7 +52,7 @@ public class coinManager : MonoBehaviour
     private void CollectCoin(GameObject player)
     {
        // Debug.Log("Coin: " + coinCount);
-        coinCount+=1;
+        coinCount++;
         UpdateCoinText();
         
         gameObject.SetActive(false); // Disattiva la moneta
@@ -73,9 +73,20 @@ public class coinManager : MonoBehaviour
         }
     }
 
-    public void resetCoin(int nCoin)
+    public void resetCoin()
     {
-        coinCount = nCoin;
+        coinCount = 0;
         UpdateCoinText();
     }
+    // Start is called before the first frame update
+    void Start()
+    {
+        
     }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+}

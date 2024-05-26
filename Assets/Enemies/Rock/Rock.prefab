@@ -17,7 +17,6 @@ GameObject:
   - component: {fileID: 1384142092642832281}
   - component: {fileID: 1384142092642832282}
   - component: {fileID: 1384142092642832273}
-  - component: {fileID: 8935384132818872765}
   m_Layer: 0
   m_Name: Rock
   m_TagString: Mob
@@ -218,20 +217,6 @@ MonoBehaviour:
   originalSpeed: 0
   initialColliderSize: {x: 0, y: 0}
   initialColliderOffset: {x: 0, y: 0}
---- !u!114 &8935384132818872765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1384142092642832280}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c665bb36c9380184ca74272afa14c4b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  mob_manager: {fileID: 0}
-  respawnTimer: 0
 --- !u!1 &1384142093145533184
 GameObject:
   m_ObjectHideFlags: 0
