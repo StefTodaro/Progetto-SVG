@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: 4747472078341550585}
   - component: {fileID: 4747472078341550586}
   - component: {fileID: 4747472078341550587}
+  - component: {fileID: 1640881582798325397}
+  - component: {fileID: 6597572053927603691}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Mob
@@ -191,6 +193,32 @@ MonoBehaviour:
   range: 6.5
   maxAngle: 0
   minAngle: -190
+--- !u!114 &1640881582798325397
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747472078341550588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c665bb36c9380184ca74272afa14c4b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mob_manager: {fileID: 0}
+  respawnTimer: 0
+--- !u!114 &6597572053927603691
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747472078341550588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfdb1afb6ae39646ae71becde578f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4747472078977022330
 GameObject:
   m_ObjectHideFlags: 0
@@ -236,7 +264,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.14805058, y: -0.39}
+  m_Offset: {x: -0.15771729, y: -0.9309583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -247,7 +275,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.2605166, y: 1}
+  m_Size: {x: 4.0689, y: 2.487628}
   m_EdgeRadius: 0
 --- !u!114 &4747472078977022328
 MonoBehaviour:
@@ -264,7 +292,7 @@ MonoBehaviour:
   bounce: 6
   parent: {fileID: 4747472078341550588}
   slime: {fileID: 0}
-  slime_form: {fileID: 0}
+  slime_form: {fileID: 4979979483999387485, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
   transformations: {fileID: 0}
   handler: {fileID: 0}
 --- !u!1 &4747472079120362176
