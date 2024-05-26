@@ -15,6 +15,7 @@ TagManager:
   - t_handler
   - coin
   - game_manager
+  - coinCounter
   layers:
   - Default
   - TransparentFX

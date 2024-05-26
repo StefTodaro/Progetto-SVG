@@ -63,11 +63,10 @@ public class coinManager : MonoBehaviour
 
     private void CollectCoin(GameObject player)
     {
-        if (cC != null)
-        {
-            cC.addCoin();
-            Debug.Log("num coin: " + cC.getCoin());
-        }
+       
+        cC.addCoin();
+        Debug.Log("num coin: " + cC.getCoin());
+        
         UpdateCoinText();
         
         
