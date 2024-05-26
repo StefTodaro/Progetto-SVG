@@ -17,6 +17,7 @@ TagManager:
   - game_manager
   - FormUI
   - Selector
+  - coinCounter
   layers:
   - Default
   - TransparentFX
