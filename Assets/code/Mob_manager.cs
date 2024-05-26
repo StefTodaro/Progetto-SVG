@@ -28,11 +28,11 @@ public class Mob_manager : MonoBehaviour
     {
 
         mob.GetComponent<Mob_respawn>().respawnTimer += Time.deltaTime;
-        Debug.Log(mob.GetComponent<Mob_respawn>().respawnTimer);
 
         if (mob.GetComponent<Mob_respawn>().respawnTimer >= 12)
         {
             mob.GetComponent<ResettableObjects>().ResetState();
         }
     }
+
 }

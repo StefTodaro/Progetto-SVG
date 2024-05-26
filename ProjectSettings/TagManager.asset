@@ -15,6 +15,8 @@ TagManager:
   - t_handler
   - coin
   - game_manager
+  - FormUI
+  - Selector
   layers:
   - Default
   - TransparentFX
