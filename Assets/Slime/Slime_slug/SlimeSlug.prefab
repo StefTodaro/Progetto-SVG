@@ -20,12 +20,12 @@ GameObject:
   - component: {fileID: 4636424003151133837}
   - component: {fileID: 4636424003151133838}
   m_Layer: 0
-  m_Name: slime_slug
+  m_Name: SlimeSlug
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &4636424003151133851
 Transform:
   m_ObjectHideFlags: 0

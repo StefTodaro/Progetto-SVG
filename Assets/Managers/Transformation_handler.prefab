@@ -47,6 +47,15 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  transformationsUI: []
+  transformationSprite:
+  - {fileID: 21300000, guid: efaadfa9f7877b7438893d7b9bacf452, type: 3}
+  - {fileID: 21300000, guid: 45849cab9009cf84596df87a54a5d7d6, type: 3}
+  - {fileID: 21300000, guid: bdcaeec5459b7314781414725fab72cd, type: 3}
+  - {fileID: 21300000, guid: 86099d0e4a2251a42bed46a68e3222eb, type: 3}
+  - {fileID: 21300000, guid: 6d11341bb0589d547b7af73916fa55dc, type: 2}
+  - {fileID: 21300000, guid: 6437999de2b906d4491d8169a08bd7dd, type: 3}
+  - {fileID: 21300000, guid: 76e3ec06b6919654299bdeecfd870f08, type: 3}
   full: 0
   t: 0
   c: 0

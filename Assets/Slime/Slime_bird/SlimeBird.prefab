@@ -4824,12 +4824,12 @@ GameObject:
   - component: {fileID: 2527423760716626833}
   - component: {fileID: 2527423760716626834}
   m_Layer: 0
-  m_Name: slime_bird
+  m_Name: SlimeBird
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2527423760716626840
 Transform:
   m_ObjectHideFlags: 0

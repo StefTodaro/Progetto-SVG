@@ -57,12 +57,15 @@ public class Transformation_handler : MonoBehaviour
         transformations.transformations[transformations.c] = transformations.baseSlime;
         currentTransformation = transformations.transformations[transformations.c];
 
+        transformations.UpdateUI(transformations.c);
+
         //vengono assegnate le iniformazioni raccolte prima alla nuova forma(slime base )
         currentTransformation.SetActive(true);
 
+        
+
         currentTransformation.GetComponent<movement>().isSwinging = false;
         currentTransformation.transform.position = actualPosition;
-        currentTransformation.GetComponent<movement>().isGrounded = isGrounded;
         currentTransformation.GetComponent<movement>().isGrounded = isGrounded;
         
 }
@@ -105,6 +108,7 @@ public class Transformation_handler : MonoBehaviour
         currentTransformation = transformations.transformations[transformations.c];
 
         currentTransformation.SetActive(true);
+        transformations.UpdateUI(transformations.c);
         currentTransformation.transform.position = actualPosition;
         currentTransformation.GetComponent<movement>().isGrounded = isGrounded;
         currentTransformation.GetComponent<movement>().isSlamming = isSlamming;
