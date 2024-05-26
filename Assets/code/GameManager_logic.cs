@@ -13,6 +13,7 @@ public class GameManager_logic : MonoBehaviour
     public GameObject coinPrefab;
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
+    private coinManager cManager;
 
 
     private void Start()
@@ -30,6 +31,20 @@ public class GameManager_logic : MonoBehaviour
         objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
         objectList = GameObject.FindGameObjectWithTag("inObjects");
         
+        GameObject cMObject = GameObject.FindGameObjectWithTag("coinCounter");
+        if (cMObject != null)
+        {
+            cManager = coinPrefab.GetComponent<coinManager>();
+
+            if (cManager == null)
+            {
+                Debug.LogError("No CoinCounter component found on the object with tag 'CoinCounter'!");
+            }
+        }
+        else
+        {
+            Debug.LogError("No GameObject with tag 'CoinCounter' found in the scene!");
+        }
 
     }
 
@@ -41,6 +56,7 @@ public class GameManager_logic : MonoBehaviour
     public void SetCheckpoint(Vector2 newCheckpointPosition)
     {
         checkpointPosition = newCheckpointPosition;
+        checkpointCoins = cManager.getNumberCoin();
     }
 
 
@@ -60,8 +76,8 @@ public class GameManager_logic : MonoBehaviour
                 obj.GetComponent<ResettableObjects>().ResetState();
             }
             //Reset the coin in the level 
-            coinManager coin_manager = coinPrefab.GetComponent<coinManager>();
-            coin_manager.resetCoin(checkpointCoins);
+            
+            cManager.resetCoin(checkpointCoins);
         }
     }
 
