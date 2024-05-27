@@ -35,17 +35,7 @@ public class GameManager_logic : MonoBehaviour
         if (cMObject != null)
         {
             cManager = coinPrefab.GetComponent<coinManager>();
-
-            if (cManager == null)
-            {
-                Debug.LogError("No CoinCounter component found on the object with tag 'CoinCounter'!");
-            }
         }
-        else
-        {
-            Debug.LogError("No GameObject with tag 'CoinCounter' found in the scene!");
-        }
-
     }
 
     private void Update()
