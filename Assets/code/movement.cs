@@ -28,12 +28,15 @@ public class movement : MonoBehaviour
     public bool facingRight;
 
     public GameObject coinPrefab;
+    public GameObject deathPanel;
 
 
     private void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         facingRight = true;
+        coinPrefab = GameObject.FindGameObjectWithTag("coin");
+        deathPanel = GameObject.Find("DeathPanel");
     }
 
     private void Update()
@@ -182,16 +185,11 @@ public class movement : MonoBehaviour
             if (isSlamming)
             {
                 coinManager coinManager = coinPrefab.GetComponent<coinManager>();
-                if (coinManager != null)
+                if (coinManager != null && collision.GetComponent<Object_logic>().dropCoin)
                 {
                     coinManager.InstantiateCoin(collision.transform.position);
-                    collision.gameObject.SetActive(false);
                 }
-                else
-                {
-                    Debug.LogError("coinManager is null");
-                }
-                
+                collision.gameObject.SetActive(false);
             }
         }
 
@@ -217,6 +215,8 @@ public class movement : MonoBehaviour
 
     public void DieAndRespawn()
     {
+        deathPanel.GetComponent<Death_panel_logic>().ActivePanel();
+        gameObject.GetComponent<Transformation_handler>().LosePower();
         GameManager_logic.Instance.RespawnPlayer(gameObject);
     }  
 

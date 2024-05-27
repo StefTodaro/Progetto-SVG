@@ -40,6 +40,7 @@ public class coinManager : MonoBehaviour
         coinRB.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
 
+    /*
     public void HandleCoinCollision(Collision2D collision)
     {
         // Se the coin collides with the ground
@@ -51,7 +52,7 @@ public class coinManager : MonoBehaviour
             coinRB.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
         }
 
-    }
+    }*/
    
     private void OnCollisionEnter2D(Collision2D collision)
     {

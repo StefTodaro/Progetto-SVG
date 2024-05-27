@@ -5,6 +5,7 @@ using UnityEngine;
 public class Object_logic : MonoBehaviour
 {
     public bool onGround;
+    public bool dropCoin=true;
     // Start is called before the first frame update
     void Start()
     {

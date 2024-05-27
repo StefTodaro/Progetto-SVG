@@ -18,6 +18,7 @@ TagManager:
   - FormUI
   - Selector
   - coinCounter
+  - camera
   layers:
   - Default
   - TransparentFX
