@@ -61,7 +61,6 @@ public class Stomp : MonoBehaviour
 
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);            
         }
-
     }
 
     public void AddTransformation()
