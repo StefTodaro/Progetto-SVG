@@ -9,25 +9,22 @@ public class coinManager : MonoBehaviour
 {
     public GameObject coinPrefab;
     float bounceForce = 3.5f;
-
+    
+    private GameObject cCObject;
     private coinCounter cC;
-
+    private GameObject GMobj;
+    private GameManager_logic GM_logic;
+    
     private void Start()
     {
-        GameObject cCObject = GameObject.FindGameObjectWithTag("coinCounter");
-        if (cCObject != null)
-        {
-            cC = cCObject.GetComponent<coinCounter>();
+         cCObject = GameObject.FindGameObjectWithTag("coinCounter");
+         cC = cCObject.GetComponent<coinCounter>();
 
-            if (cC == null)
-            {
-                Debug.LogError("No CoinCounter component found on the object with tag 'CoinCounter'!");
-            }
-        }
-        else
-        {
-            Debug.LogError("No GameObject with tag 'CoinCounter' found in the scene!");
-        }
+        GMobj = GameObject.FindGameObjectWithTag("game_manager");
+        GM_logic= GMobj.GetComponent<GameManager_logic>();
+            
+        
+        
     }
     public void InstantiateCoin(Vector3 spawnPosition)
     {
@@ -40,19 +37,6 @@ public class coinManager : MonoBehaviour
         coinRB.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
     }
 
-    /*
-    public void HandleCoinCollision(Collision2D collision)
-    {
-        // Se the coin collides with the ground
-        if (collision.gameObject.CompareTag("Wall"))
-        {
-            Rigidbody2D coinRB = collision.gameObject.GetComponent<Rigidbody2D>();
-
-            
-            coinRB.AddForce(Vector2.up * bounceForce, ForceMode2D.Impulse);
-        }
-
-    }*/
    
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -66,11 +50,9 @@ public class coinManager : MonoBehaviour
     {
        
         cC.addCoin();
-        Debug.Log("num coin: " + cC.getCoin());
-        
-        UpdateCoinText();
         
         
+        GM_logic.UpdateCoinText();
         gameObject.SetActive(false); // Disattiva la moneta
          
         
@@ -80,23 +62,12 @@ public class coinManager : MonoBehaviour
     {
         return cC.getCoin();
     }
-    public void UpdateCoinText()
-    {
-        GameObject coinCounter = GameObject.Find("CoinCounterG");
-        if(coinCounter != null)
-        {
-            Text coinText = coinCounter.GetComponentInChildren<Text>();
-            if(coinText != null)
-            {
-                coinText.text = cC.getCoin().ToString();
-            }
-        }
-    }
+
 
     public void resetCoin(int nCoin)
     {
         cC.setCoin(nCoin);
-        UpdateCoinText();
+        GM_logic.UpdateCoinText();
     }
 
 

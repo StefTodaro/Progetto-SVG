@@ -1,7 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using UnityEditor.EditorTools;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager_logic : MonoBehaviour
 {
@@ -10,10 +12,13 @@ public class GameManager_logic : MonoBehaviour
     public List<GameObject> objectsToReset;
     public GameObject objectList;
     
-    public GameObject coinPrefab;
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
+
+    
     private coinManager cManager;
+  
+    private coinCounter cCounter;
 
 
     private void Start()
@@ -30,18 +35,17 @@ public class GameManager_logic : MonoBehaviour
 
         objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
         objectList = GameObject.FindGameObjectWithTag("inObjects");
+
+
+        cManager = GameObject.FindGameObjectWithTag("coin").GetComponent<coinManager>();
+        cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
+    
+
+
         
-        GameObject cMObject = GameObject.FindGameObjectWithTag("coinCounter");
-        if (cMObject != null)
-        {
-            cManager = coinPrefab.GetComponent<coinManager>();
-        }
     }
 
-    private void Update()
-    {
-        
-    }
+   
 
     public void SetCheckpoint(Vector2 newCheckpointPosition)
     {
@@ -71,5 +75,22 @@ public class GameManager_logic : MonoBehaviour
         }
     }
 
-    
+    public void UpdateCoinText()
+    {
+        GameObject coinCounter = GameObject.Find("CoinCounterG");
+        
+        Text coinText = coinCounter.GetComponentInChildren<Text>();
+        if (coinText != null)
+        {
+            coinText.text = cCounter.getCoin().ToString();
+        }
+        
+    }
+
+    public void changeScene()
+    {
+        
+    }
+
+
 }

@@ -24,14 +24,7 @@ public class Transformation_logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {   
-        /*//ricerca del base slime anche se questo è inattivo nella gerarchia 
-        foreach (GameObject obj in Resources.FindObjectsOfTypeAll<GameObject>())
-        {
-            if ( obj.name == "slime")
-            {
-                baseSlime=obj;
-            }
-        }*/
+        //ricerca del base slime anche se questo è inattivo nella gerarchia 
         baseSlime = GameObject.Find("SlimeBase");
 
         transformations[0] = baseSlime;

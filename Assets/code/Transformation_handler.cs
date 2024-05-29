@@ -26,7 +26,7 @@ public class Transformation_handler : MonoBehaviour
     {
         transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
         
-        rb_base = transformations.baseSlime.GetComponent<Rigidbody2D>();
+       // rb_base = transformations.baseSlime.GetComponent<Rigidbody2D>();
         currentTransformation = transformations.transformations[transformations.c];
     }
 
