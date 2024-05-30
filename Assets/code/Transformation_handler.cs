@@ -51,6 +51,7 @@ public class Transformation_handler : MonoBehaviour
         //la forma attuale viene disattivata e vengono raccolti tutti i dati utili
         var isGrounded = currentTransformation.GetComponent<movement>().isGrounded;
         var actualPosition = currentTransformation.transform.position;
+
         currentTransformation.SetActive(false);
         
         //si sostituisce la forma attuale con quella di base
@@ -61,14 +62,16 @@ public class Transformation_handler : MonoBehaviour
 
         //vengono assegnate le iniformazioni raccolte prima alla nuova forma(slime base )
         currentTransformation.SetActive(true);
-
-        
-
         currentTransformation.GetComponent<movement>().isSwinging = false;
         currentTransformation.transform.position = actualPosition;
-        currentTransformation.GetComponent<movement>().isGrounded = isGrounded;
-        
+        currentTransformation.GetComponent<movement>().isGrounded = isGrounded;   
 }
+
+   public void ActivateInvulnerability()
+    {
+        currentTransformation.GetComponent<movement>().canBeHit = false;
+        currentTransformation.GetComponent<movement>().rb.velocity = Vector2.zero;
+    }
 
     public void ChangeForm()
     {
@@ -78,7 +81,10 @@ public class Transformation_handler : MonoBehaviour
         var isSlamming = currentTransformation.GetComponent<movement>().isSlamming;
         var canSlam = currentTransformation.GetComponent<movement>().canSlam;
         var slamTimer = currentTransformation.GetComponent<movement>().slamTimer;
+        var canBeHit = currentTransformation.GetComponent<movement>().canBeHit;
+        var invulnerabilityTimer = currentTransformation.GetComponent<movement>().invulnerabilityTimer;
         var actualPosition = currentTransformation.transform.position;
+        
         currentTransformation.SetActive(false);
 
         //in base al tasto premuto si scorre il vettore delle trasformazioni
@@ -109,6 +115,8 @@ public class Transformation_handler : MonoBehaviour
 
         currentTransformation.SetActive(true);
         transformations.UpdateUI(transformations.c);
+        currentTransformation.GetComponent<movement>().canBeHit = canBeHit;
+        currentTransformation.GetComponent<movement>().invulnerabilityTimer = invulnerabilityTimer;
         currentTransformation.transform.position = actualPosition;
         currentTransformation.GetComponent<movement>().isGrounded = isGrounded;
         currentTransformation.GetComponent<movement>().isSlamming = isSlamming;

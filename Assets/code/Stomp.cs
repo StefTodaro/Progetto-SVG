@@ -12,12 +12,13 @@ public class Stomp : MonoBehaviour
     public Transformation_logic transformations;
     public Transformation_handler handler;
 
+
     // Start is called before the first frame update
     void Start()
     {
         parent = gameObject.transform.parent.gameObject;
         transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
-
+        
     }
 
     // Update is called once per frame
@@ -52,8 +53,7 @@ public class Stomp : MonoBehaviour
                 }
             }
 
-
-                parent.GetComponent<Animator>().SetBool("hit", true);
+            parent.GetComponent<Animator>().SetBool("hit", true);
             if(collision.GetComponent<movement>().isSlamming)
             {
                 collision.GetComponent<movement>().isSlamming=false;

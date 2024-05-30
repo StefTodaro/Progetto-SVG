@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Hit
+  m_Name: boxBreak
   serializedVersion: 6
   m_Legacy: 0
   m_Compressed: 0
@@ -20,15 +20,17 @@ AnimationClip:
   m_PPtrCurves:
   - curve:
     - time: 0
-      value: {fileID: 8821574963593693355, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
+      value: {fileID: -6692934563076781386, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
     - time: 0.1
-      value: {fileID: -4469525573226048981, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
+      value: {fileID: -3358577690845891095, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
+    - time: 0.15
+      value: {fileID: 6680117209191471916, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
     - time: 0.25
-      value: {fileID: 5028538742088842948, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
+      value: {fileID: 570548619259133403, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
+    - time: 0.3
+      value: {fileID: 768798766084622103, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
     - time: 0.4
-      value: {fileID: 7999785620210132080, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
-    - time: 0.5
-      value: {fileID: 8883205297927187487, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
+      value: {fileID: 6762809703217884624, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -48,17 +50,18 @@ AnimationClip:
       customType: 23
       isPPtrCurve: 1
     pptrCurveMapping:
-    - {fileID: 8821574963593693355, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
-    - {fileID: -4469525573226048981, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
-    - {fileID: 5028538742088842948, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
-    - {fileID: 7999785620210132080, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
-    - {fileID: 8883205297927187487, guid: 2f4cd43dd0136fc4998e91a26c95061b, type: 3}
+    - {fileID: -6692934563076781386, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
+    - {fileID: -3358577690845891095, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
+    - {fileID: 6680117209191471916, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
+    - {fileID: 570548619259133403, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
+    - {fileID: 768798766084622103, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
+    - {fileID: 6762809703217884624, guid: 255c556b2bda15d4897505d6a811a324, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
     m_AdditiveReferencePoseTime: 0
     m_StartTime: 0
-    m_StopTime: 0.55
+    m_StopTime: 0.45000002
     m_OrientationOffsetY: 0
     m_Level: 0
     m_CycleOffset: 0
@@ -78,8 +81,8 @@ AnimationClip:
   m_HasGenericRootTransform: 0
   m_HasMotionFloatCurves: 0
   m_Events:
-  - time: 0.55
-    functionName: KillMob
+  - time: 0.45
+    functionName: DestroyEffect
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

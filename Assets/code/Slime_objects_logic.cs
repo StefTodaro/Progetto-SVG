@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Slime_objects_logic : MonoBehaviour
 {
-    public float detectionRadius = 1f;
+    public float detectionRadius = 0.7f;
     //oggetti inglobati dal giocatore
     public GameObject inObject;
     public float incorporateTimer;
