@@ -30,6 +30,15 @@ public class movement : MonoBehaviour
     public GameObject coinPrefab;
     public GameObject deathPanel;
 
+    public GameObject landingEffect;
+    public GameObject boxBreakEffect;
+
+    public bool canBeHit=true;
+    //timer per far lampeggiare il personaggio quando colpito
+    float flashTimer;
+    public float invulnerabilityTimer;
+
+
 
     private void Start()
     {
@@ -45,7 +54,7 @@ public class movement : MonoBehaviour
         anim.SetBool("onGround", isGrounded);
 
         //controllo se il personaggio ha la per l'oscillazione e se sta oscillando
-        if(GetComponent<slime_lizard_logic>() && GetComponent<slime_lizard_logic>().swing.isSwinging)
+        if (GetComponent<slime_lizard_logic>() && GetComponent<slime_lizard_logic>().swing.isSwinging)
         {
             isSwinging = true;
         }
@@ -67,20 +76,20 @@ public class movement : MonoBehaviour
             anim.SetBool("jump", true);
         }
 
-        if(!isGrounded )
+        if (!isGrounded)
         {
             anim.SetBool("jump", true);
         }
         else
         {
-            anim.SetBool("jump",false);
+            anim.SetBool("jump", false);
         }
 
         if (moveInput < 0 && facingRight)
         {
             facingRight = false;
             Flip();
-            
+
         }
         else if (moveInput > 0 && !facingRight)
         {
@@ -96,10 +105,20 @@ public class movement : MonoBehaviour
             Slam();
         }
 
-        if ((isGrounded || isSwinging )&& isSlamming)
+        if ((isGrounded || isSwinging) && isSlamming)
         {
             isSlamming = false;
             canSlam = true;
+        }
+
+        
+        if (!canBeHit)
+        {
+           FlashEffect();
+        }
+        else if(canBeHit && !GetComponent<SpriteRenderer>().enabled)
+        {
+            GetComponent<SpriteRenderer>().enabled = true;
         }
 
     }
@@ -142,11 +161,33 @@ public class movement : MonoBehaviour
         spriteRenderer.flipX = !spriteRenderer.flipX;
     }
 
+    //effetua l'effetto lampeggiante 
+    public void FlashEffect()
+    {
+        flashTimer += Time.deltaTime;
+        invulnerabilityTimer += Time.deltaTime;
+
+        // Se il timer supera la durata del lampeggio
+        if (flashTimer >= 0.3f)
+        {
+            // Alterna la visibilità dello sprite renderer
+
+            GetComponent<SpriteRenderer>().enabled = !GetComponent<SpriteRenderer>().enabled;
+            flashTimer = 0f;
+        }
+
+        if (invulnerabilityTimer >= 2)
+        {
+            canBeHit = true;
+            invulnerabilityTimer = 0f;
+        }
+    }
+
 
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Mob"))
+        if (collision.gameObject.CompareTag("Mob") && canBeHit)
         {
             Hit();
         }
@@ -157,11 +198,10 @@ public class movement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-
-
-        if (collision.gameObject.CompareTag("Mob"))
+        if (collision.gameObject.CompareTag("Mob") && canBeHit)
         {
             Hit();
+            
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
@@ -174,12 +214,14 @@ public class movement : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             isGrounded = true;
+
+            if (!collision.gameObject.CompareTag("Object"))
+            {
+                Instantiate(landingEffect, transform.position, transform.rotation);
+            }
+
         }
 
-        if (collision.gameObject.CompareTag("Mob"))
-        {
-            Hit();
-        }
         if (collision.gameObject.CompareTag("Object"))
         {
             if (isSlamming)
@@ -189,6 +231,7 @@ public class movement : MonoBehaviour
                 {
                     coinManager.InstantiateCoin(collision.transform.position);
                 }
+                Instantiate(boxBreakEffect,collision.transform.position,collision.transform.rotation);
                 collision.gameObject.SetActive(false);
             }
         }
@@ -207,6 +250,7 @@ public class movement : MonoBehaviour
         {
             
             isGrounded = false;
+           
         }
 
     }
@@ -226,7 +270,8 @@ public class movement : MonoBehaviour
         if (gameObject.GetComponent<Transformation_handler>().transformed)
         {
             gameObject.GetComponent<Transformation_handler>().LosePower();
-
+            gameObject.GetComponent<Transformation_handler>().ActivateInvulnerability();
+            
         }
         else
         {
