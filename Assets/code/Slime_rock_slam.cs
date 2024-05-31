@@ -48,7 +48,8 @@ public class Slime_rock_slam : MonoBehaviour
             if (collision.gameObject.CompareTag("Obstacles"))
             {
                 
-                Destroy(collision.gameObject);
+                collision.gameObject.SetActive(false);
+                collision.gameObject.GetComponent<BlockBreakEffect>().CallBreakEffect();
                 mov.isGrounded = false;
                 mov.isSlamming = true;
             }

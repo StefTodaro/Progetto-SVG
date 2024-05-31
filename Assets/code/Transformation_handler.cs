@@ -70,7 +70,9 @@ public class Transformation_handler : MonoBehaviour
    public void ActivateInvulnerability()
     {
         currentTransformation.GetComponent<movement>().canBeHit = false;
-        currentTransformation.GetComponent<movement>().rb.velocity = Vector2.zero;
+        //da perfezionare 
+        currentTransformation.GetComponent<movement>().rb.velocity = new Vector2(0, 6);
+        
     }
 
     public void ChangeForm()
@@ -114,6 +116,8 @@ public class Transformation_handler : MonoBehaviour
         currentTransformation = transformations.transformations[transformations.c];
 
         currentTransformation.SetActive(true);
+        //per ristabilire la grandezza originale dopo il cambio forma
+        currentTransformation.transform.localScale=new Vector3(0.2f,0.2f,0);
         transformations.UpdateUI(transformations.c);
         currentTransformation.GetComponent<movement>().canBeHit = canBeHit;
         currentTransformation.GetComponent<movement>().invulnerabilityTimer = invulnerabilityTimer;

@@ -134,6 +134,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5c152b8bfb04084d92e4668a1e96836, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hitEffect: {fileID: 6178930922089588593, guid: 07241c38e811a1140aa0ed19ec2d39ce, type: 3}
   targetLayer:
     serializedVersion: 2
     m_Bits: 8

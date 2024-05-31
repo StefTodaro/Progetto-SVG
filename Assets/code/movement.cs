@@ -32,6 +32,9 @@ public class movement : MonoBehaviour
 
     public GameObject landingEffect;
     public GameObject boxBreakEffect;
+    public GameObject slimeDrops;
+
+    
 
     public bool canBeHit=true;
     //timer per far lampeggiare il personaggio quando colpito
@@ -258,6 +261,13 @@ public class movement : MonoBehaviour
 
     public void DieAndRespawn()
     {
+      
+        if (slimeDrops != null)
+        {
+            Destroy(slimeDrops);
+        }
+        Instantiate(slimeDrops, transform.position, transform.rotation);
+        GameManager_logic.Instance.LockCamera();
         deathPanel.GetComponent<Death_panel_logic>().ActivePanel();
         gameObject.GetComponent<Transformation_handler>().LosePower();
         GameManager_logic.Instance.RespawnPlayer(gameObject);
@@ -268,8 +278,9 @@ public class movement : MonoBehaviour
     {
 
         if (gameObject.GetComponent<Transformation_handler>().transformed)
-        {
+        {        
             gameObject.GetComponent<Transformation_handler>().LosePower();
+            //attiva l'invulnerabilità così che sia attiva per tutte le trasformazioni
             gameObject.GetComponent<Transformation_handler>().ActivateInvulnerability();
             
         }
