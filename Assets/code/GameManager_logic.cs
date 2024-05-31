@@ -11,7 +11,8 @@ public class GameManager_logic : MonoBehaviour
     private Vector2 checkpointPosition;
     public List<GameObject> objectsToReset;
     public GameObject objectList;
-    
+    public GameObject mainCamera;
+
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
 
@@ -32,6 +33,8 @@ public class GameManager_logic : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        mainCamera = GameObject.FindGameObjectWithTag("camera");
 
         objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
         objectList = GameObject.FindGameObjectWithTag("inObjects");
@@ -91,6 +94,21 @@ public class GameManager_logic : MonoBehaviour
     {
         
     }
+
+  
+
+    //funzioni per gestire l'obbiettivo della main caamera
+    public void LockCamera()
+    {
+        mainCamera.GetComponent<Camera_Follow>().cameraLocked = true;
+    } 
+    
+    public void UnlockCamera()
+    {
+        mainCamera.GetComponent<Camera_Follow>().cameraLocked = false;
+    }
+
+
 
 
 }

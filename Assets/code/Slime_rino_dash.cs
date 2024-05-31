@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class Slime_rino_dash : MonoBehaviour
 {
     public float dashSpeed = 15f; // Velocità del dash
@@ -13,6 +14,10 @@ public class Slime_rino_dash : MonoBehaviour
 
     private movement mov;
     private Rigidbody2D rb;
+    public GameObject dashEffect;
+
+    public  GameObject coinPrefab;
+    public GameObject boxBreakEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -20,18 +25,29 @@ public class Slime_rino_dash : MonoBehaviour
         mov = gameObject.GetComponent<movement>();
         rb = gameObject.GetComponent<Rigidbody2D>();
     }
+
+    private void OnEnable()
+    {
+        isDashing = false;
+    }
     // Update is called once per frame
     void Update()
     {
        
         if (canDash && Input.GetMouseButtonDown(0) && mov.isGrounded)
         {
+            if (mov.facingRight)
+            {
+                Instantiate(dashEffect, transform.position, transform.rotation);
+            }
+            else
+            {
+                Instantiate(dashEffect, transform.position, Quaternion.Euler(0, 180,0));
+            }
             StartCoroutine(Dash());
         }
         if (!canDash)
         {
-            isDashing = false;
-
             dashTimer += Time.deltaTime;
             if (dashTimer >= dashCooldown)
             {
@@ -68,6 +84,7 @@ public class Slime_rino_dash : MonoBehaviour
             dashTimer += Time.deltaTime; // Aggiorna il timer
             yield return null;
         }
+        isDashing = false;
         rb.velocity = Vector2.zero;
     }
 
@@ -78,9 +95,24 @@ public class Slime_rino_dash : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Obstacles"))
             {
-                Destroy(collision.gameObject); // Distruggi la tile individuale
+                collision.gameObject.SetActive(false); // Distruggi la tile individuale
+                collision.gameObject.GetComponent<BlockBreakEffect>().CallBreakEffect();
             }
 
+        }
+
+        if (collision.gameObject.CompareTag("Object"))
+        {
+            if (isDashing)
+            { 
+                coinManager coinManager = coinPrefab.GetComponent<coinManager>();
+                if (coinManager != null && collision.gameObject.GetComponent<Object_logic>().dropCoin)
+                {
+                    coinManager.InstantiateCoin(collision.transform.position);
+                }
+                Instantiate(boxBreakEffect, collision.transform.position, collision.transform.rotation);
+                collision.gameObject.SetActive(false);
+            }
         }
     }
 }

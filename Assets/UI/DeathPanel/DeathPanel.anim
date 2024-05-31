@@ -167,7 +167,7 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 1
-    functionName: EndPanelTrnsition
+    functionName: EndPanelTransition
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

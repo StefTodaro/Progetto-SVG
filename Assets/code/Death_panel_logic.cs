@@ -4,13 +4,11 @@ using UnityEngine;
 
 public class Death_panel_logic : MonoBehaviour
 {
-    public GameObject mainCamera;
     public Animator anim;
   
     // Start is called before the first frame update
     void Start()
     {
-        mainCamera = GameObject.FindGameObjectWithTag("camera");
         anim=gameObject.GetComponent<Animator>();
         anim.enabled = false;
     }
@@ -23,17 +21,16 @@ public class Death_panel_logic : MonoBehaviour
 
     public void ActivePanel()
     {   
-        mainCamera.GetComponent<Camera_Follow>().cameraLocked = true;
         anim.enabled=true;
     }
 
     public void ResetCameraFocus()
     {
-        mainCamera.GetComponent<Camera_Follow>().cameraLocked = false;
+       GameManager_logic.Instance.UnlockCamera();
        
     }
 
-    public void EndPanelTrnsition()
+    public void EndPanelTransition()
     {
         anim.enabled = false;
     }
