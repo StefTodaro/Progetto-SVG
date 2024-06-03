@@ -16,11 +16,11 @@ GameObject:
   - component: {fileID: 6499098341093493464}
   m_Layer: 0
   m_Name: MonedaD_0
-  m_TagString: Untagged
+  m_TagString: coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6499098341093493470
 Transform:
   m_ObjectHideFlags: 0
@@ -118,6 +118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 6499098341093493459}
+  takenEffect: {fileID: 6383117432350686876, guid: 2f53cfb6ee1ab9c47bf209425b139153, type: 3}
 --- !u!50 &6499098341093493465
 Rigidbody2D:
   serializedVersion: 4

@@ -16,7 +16,7 @@ public class Slime_stinger_shoot : MonoBehaviour
     {   
        
         // Verifica se è stato premuto il tasto sinistro del mouse
-        if (Input.GetButtonDown("Fire1") && Time.time >nextShot)
+        if ( Input.GetMouseButtonDown(0) && Time.time >nextShot)
         {
             // Calcola la direzione del mouse rispetto al giocatore
             Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
@@ -24,6 +24,7 @@ public class Slime_stinger_shoot : MonoBehaviour
 
             // Sparare il proiettile nella direzione del mouse
             Shoot(fireDirection);
+            gameObject.GetComponent<Animator>().SetBool("shoot", true);
             nextShot = Time.time + fireDelay;
         }
     }
@@ -46,7 +47,10 @@ public class Slime_stinger_shoot : MonoBehaviour
         rb.velocity = direction * bulletSpeed;
 
         liveTimer+= Time.deltaTime;
+    }
 
-      
+    public void EndShoot()
+    {
+        gameObject.GetComponent<Animator>().SetBool("shoot", false);
     }
 }

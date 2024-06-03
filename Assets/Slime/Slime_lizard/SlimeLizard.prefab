@@ -419,6 +419,7 @@ MonoBehaviour:
   rb_base: {fileID: 0}
   currentTransformation: {fileID: 0}
   transformations: {fileID: 0}
+  dropFormEffect: {fileID: 4936685598353660349, guid: 759c338d2daee9944b7af8bd1004e997, type: 3}
 --- !u!114 &3891527164615790714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -448,7 +449,13 @@ MonoBehaviour:
   rb: {fileID: 3891527164615790592}
   isGrounded: 0
   facingRight: 0
-  coinPrefab: {fileID: 0}
+  coinPrefab: {fileID: 6499098341093493459, guid: c71e2cbf407e9414aa732ddebd3ce7f4, type: 3}
+  deathPanel: {fileID: 2292367903836182519, guid: f2ad9f19263e9c94b8f527606fbd8235, type: 3}
+  landingEffect: {fileID: 3693174588062043796, guid: 2d2d97124dda3094493ac661b6d64a5a, type: 3}
+  boxBreakEffect: {fileID: 6839261453018002354, guid: 8f78179ff1d8d0c4298dffe408112699, type: 3}
+  slimeDrops: {fileID: 2705813515532602711, guid: 4f42529042771fe4c98a5eef160715ec, type: 3}
+  canBeHit: 1
+  invulnerabilityTimer: 0
 --- !u!114 &3891527164615790715
 MonoBehaviour:
   m_ObjectHideFlags: 0

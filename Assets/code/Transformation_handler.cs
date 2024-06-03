@@ -11,6 +11,7 @@ public class Transformation_handler : MonoBehaviour
     public Rigidbody2D rb_base;
     public GameObject currentTransformation;
     public Transformation_logic transformations;
+    public GameObject dropFormEffect;
 
     // Start is called before the first frame update
     void Start()
@@ -35,15 +36,46 @@ public class Transformation_handler : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.LeftShift) && transformed == true)
         {
+            if (dropFormEffect != null)
+            {
+                Instantiate(dropFormEffect, transform.position, dropFormEffect.transform.rotation);
+            }
             LosePower();
             rb_base.velocity = new Vector2(rb_base.velocity.x, transformJump);
         }
        
         if ((Input.GetKeyDown(KeyCode.E) || Input.GetKeyDown(KeyCode.Q)))
         {
-            ChangeForm();
+            //ChangeForm();
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+                if (transformations.c <= 2)
+                {
+                    transformations.c += 1;
+                }
+                if (transformations.c == 3)
+                {
+                    transformations.c = 0;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Q))
+            {
+                if (transformations.c >= 0)
+                {
+                    transformations.c -= 1;
+                }
+                if (transformations.c == -1)
+                {
+                    transformations.c = 2;
+                }
+            }
+            GetComponent<movement>().anim.SetBool("changing", true);
         }
     }
+
+   
+
 
     public void LosePower()
     {
@@ -90,29 +122,7 @@ public class Transformation_handler : MonoBehaviour
         currentTransformation.SetActive(false);
 
         //in base al tasto premuto si scorre il vettore delle trasformazioni
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (transformations.c <= 2)
-            {
-                transformations.c += 1;
-            }
-            if(transformations.c==3)
-            {
-                transformations.c = 0;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.Q))
-        {
-            if (transformations.c >= 0)
-            {
-                transformations.c -= 1;
-            }
-            if(transformations.c==-1)
-            {
-                transformations.c = 2;
-            }
-        }
+        
         currentTransformation = transformations.transformations[transformations.c];
 
         currentTransformation.SetActive(true);
@@ -129,5 +139,11 @@ public class Transformation_handler : MonoBehaviour
         currentTransformation.GetComponent<movement>().slamTimer = slamTimer;
         currentTransformation.GetComponent<movement>().isGrounded = isGrounded;
         
+    }
+
+    public void EndTransformation()
+    {
+        GetComponent<movement>().anim.SetBool("changing", false);
+        ChangeForm();
     }
 }

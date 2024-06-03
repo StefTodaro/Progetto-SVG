@@ -33,7 +33,8 @@ public class Slime_rino_dash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-       
+        
+
         if (canDash && Input.GetMouseButtonDown(0) && mov.isGrounded)
         {
             if (mov.facingRight)
@@ -44,7 +45,9 @@ public class Slime_rino_dash : MonoBehaviour
             {
                 Instantiate(dashEffect, transform.position, Quaternion.Euler(0, 180,0));
             }
+            
             StartCoroutine(Dash());
+           
         }
         if (!canDash)
         {
@@ -55,6 +58,8 @@ public class Slime_rino_dash : MonoBehaviour
                 dashTimer = 0;
             }
         }
+
+        
     }
 
     IEnumerator Dash()
@@ -62,6 +67,7 @@ public class Slime_rino_dash : MonoBehaviour
         // Imposta lo stato del dash
         canDash = false;
         isDashing = true;
+        
 
 
         var initialDirection= mov.moveInput;
@@ -71,6 +77,7 @@ public class Slime_rino_dash : MonoBehaviour
 
         while (dashTimer < dashDuration)
         {
+            mov.anim.SetBool("isDashing", true);
             mov.moveInput = initialDirection;
             // Continua il movimento fino a quando il giocatore non raggiunge la posizione di destinazione o il dash non viene interrotto
             if (mov.facingRight)
@@ -86,6 +93,7 @@ public class Slime_rino_dash : MonoBehaviour
         }
         isDashing = false;
         rb.velocity = Vector2.zero;
+        mov.anim.SetBool("isDashing", false);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

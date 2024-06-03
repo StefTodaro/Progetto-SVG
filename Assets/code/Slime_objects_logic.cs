@@ -9,7 +9,10 @@ public class Slime_objects_logic : MonoBehaviour
     public GameObject inObject;
     public float incorporateTimer;
     public float incorporateTime = 0.8f;
+    public float ejectTimer;
+    public float ejectTime = 0.2f;
     public bool canIncorporate = true;
+    public bool canEject = true;
     
 
 
@@ -18,7 +21,7 @@ public class Slime_objects_logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       
+        ejectTimer = ejectTime;
         incorporateTimer = incorporateTime;
         inObject = GameObject.FindGameObjectWithTag("inObjects");
     }
@@ -41,7 +44,7 @@ public class Slime_objects_logic : MonoBehaviour
 
             // Se l'oggetto è più vicino dell'oggetto attualmente più vicino, aggiornalo
             if (distance < minDistance && collider.CompareTag("Object") && 
-                inObject.GetComponent<Incorporated_objects_list>().list.Count<=6)
+                inObject.GetComponent<Incorporated_objects_list>().list.Count<=4)
             {
                 minDistance = distance;
                 nearestCollider = collider;
@@ -64,18 +67,35 @@ public class Slime_objects_logic : MonoBehaviour
             incorporateTimer = incorporateTime;
         }
 
-        if (Input.GetKeyDown(KeyCode.LeftControl))
+        if (canEject == false)
         {
+            ejectTimer -= Time.deltaTime;
+        }
+        if (ejectTimer <= 0)
+        {
+            canEject = true;
+            ejectTimer = ejectTime;
+        }
+
+        if (Input.GetKeyDown(KeyCode.LeftControl) && canEject)
+        {
+            GetComponent<movement>().anim.SetBool("drop", true);
             canIncorporate = false;
+            canEject = false;
             inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1].SetActive(true);
 
             // Posiziona l'oggetto sotto i piedi del giocatore
             Vector3 playerFeetPosition = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y, 0f);
             inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count -1].transform.position = playerFeetPosition;
             inObject.GetComponent<Incorporated_objects_list>().list.Remove(inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1]);
-
            
+
         }
+    }
+
+    public void EndDrop()
+    {
+        GetComponent<movement>().anim.SetBool("drop", false);
     }
 
     void OnDrawGizmosSelected()
