@@ -7,7 +7,6 @@ public class Stomp : MonoBehaviour
 {
     public float bounce=6;
     public GameObject parent;
-    public GameObject slime;
     public GameObject slime_form;
     public Transformation_logic transformations;
     public Transformation_handler handler;
