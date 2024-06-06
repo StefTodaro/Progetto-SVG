@@ -55,7 +55,7 @@ public class Snail_stomp : MonoBehaviour
 
             if (hasSlammed)
             {
-                if (!transformations.full)
+                if (!transformations.full && slime_form != null)
                 {
                     AddTransformation();
                     handler.ChangeForm();

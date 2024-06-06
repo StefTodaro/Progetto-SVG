@@ -77,7 +77,7 @@ public class Rino_Logic : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isCharging)
+        if (isCharging && !collision.CompareTag("Mob"))
         {
             gameObject.GetComponent<Rigidbody2D>().AddForce(transform.right * bounceStength, ForceMode2D.Impulse);
             gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bounceStength, ForceMode2D.Impulse);

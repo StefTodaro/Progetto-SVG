@@ -33,6 +33,14 @@ public class Slime_stinger_script : MonoBehaviour
             if (!collision.GetComponent<Snail_logic>())
             {
                 collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
+                if (collision.GetComponent<Boss_logic>())
+                {
+                    collision.GetComponent<Boss_logic>().HitJump();
+                }
+                else
+                {
+                    collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
+                }
                
             }
             Instantiate(hitEffect, transform.position, transform.rotation);

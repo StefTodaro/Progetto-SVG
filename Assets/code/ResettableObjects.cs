@@ -7,6 +7,7 @@ public class ResettableObjects : MonoBehaviour
     private Vector3 initialPosition;
     private Quaternion initialRotation;
     private Vector3 initialScale;
+    private bool initialActive;
     private bool initialPatrolState;
    
 
@@ -15,6 +16,7 @@ public class ResettableObjects : MonoBehaviour
         initialPosition = transform.position;
         initialRotation = transform.rotation;
         initialScale = transform.localScale;
+        initialActive = gameObject.activeSelf;
         if(gameObject.GetComponent<Mob_patrol>())
         {
             initialPatrolState = gameObject.GetComponent<Mob_patrol>().isPatrolling;
@@ -26,7 +28,7 @@ public class ResettableObjects : MonoBehaviour
     public void ResetState()
     {   
         
-            gameObject.SetActive(true);
+            gameObject.SetActive(initialActive);
             transform.position = initialPosition;
             transform.rotation = initialRotation;
             transform.localScale = initialScale;
