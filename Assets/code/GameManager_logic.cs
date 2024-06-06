@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.Collections;
+
 //using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.UI;
@@ -61,7 +63,10 @@ public class GameManager_logic : MonoBehaviour
     {
         player.transform.position = checkpointPosition;
         foreach (GameObject obj in objectsToReset)
-        {   //Se l'oggetto è inglobato dal giocatore allora non respawna
+        {
+           
+            
+            //Se l'oggetto è inglobato dal giocatore allora non respawna
             if (obj.CompareTag("Object") && 
                 !objectList.GetComponent<Incorporated_objects_list>().list.Contains(obj))
             {
@@ -70,12 +75,37 @@ public class GameManager_logic : MonoBehaviour
             }
             else if(!obj.CompareTag("Object"))
             {
+
+
+                //controlla che l'oggetto sia il gestore di mob della bossfight
+                if (obj.GetComponent<BossMobsSpawn>())
+                {
+                    obj.GetComponent<BossMobsSpawn>().ResetMobInScene();
+                }
+
+
+                if (obj.GetComponent<Boss_trigger>())
+                {
+                    obj.GetComponent<Boss_trigger>().ResetTrigger();
+                }
+
+                //controlla che l'oggetto sia il boss e ne resetta le caratteristiche principali
+                if (obj.GetComponent<Boss_logic>())
+                {
+                    obj.GetComponent<Boss_logic>().ResetBossFight();
+                }
                 obj.GetComponent<ResettableObjects>().ResetState();
             }
-            //Reset the coin in the level 
-            
-            cManager.resetCoin(checkpointCoins);
+
+           
+         
+
+
+
         }
+
+        //Reset the coin in the level 
+        cManager.resetCoin(checkpointCoins);
     }
 
     public void UpdateCoinText()

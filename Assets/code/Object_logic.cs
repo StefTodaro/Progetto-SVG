@@ -6,6 +6,7 @@ public class Object_logic : MonoBehaviour
 {
     public bool onGround;
     public bool dropCoin=true;
+    public GameObject cloud;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,6 +31,7 @@ public class Object_logic : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             onGround = true;
+            Instantiate(cloud,transform.position,cloud.transform.rotation);
         }
 
         //Controllo se la cassa è sopra ad un'altra, cosa che probabilmente succede quando queste sono a contatto 

@@ -39,7 +39,7 @@ public class Mob_manager : MonoBehaviour
 
     public void MakeCloud(Transform t)
     {
-        Instantiate(cloud, t.position, t.rotation);
+        Instantiate(cloud, t.position, cloud.transform.rotation);
 
     }
 

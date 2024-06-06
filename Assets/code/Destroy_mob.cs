@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class Destroy_mob : MonoBehaviour
 {
-    public Mob_manager mm;
+    public GameObject cloud;
 
     private void Start()
     {
-        mm = GameObject.Find("MobManager").GetComponent<Mob_manager>();
+       
     }
     // Update is called once per frame
     void Update()
@@ -20,6 +20,6 @@ public class Destroy_mob : MonoBehaviour
     private void KillMob()
     {
         gameObject.SetActive(false);
-        mm.MakeCloud(transform);
+        Instantiate(cloud, transform.position, cloud.transform.rotation);
     }
 }

@@ -19,6 +19,7 @@ TagManager:
   - Selector
   - coinCounter
   - camera
+  - Trigger
   layers:
   - Default
   - TransparentFX

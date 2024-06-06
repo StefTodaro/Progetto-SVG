@@ -7,6 +7,9 @@ public class BossStomp : MonoBehaviour
 {
     public float bounce = 6;
     public GameObject parent;
+    //serve per aumentare la precisione per il rilevamento dei colpi
+    public float timeBetweenHits;
+    public bool canBeHit = true;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,12 +19,21 @@ public class BossStomp : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (!canBeHit)
+        {
+            timeBetweenHits += Time.deltaTime;
+            if(timeBetweenHits >= 0.3f)
+            {
+                timeBetweenHits = 0;
+                canBeHit = true;
+            }
+        }
     }
 
     public void Hit()
     {
         parent.GetComponent<Boss_logic>().HitJump();
+        parent.GetComponent<Boss_logic>().PassToNextPhase();
         parent.GetComponent<Animator>().SetBool("hit", true);
     }
 
@@ -30,15 +42,8 @@ public class BossStomp : MonoBehaviour
     void OnTriggerEnter2D(Collider2D collision)
     {
         //handler = collision.GetComponent<Transformation_handler>();
-        if (collision.CompareTag("Player"))
-        {
-        /*
-            if (!transformations.full && slime_form != null)
-            {
-                AddTransformation();
-                handler.ChangeForm();
-            }*/
-
+        if (collision.CompareTag("Player") )
+        {   
             if (collision.GetComponent<movement>().isSlamming)
             {
                 collision.GetComponent<movement>().isSlamming = false;
@@ -55,14 +60,12 @@ public class BossStomp : MonoBehaviour
                 }
             }
 
-
-            Hit();
-            if (collision.GetComponent<movement>().isSlamming)
+            if (canBeHit)
             {
-                collision.GetComponent<movement>().isSlamming = false;
+                collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
+                canBeHit = false;
+                Hit();
             }
-
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
         }
     }
 }
