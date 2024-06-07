@@ -7,17 +7,17 @@ public class Stomp : MonoBehaviour
 {
     public float bounce=6;
     public GameObject parent;
-    public GameObject slime;
     public GameObject slime_form;
     public Transformation_logic transformations;
     public Transformation_handler handler;
+
 
     // Start is called before the first frame update
     void Start()
     {
         parent = gameObject.transform.parent.gameObject;
         transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
-
+        
     }
 
     // Update is called once per frame
@@ -52,8 +52,7 @@ public class Stomp : MonoBehaviour
                 }
             }
 
-
-                parent.GetComponent<Animator>().SetBool("hit", true);
+            parent.GetComponent<Animator>().SetBool("hit", true);
             if(collision.GetComponent<movement>().isSlamming)
             {
                 collision.GetComponent<movement>().isSlamming=false;
@@ -61,7 +60,6 @@ public class Stomp : MonoBehaviour
 
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);            
         }
-
     }
 
     public void AddTransformation()

@@ -6,6 +6,7 @@ using UnityEngine;
 public class Mob_manager : MonoBehaviour
 {
     public List<GameObject> Mobs;
+    public GameObject cloud;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,8 +32,17 @@ public class Mob_manager : MonoBehaviour
 
         if (mob.GetComponent<Mob_respawn>().respawnTimer >= 12)
         {
+            MakeCloud(mob.transform);
             mob.GetComponent<ResettableObjects>().ResetState();
         }
     }
+
+    public void MakeCloud(Transform t)
+    {
+        Instantiate(cloud, t.position, cloud.transform.rotation);
+
+    }
+
+
 
 }

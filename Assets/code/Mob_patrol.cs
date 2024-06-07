@@ -76,4 +76,13 @@ public class Mob_patrol : MonoBehaviour
             movingRight = false;
         }
     }
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        //per fare in modo che i nemici non collidano tra loro nel movimento
+        if (collision.gameObject.CompareTag("Mob"))
+        {
+            Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); ;
+        }
+    }
 }

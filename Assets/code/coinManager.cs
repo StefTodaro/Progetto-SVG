@@ -12,18 +12,14 @@ public class coinManager : MonoBehaviour
     
     private GameObject cCObject;
     private coinCounter cC;
-    private GameObject GMobj;
-    private GameManager_logic GM_logic;
+
+    public GameObject takenEffect;
+  
     
     private void Start()
     {
          cCObject = GameObject.FindGameObjectWithTag("coinCounter");
          cC = cCObject.GetComponent<coinCounter>();
-
-        GMobj = GameObject.FindGameObjectWithTag("game_manager");
-        GM_logic= GMobj.GetComponent<GameManager_logic>();
-            
-        
         
     }
     public void InstantiateCoin(Vector3 spawnPosition)
@@ -41,7 +37,8 @@ public class coinManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        {
+        {   
+            Instantiate(takenEffect,transform.position, transform.rotation);
             CollectCoin(collision.gameObject);
         }
     }
@@ -52,7 +49,7 @@ public class coinManager : MonoBehaviour
         cC.addCoin();
         
         
-        GM_logic.UpdateCoinText();
+        GameManager_logic.Instance.UpdateCoinText();
         gameObject.SetActive(false); // Disattiva la moneta
          
         
@@ -67,7 +64,7 @@ public class coinManager : MonoBehaviour
     public void resetCoin(int nCoin)
     {
         cC.setCoin(nCoin);
-        GM_logic.UpdateCoinText();
+        GameManager_logic.Instance.UpdateCoinText();
     }
 
 

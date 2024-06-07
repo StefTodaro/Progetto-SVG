@@ -6,6 +6,8 @@ public class Slime_stinger_script : MonoBehaviour
 {
     private float timer=0;
 
+    public GameObject hitEffect;
+
     public LayerMask targetLayer;
     // Start is called before the first frame update
     void Start()
@@ -31,8 +33,17 @@ public class Slime_stinger_script : MonoBehaviour
             if (!collision.GetComponent<Snail_logic>())
             {
                 collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
+                if (collision.GetComponent<Boss_logic>())
+                {
+                    collision.GetComponent<Boss_logic>().HitJump();
+                }
+                else
+                {
+                    collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
+                }
                
             }
+            Instantiate(hitEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
 
@@ -40,6 +51,7 @@ public class Slime_stinger_script : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground") && !collision.gameObject.CompareTag("platform"))
         {
             // Distruggi l'oggetto corrente
+            Instantiate(hitEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }

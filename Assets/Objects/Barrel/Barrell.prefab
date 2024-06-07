@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6040549924225528868}
   - component: {fileID: 6040549924225528871}
   - component: {fileID: 6040549924225528869}
+  - component: {fileID: 3835606413639168172}
   m_Layer: 3
   m_Name: Barrell
   m_TagString: Object
@@ -189,5 +190,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 030908bb8276c09468b515d7cd76d547, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  onGround: 0
+  dropCoin: 1
+  cloud: {fileID: 3693174588062043796, guid: 2d2d97124dda3094493ac661b6d64a5a, type: 3}
+--- !u!114 &3835606413639168172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6040549924225529054}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfdb1afb6ae39646ae71becde578f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 

@@ -9,6 +9,8 @@ public class Mob_bullet_script : MonoBehaviour
     public float force;
     public float timer=0 ;
     public LayerMask targetLayer;
+
+    public GameObject hitEffect;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,7 +31,7 @@ public class Mob_bullet_script : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 8)
+        if (timer > 5)
         {
             Destroy(gameObject);
         }
@@ -39,6 +41,7 @@ public class Mob_bullet_script : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
+            Instantiate(hitEffect,transform.position,transform.rotation);
             Destroy(gameObject);
         }
 
@@ -46,6 +49,7 @@ public class Mob_bullet_script : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground") && collision.gameObject.tag!="platform")
         {
             // Distruggi l'oggetto corrente
+            Instantiate(hitEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }
     }
