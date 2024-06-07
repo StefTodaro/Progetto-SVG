@@ -8,7 +8,8 @@ public class StartMenuController : MonoBehaviour
 
     public CanvasGroup OptionPanel;
     public CanvasGroup CreditsPanel;
-    public CanvasGroup GameControl;
+    public CanvasGroup ControlPanel;
+    
     public void PlayGame()
     {
         SceneManager.LoadScene("Selezione livelli");
@@ -43,13 +44,17 @@ public class StartMenuController : MonoBehaviour
 
     public void Control()
     {
-        GameControl.alpha = 1;
-        GameControl.blocksRaycasts = true;
+        ControlPanel.alpha = 1;
+        ControlPanel.blocksRaycasts = true;
     }
 
     public void BackControl()
     {
-        GameControl.alpha = 0;
-        GameControl.blocksRaycasts = false;
+        ControlPanel.alpha = 0;
+        ControlPanel.blocksRaycasts = false;
     }
+
+    
+
+    
 }
