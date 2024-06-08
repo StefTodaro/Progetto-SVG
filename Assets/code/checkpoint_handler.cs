@@ -11,11 +11,18 @@ public class checkpoint_handler : MonoBehaviour
     public GameObject objectList;
     public Animator anim;
     
-    
-    
-   
 
-   // public GameObject baseSlime;
+
+
+    //Funzione che restituisce lo stato del checkpoint (attivato o disattivato)
+    public bool isActive(GameObject checkpoint)
+    {
+        return activated;
+    }
+
+    
+
+    // public GameObject baseSlime;
     // Start is called before the first frame update
     void Start()
     {

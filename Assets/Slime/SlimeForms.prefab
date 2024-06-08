@@ -221,7 +221,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6693223477065526608, guid: e3f633b13e70eca41bc2fef3ee0aab80, type: 3}
       propertyPath: m_Name
-      value: SlimeRino (1)
+      value: SlimeRino
       objectReference: {fileID: 0}
     - target: {fileID: 6693223477065526608, guid: e3f633b13e70eca41bc2fef3ee0aab80, type: 3}
       propertyPath: m_IsActive

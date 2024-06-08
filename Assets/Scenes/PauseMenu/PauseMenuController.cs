@@ -8,13 +8,18 @@ public class PauseMenuController : MonoBehaviour
     public GameObject PauseMenu;
     public GameObject controls;
     public GameObject options;
-    private PauseMenu pauseMenuScript;
+    private GameObject pauseMenuScript;
+   
 
     
     
     public void RestartLevel()
     {
         //Richiamare funzione per il restart livello
+        pauseMenuScript.GetComponent<PauseMenu>().Resume();
+        GameManager_logic.Instance.RestartLevel();
+
+
     }
     
 
@@ -49,7 +54,7 @@ public class PauseMenuController : MonoBehaviour
     {
         //programmare l'uscita dal livello 
         PauseMenu.SetActive(false);
-        pauseMenuScript.LoadLevelSelection();
+        pauseMenuScript.GetComponent<PauseMenu>().LoadLevelSelection();
         
        
 
@@ -64,7 +69,8 @@ public class PauseMenuController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        pauseMenuScript = FindObjectOfType<PauseMenu>();
+        pauseMenuScript = GameObject.Find("PauseMenu");
+        
     }
 
     

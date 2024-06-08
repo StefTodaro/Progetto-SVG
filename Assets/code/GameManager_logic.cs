@@ -14,7 +14,7 @@ public class GameManager_logic : MonoBehaviour
     public List<GameObject> objectsToReset;
     public GameObject objectList;
     public GameObject mainCamera;
-
+    
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
 
@@ -22,7 +22,10 @@ public class GameManager_logic : MonoBehaviour
     private coinManager cManager;
   
     private coinCounter cCounter;
-
+    private GameObject transformationHandler;
+    public GameObject startCheckPoint;
+    public GameObject startPosition;
+    private bool restart = false;
 
     private void Start()
     {
@@ -44,18 +47,36 @@ public class GameManager_logic : MonoBehaviour
 
         cManager = GameObject.FindGameObjectWithTag("coin").GetComponent<coinManager>();
         cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
-    
+        transformationHandler = GameObject.FindGameObjectWithTag("t_handler");
 
-
-        
     }
 
+    //Va chiamato nella funzione restart level del menu di pausa
+    public void RestartLevel()
+    {
+        restart = true;
+        var Player = GameObject.FindGameObjectWithTag("Player");
+        cCounter.ResetCoinsToLevel();
+        Player.GetComponent<Slime_objects_logic>().ClearInObject(); //Svuota la lista degli oggetti assorbiti
+        transformationHandler.GetComponent<Transformation_logic>().ClearTransformation();   //Rinizializza la lista delle trasformazioni NON FUNZIONA
+        var Checkpoint = GameObject.Find("Checkpoint");
+        if (Checkpoint.GetComponent<checkpoint_handler>().isActive(startCheckPoint)) //Se il checkpoint è stato attivato
+        {
+            checkpointPosition = startCheckPoint.transform.position;//Pone come checkpoint attuale il checkpoint iniziale
+        } else
+        {
+            Player.transform.position = startPosition.transform.position;
+        }
+        RespawnPlayer(Player);
+        restart = false;
+        
+    }
    
 
     public void SetCheckpoint(Vector2 newCheckpointPosition)
     {
         checkpointPosition = newCheckpointPosition;
-        checkpointCoins = cManager.getNumberCoin();
+        checkpointCoins = cCounter.getCoinLevel();  
     }
 
 
@@ -64,16 +85,16 @@ public class GameManager_logic : MonoBehaviour
         player.transform.position = checkpointPosition;
         foreach (GameObject obj in objectsToReset)
         {
-           
-            
+
+
             //Se l'oggetto è inglobato dal giocatore allora non respawna
-            if (obj.CompareTag("Object") && 
+            if (obj.CompareTag("Object") &&
                 !objectList.GetComponent<Incorporated_objects_list>().list.Contains(obj))
             {
                 obj.GetComponent<ResettableObjects>().ResetState();
 
             }
-            else if(!obj.CompareTag("Object"))
+            else if (!obj.CompareTag("Object"))
             {
 
 
@@ -97,35 +118,26 @@ public class GameManager_logic : MonoBehaviour
                 obj.GetComponent<ResettableObjects>().ResetState();
             }
 
-           
-         
-
-
-
         }
 
-        //Reset the coin in the level 
-        cManager.resetCoin(checkpointCoins);
+        if (!restart)
+        {
+            //Reset the coin in the level 
+            cManager.resetCoin(checkpointCoins);
+        }
     }
 
+    
     public void UpdateCoinText()
     {
         GameObject coinCounter = GameObject.Find("CoinCounterG");
         
         Text coinText = coinCounter.GetComponentInChildren<Text>();
-        if (coinText != null)
-        {
-            coinText.text = cCounter.getCoin().ToString();
-        }
+        
+        coinText.text = cCounter.getCoin().ToString();
+        
         
     }
-
-    public void changeScene()
-    {
-        
-    }
-
-  
 
     //funzioni per gestire l'obbiettivo della main caamera
     public void LockCamera()
