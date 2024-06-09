@@ -52,7 +52,7 @@ public class Transformation_logic : MonoBehaviour
         }
         if (selector.transform.position!= transformationsUI[c].transform.position)
         {
-            selector.transform.position = Vector2.MoveTowards(selector.transform.position, transformationsUI[c].transform.position, 5);
+            selector.transform.position = Vector2.MoveTowards(selector.transform.position, transformationsUI[c].transform.position, 1080);
         }
     }
     public void ClearTransformation() //NON FUNZIA, anche perché il BaseSlime viene disabilitato dopo che ti sei trasformado 

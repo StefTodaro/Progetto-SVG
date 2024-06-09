@@ -4951,6 +4951,7 @@ MonoBehaviour:
   currentTransformation: {fileID: 0}
   transformations: {fileID: 0}
   dropFormEffect: {fileID: 4936685598353660349, guid: 759c338d2daee9944b7af8bd1004e997, type: 3}
+  releaseTransformSound: {fileID: 8300000, guid: 8d5574d99454af447ad9c9327b574ee4, type: 3}
 --- !u!114 &8979685145127967550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4963,7 +4964,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02d5215aa608271418009dfe686b8a88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 2.75
+  moveSpeed: 3.5
   jumpForce: 6.5
   slumForce: 8
   groundCheck: {fileID: 8979685145127967545}
@@ -4985,6 +4986,12 @@ MonoBehaviour:
   landingEffect: {fileID: 3693174588062043796, guid: 2d2d97124dda3094493ac661b6d64a5a, type: 3}
   boxBreakEffect: {fileID: 6839261453018002354, guid: 8f78179ff1d8d0c4298dffe408112699, type: 3}
   slimeDrops: {fileID: 2705813515532602711, guid: 4f42529042771fe4c98a5eef160715ec, type: 3}
+  jumpAudioClip: {fileID: 8300000, guid: 4d0ef3c5e821e79418efc8e4a009883f, type: 3}
+  landAudioClip: {fileID: 8300000, guid: 6574941522a8ae044b1c82701fe0892f, type: 3}
+  slamAudioClip: {fileID: 8300000, guid: 4bfd6d69363717843acc19f1ec98efc4, type: 3}
+  deathAudioClip: {fileID: 8300000, guid: 6a159f0823a059f4ba42bc50f6b3f80a, type: 3}
+  hitAudioClip: {fileID: 8300000, guid: dd4954d0bf218744da6c0dcdc16d1a21, type: 3}
+  boxBreakAudioClip: {fileID: 8300000, guid: 4e38923b629eb3a419a4f098ec5bf020, type: 3}
   canBeHit: 1
   invulnerabilityTimer: 0
 --- !u!95 &8979685145127967537
@@ -5034,7 +5041,11 @@ MonoBehaviour:
   inObject: {fileID: 0}
   incorporateTimer: 0
   incorporateTime: 0.8
+  ejectTimer: 0
+  ejectTime: 0.5
   canIncorporate: 1
+  canEject: 1
+  interactSound: {fileID: 8300000, guid: 49014b2118acdfa49bf7c45be81f4672, type: 3}
 --- !u!61 &8979685145127967538
 BoxCollider2D:
   m_ObjectHideFlags: 0

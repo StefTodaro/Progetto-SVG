@@ -169,6 +169,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a595ce1cd636bd746b76d8de0049015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
+  deathSound: {fileID: 0}
 --- !u!114 &1384142092642832281
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -312,3 +314,4 @@ MonoBehaviour:
   hit: 0
   initialColliderSize: {x: 0, y: 0}
   initialColliderOffset: {x: 0, y: 0}
+  hitAudio: {fileID: 8300000, guid: b4bce86abefa1a64889f8ae81e78ec4f, type: 3}

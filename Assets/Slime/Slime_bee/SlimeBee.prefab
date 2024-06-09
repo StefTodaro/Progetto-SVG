@@ -37,6 +37,7 @@ Transform:
   m_LocalScale: {x: 0.2, y: 0.2, z: 0.2}
   m_Children:
   - {fileID: 3372897825032957214}
+  - {fileID: 8726929436752704772}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -160,8 +161,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4365645082015642134, guid: acd53406c38a79247bbdee81946309d0, type: 3}
-  firePoint: {fileID: 3372897824792118130}
+  firePoint: {fileID: 8726929436752704772}
   bulletSpeed: 6
+  shotAudio: {fileID: 8300000, guid: 84f3eeed97ae57a4899f37899d04de12, type: 3}
 --- !u!114 &3372897824792118091
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,6 +198,12 @@ MonoBehaviour:
   landingEffect: {fileID: 3693174588062043796, guid: 2d2d97124dda3094493ac661b6d64a5a, type: 3}
   boxBreakEffect: {fileID: 6839261453018002354, guid: 8f78179ff1d8d0c4298dffe408112699, type: 3}
   slimeDrops: {fileID: 2705813515532602711, guid: 4f42529042771fe4c98a5eef160715ec, type: 3}
+  jumpAudioClip: {fileID: 8300000, guid: 4d0ef3c5e821e79418efc8e4a009883f, type: 3}
+  landAudioClip: {fileID: 8300000, guid: 6574941522a8ae044b1c82701fe0892f, type: 3}
+  slamAudioClip: {fileID: 8300000, guid: 4bfd6d69363717843acc19f1ec98efc4, type: 3}
+  deathAudioClip: {fileID: 8300000, guid: 6a159f0823a059f4ba42bc50f6b3f80a, type: 3}
+  hitAudioClip: {fileID: 8300000, guid: dd4954d0bf218744da6c0dcdc16d1a21, type: 3}
+  boxBreakAudioClip: {fileID: 0}
   canBeHit: 1
   invulnerabilityTimer: 0
 --- !u!114 &3372897824792118090
@@ -216,6 +224,7 @@ MonoBehaviour:
   currentTransformation: {fileID: 0}
   transformations: {fileID: 0}
   dropFormEffect: {fileID: 4936685598353660349, guid: 759c338d2daee9944b7af8bd1004e997, type: 3}
+  releaseTransformSound: {fileID: 8300000, guid: 8d5574d99454af447ad9c9327b574ee4, type: 3}
 --- !u!114 &3372897824792118085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,7 +241,11 @@ MonoBehaviour:
   inObject: {fileID: 0}
   incorporateTimer: 0
   incorporateTime: 0.8
+  ejectTimer: 0
+  ejectTime: 0.2
   canIncorporate: 1
+  canEject: 1
+  interactSound: {fileID: 8300000, guid: 49014b2118acdfa49bf7c45be81f4672, type: 3}
 --- !u!61 &3372897824792118084
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -5063,3 +5076,33 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!1 &5111103639999859995
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8726929436752704772}
+  m_Layer: 0
+  m_Name: FirePoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8726929436752704772
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5111103639999859995}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.04, y: 0.6, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 3372897824792118130}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

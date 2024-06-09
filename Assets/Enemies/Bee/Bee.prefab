@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4747472078341550580}
   - component: {fileID: 4747472078341550581}
-  - component: {fileID: 4747472078341550582}
   - component: {fileID: 4747472078341550583}
   - component: {fileID: 4747472078341550584}
   - component: {fileID: 4747472078341550585}
@@ -18,6 +17,7 @@ GameObject:
   - component: {fileID: 4747472078341550587}
   - component: {fileID: 1640881582798325397}
   - component: {fileID: 6597572053927603691}
+  - component: {fileID: 7596324788030950226}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Mob
@@ -92,22 +92,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!70 &4747472078341550582
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4747472078341550588}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: -0.0052258912, y: -0.008736813}
-  m_Size: {x: 0.6133012, y: 0.8887767}
-  m_Direction: 0
 --- !u!50 &4747472078341550583
 Rigidbody2D:
   serializedVersion: 4
@@ -160,6 +144,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a595ce1cd636bd746b76d8de0049015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
+  deathSound: {fileID: 8300000, guid: de494378940a2ba47b86a305d977cc39, type: 3}
 --- !u!114 &4747472078341550586
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +179,7 @@ MonoBehaviour:
   range: 6.5
   maxAngle: 0
   minAngle: -190
+  shotAudio: {fileID: 8300000, guid: 92a224be2b680374eb00e73639286971, type: 3}
 --- !u!114 &1640881582798325397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -219,6 +206,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9bfdb1afb6ae39646ae71becde578f44, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!61 &7596324788030950226
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747472078341550588}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0.0023761392, y: -0.1309179}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 1, y: 0.90625}
+    newSize: {x: 1, y: 0.90625}
+    adaptiveTilingThreshold: 0.5
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 0.55827844, y: 0.6444142}
+  m_EdgeRadius: 0
 --- !u!1 &4747472078977022330
 GameObject:
   m_ObjectHideFlags: 0
@@ -291,10 +304,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 6
   parent: {fileID: 4747472078341550588}
-  slime: {fileID: 0}
   slime_form: {fileID: 4979979483999387485, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
   transformations: {fileID: 0}
   handler: {fileID: 0}
+  hitAudio: {fileID: 8300000, guid: b4bce86abefa1a64889f8ae81e78ec4f, type: 3}
 --- !u!1 &4747472079120362176
 GameObject:
   m_ObjectHideFlags: 0

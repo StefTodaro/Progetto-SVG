@@ -146,3 +146,4 @@ MonoBehaviour:
   game_manager: {fileID: 0}
   objectList: {fileID: 0}
   anim: {fileID: 0}
+  activationAudio: {fileID: 8300000, guid: eaaa5330986977d438322ada2b3f10b3, type: 3}

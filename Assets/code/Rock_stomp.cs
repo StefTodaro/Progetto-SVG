@@ -17,6 +17,8 @@ public class Rock_stomp : MonoBehaviour
     public Vector2 initialColliderSize;
     public Vector2 initialColliderOffset;
 
+    public AudioClip hitAudio;
+
 
 
 
@@ -53,7 +55,7 @@ public class Rock_stomp : MonoBehaviour
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
         {
-
+            SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             hit++;
              if (!transformations.full && hit==3 && slime_form != null) 
              {

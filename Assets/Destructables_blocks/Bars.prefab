@@ -238,6 +238,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   breakEffect: {fileID: 6839261453018002354, guid: 8f78179ff1d8d0c4298dffe408112699, type: 3}
+  breakAudioClip: {fileID: 8300000, guid: 4e38923b629eb3a419a4f098ec5bf020, type: 3}
 --- !u!1 &4014680487300812328
 GameObject:
   m_ObjectHideFlags: 0

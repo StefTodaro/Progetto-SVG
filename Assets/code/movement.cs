@@ -31,10 +31,16 @@ public class movement : MonoBehaviour
     public GameObject deathPanel;
 
     public GameObject landingEffect;
-    public GameObject boxBreakEffect;
     public GameObject slimeDrops;
 
+    public AudioClip jumpAudioClip;
+    public AudioClip landAudioClip;
+    public AudioClip slamAudioClip;
+    public AudioClip deathAudioClip;
+    public AudioClip hitAudioClip;
     
+
+
 
     public bool canBeHit=true;
     //timer per far lampeggiare il personaggio quando colpito
@@ -114,7 +120,6 @@ public class movement : MonoBehaviour
             canSlam = true;
         }
 
-        
         if (!canBeHit)
         {
            FlashEffect();
@@ -123,7 +128,6 @@ public class movement : MonoBehaviour
         {
             GetComponent<SpriteRenderer>().enabled = true;
         }
-
     }
 
     public void Movement()
@@ -134,6 +138,8 @@ public class movement : MonoBehaviour
 
     public void Jump()
     {
+        if(jumpAudioClip!=null)
+        SoundEffectManager.Instance.PlaySoundEffect(jumpAudioClip, transform, 0.5f);
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
 
@@ -219,6 +225,17 @@ public class movement : MonoBehaviour
             if (!collision.gameObject.CompareTag("Object"))
             {
                 Instantiate(landingEffect, transform.position, transform.rotation);
+
+                if (!isSlamming)
+                {
+                    if (landAudioClip != null)
+                        SoundEffectManager.Instance.PlaySoundEffect(landAudioClip, transform, 0.3f);
+                }
+                else
+                {
+                    if (slamAudioClip != null)
+                        SoundEffectManager.Instance.PlaySoundEffect(slamAudioClip, transform, 1f);
+                }
             }
 
         }
@@ -227,13 +244,13 @@ public class movement : MonoBehaviour
         {
             if (isSlamming)
             {
+                
                 coinManager coinManager = coinPrefab.GetComponent<coinManager>();
                 if (coinManager != null && collision.GetComponent<Object_logic>().dropCoin)
                 {
                     coinManager.InstantiateCoin(collision.transform.position);
                 }
-                Instantiate(boxBreakEffect,collision.transform.position,collision.transform.rotation);
-                collision.gameObject.SetActive(false);
+                collision.GetComponent<Object_logic>().Break();
             }
         }
 
@@ -256,15 +273,11 @@ public class movement : MonoBehaviour
 
     }
 
-
     public void DieAndRespawn()
     {
       
-        if (slimeDrops != null)
-        {
-            Destroy(slimeDrops);
-        }
         Instantiate(slimeDrops, transform.position, transform.rotation);
+        SoundEffectManager.Instance.PlaySoundEffect(deathAudioClip, transform, 0.5f);
         GameManager_logic.Instance.LockCamera();
         deathPanel.GetComponent<Death_panel_logic>().ActivePanel();
         gameObject.GetComponent<Transformation_handler>().LosePower();
@@ -276,7 +289,8 @@ public class movement : MonoBehaviour
     {
 
         if (gameObject.GetComponent<Transformation_handler>().transformed)
-        {        
+        {
+            SoundEffectManager.Instance.PlaySoundEffect(hitAudioClip, transform, 0.4f);
             gameObject.GetComponent<Transformation_handler>().LosePower();
             //attiva l'invulnerabilità così che sia attiva per tutte le trasformazioni
             gameObject.GetComponent<Transformation_handler>().ActivateInvulnerability();

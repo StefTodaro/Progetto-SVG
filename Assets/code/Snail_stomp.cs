@@ -20,6 +20,8 @@ public class Snail_stomp : MonoBehaviour
 
     public Transformation_logic transformations;
     public Transformation_handler handler;
+
+    public AudioClip hitAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -52,7 +54,7 @@ public class Snail_stomp : MonoBehaviour
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
         {
-
+            SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             if (hasSlammed)
             {
                 if (!transformations.full && slime_form != null)

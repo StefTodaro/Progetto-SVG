@@ -12,6 +12,8 @@ public class Mob_shooting : MonoBehaviour
     public float maxAngle = 0;
     public float minAngle =- 120;
 
+    public AudioClip shotAudio;
+
     private float timer;
     // Start is called before the first frame update
     void Start()
@@ -39,7 +41,6 @@ public class Mob_shooting : MonoBehaviour
             if (playerRelativeY < 0)
             {
                 timer += Time.deltaTime;
-
                 if (timer > 1.75f)
                 {
                     timer = 0;
@@ -58,8 +59,9 @@ public class Mob_shooting : MonoBehaviour
         
     }
 
-    public void shoot()
+    public void Shoot()
     {
+        SoundEffectManager.Instance.PlaySoundEffect(shotAudio, transform, 0.4f);
         Instantiate(bullet, bulletPos.position, Quaternion.identity);
         
     }

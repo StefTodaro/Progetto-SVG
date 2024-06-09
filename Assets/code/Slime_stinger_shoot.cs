@@ -12,6 +12,8 @@ public class Slime_stinger_shoot : MonoBehaviour
     private float fireDelay = 1f;
     private float liveTimer;
 
+    public AudioClip shotAudio;
+
     void Update()
     {   
        
@@ -31,6 +33,8 @@ public class Slime_stinger_shoot : MonoBehaviour
 
     void Shoot(Vector2 direction)
     {
+
+        SoundEffectManager.Instance.PlaySoundEffect(shotAudio, transform, 0.5f);
         // Crea un nuovo proiettile dalla prefab
         GameObject bullet = Instantiate(bulletPrefab, firePoint.position, Quaternion.identity);
 

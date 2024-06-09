@@ -189,6 +189,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a595ce1cd636bd746b76d8de0049015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
+  deathSound: {fileID: 8300000, guid: 6a159f0823a059f4ba42bc50f6b3f80a, type: 3}
 --- !u!61 &6162503913335913502
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -237,6 +239,7 @@ MonoBehaviour:
   stunned: 0
   bounceStength: 3
   chase: {fileID: 0}
+  crashAudio: {fileID: 8300000, guid: cdd10cf1d572d674da42248fefabceda, type: 3}
 --- !u!114 &6162503913335913481
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -335,7 +338,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 6
   parent: {fileID: 6162503913335913503}
-  slime: {fileID: 0}
   slime_form: {fileID: 0}
   transformations: {fileID: 0}
   handler: {fileID: 0}
+  hitAudio: {fileID: 8300000, guid: b4bce86abefa1a64889f8ae81e78ec4f, type: 3}

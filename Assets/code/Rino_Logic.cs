@@ -19,6 +19,7 @@ public class Rino_Logic : MonoBehaviour
 
 
     public Mob_onGround_chase chase;
+    public AudioClip crashAudio;
 
     // Start is called before the first frame update
     void Start()
@@ -79,6 +80,7 @@ public class Rino_Logic : MonoBehaviour
     {
         if (isCharging && !collision.CompareTag("Mob"))
         {
+            SoundEffectManager.Instance.PlaySoundEffect(crashAudio, transform, 0.45f);
             gameObject.GetComponent<Rigidbody2D>().AddForce(transform.right * bounceStength, ForceMode2D.Impulse);
             gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bounceStength, ForceMode2D.Impulse);
             isCharging = false;

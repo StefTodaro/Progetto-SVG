@@ -10,6 +10,8 @@ public class BossMobsSpawn : MonoBehaviour
     public GameObject cloud;
     public float waitTime;
 
+    public AudioClip spawnSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -34,7 +36,8 @@ public class BossMobsSpawn : MonoBehaviour
         {
             waitTime += Time.deltaTime;
             if (waitTime > 1.5f)
-            {   //sconfitti tutti i nemici e passato il tempo di attesa si avvia l'ultima fase
+            {  
+                //sconfitti tutti i nemici e passato il tempo di attesa si avvia l'ultima fase
                 GameObject.FindObjectOfType<Boss_logic>().StartFight();
                 GameObject.FindObjectOfType<Boss_logic>().MakeBlockFall();
                 GameObject.FindObjectOfType<Boss_logic>().PassToNextPhase();
@@ -53,6 +56,7 @@ public class BossMobsSpawn : MonoBehaviour
             int mobToSpawnIndex = Random.Range(0, mobs.Length);
             if (!mobs[mobToSpawnIndex].active)
             {
+                SoundEffectManager.Instance.PlaySoundEffect(spawnSound, mobs[mobToSpawnIndex].transform, 0.4f);
                 Instantiate(cloud, mobs[mobToSpawnIndex].transform.position, cloud.transform.rotation);
                 mobs[mobToSpawnIndex].SetActive(true);
                 mobsSpawned.Add(mobs[mobToSpawnIndex]);

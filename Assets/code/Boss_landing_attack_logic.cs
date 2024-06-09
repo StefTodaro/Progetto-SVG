@@ -39,7 +39,7 @@ public class Boss_landing_attack_logic : MonoBehaviour
     {
         if (collision.CompareTag("Object"))
         {   
-            Destroy(collision.gameObject);
+           collision.GetComponent<Object_logic>().Break();
             Destroy(gameObject);
         }
     }

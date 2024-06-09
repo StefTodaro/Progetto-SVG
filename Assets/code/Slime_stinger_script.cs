@@ -9,6 +9,8 @@ public class Slime_stinger_script : MonoBehaviour
     public GameObject hitEffect;
 
     public LayerMask targetLayer;
+
+    public AudioClip hitAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,11 +49,13 @@ public class Slime_stinger_script : MonoBehaviour
             Destroy(gameObject);
         }
 
-        // Verifica se la collisione è avvenuta con un oggetto del layer desiderato
+        // Verifica se la collisione è avvenuta con un oggetto del layer desiderato 
+        //e controlla che non sia una piattaforma
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground") && !collision.gameObject.CompareTag("platform"))
         {
             // Distruggi l'oggetto corrente
             Instantiate(hitEffect, transform.position, transform.rotation);
+            SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.55f);
             Destroy(gameObject);
         }
     }

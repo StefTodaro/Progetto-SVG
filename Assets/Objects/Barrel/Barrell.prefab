@@ -195,6 +195,8 @@ MonoBehaviour:
   onGround: 0
   dropCoin: 1
   cloud: {fileID: 3693174588062043796, guid: 2d2d97124dda3094493ac661b6d64a5a, type: 3}
+  boxBreakAudioClip: {fileID: 8300000, guid: 4e38923b629eb3a419a4f098ec5bf020, type: 3}
+  boxBreakEffect: {fileID: 6839261453018002354, guid: 8f78179ff1d8d0c4298dffe408112699, type: 3}
 --- !u!114 &3835606413639168172
 MonoBehaviour:
   m_ObjectHideFlags: 0

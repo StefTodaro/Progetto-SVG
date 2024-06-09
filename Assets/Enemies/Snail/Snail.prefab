@@ -45,7 +45,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.45800978, y: -0.0019699335}
+  m_Offset: {x: -0.42352733, y: -0.0019699335}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -56,7 +56,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.23701057, y: 0.69151986}
+  m_Size: {x: 0.22423881, y: 0.69151986}
   m_EdgeRadius: 0
 --- !u!114 &347272839338402293
 MonoBehaviour:
@@ -81,6 +81,7 @@ MonoBehaviour:
   hasSlammed: 0
   transformations: {fileID: 0}
   handler: {fileID: 0}
+  hitAudio: {fileID: 8300000, guid: b4bce86abefa1a64889f8ae81e78ec4f, type: 3}
 --- !u!1 &347272839471551144
 GameObject:
   m_ObjectHideFlags: 0
@@ -100,7 +101,7 @@ GameObject:
   - component: {fileID: 347272839471551145}
   - component: {fileID: 597972781292396888}
   m_Layer: 0
-  m_Name: Snail (1)
+  m_Name: Snail
   m_TagString: Mob
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -185,7 +186,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.03586957, y: 0}
+  m_Offset: {x: 0.16428137, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -196,7 +197,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7094098, y: 0.6875}
+  m_Size: {x: 0.600847, y: 0.6875}
   m_EdgeRadius: 0
 --- !u!114 &347272839471551150
 MonoBehaviour:
@@ -229,7 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a595ce1cd636bd746b76d8de0049015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cloud: {fileID: 0}
+  cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
+  deathSound: {fileID: 0}
 --- !u!50 &347272839471551148
 Rigidbody2D:
   serializedVersion: 4

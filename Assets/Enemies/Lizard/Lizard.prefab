@@ -171,6 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a595ce1cd636bd746b76d8de0049015c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
 --- !u!114 &2956616765506193900
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -338,7 +339,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 6
   parent: {fileID: 2956616765506193889}
-  slime: {fileID: 0}
   slime_form: {fileID: 0}
   transformations: {fileID: 0}
   handler: {fileID: 0}

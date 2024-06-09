@@ -11,6 +11,8 @@ public class Stomp : MonoBehaviour
     public Transformation_logic transformations;
     public Transformation_handler handler;
 
+    public AudioClip hitAudio;
+
 
     // Start is called before the first frame update
     void Start()
@@ -28,8 +30,10 @@ public class Stomp : MonoBehaviour
     {
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
-        {
-          
+        {   
+            if(hitAudio!=null)
+            SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f); 
+
             if (!transformations.full && slime_form!=null)
             {
                     AddTransformation();

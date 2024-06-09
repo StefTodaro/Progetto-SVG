@@ -13,6 +13,8 @@ public class Transformation_handler : MonoBehaviour
     public Transformation_logic transformations;
     public GameObject dropFormEffect;
 
+    public AudioClip releaseTransformSound;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,6 +42,7 @@ public class Transformation_handler : MonoBehaviour
             {
                 Instantiate(dropFormEffect, transform.position, dropFormEffect.transform.rotation);
             }
+            SoundEffectManager.Instance.PlaySoundEffect(releaseTransformSound, transform, 0.6f);
             LosePower();
             rb_base.velocity = new Vector2(rb_base.velocity.x, transformJump);
         }
