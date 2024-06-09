@@ -5,6 +5,7 @@ using UnityEngine;
 public class Destroy_mob : MonoBehaviour
 {
     public GameObject cloud;
+    public AudioClip deathSound;
 
     private void Start()
     {
@@ -20,6 +21,7 @@ public class Destroy_mob : MonoBehaviour
     private void KillMob()
     {
         gameObject.SetActive(false);
+        SoundEffectManager.Instance.PlaySoundEffect(deathSound, transform, 0.45f);
         Instantiate(cloud, transform.position, cloud.transform.rotation);
     }
 }

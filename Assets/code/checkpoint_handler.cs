@@ -10,6 +10,7 @@ public class checkpoint_handler : MonoBehaviour
     public GameObject game_manager;
     public GameObject objectList;
     public Animator anim;
+    public AudioClip activationAudio;
     
     
     
@@ -42,11 +43,10 @@ public class checkpoint_handler : MonoBehaviour
         {
             if (collision.CompareTag("Player")  && !activated)
             {
+                SoundEffectManager.Instance.PlaySoundEffect(activationAudio, transform, 0.5f);
                 activated = true;
                 game_manager.GetComponent<GameManager_logic>().SetCheckpoint(transform.position);
                 anim.SetBool("active", activated);
-                
-                
             }
         }
 

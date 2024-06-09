@@ -13,6 +13,8 @@ public class Slime_bird_double_jump : MonoBehaviour
     //booleano che verifica se il personaggio sia su una cassa
     public bool onBox=false;
 
+    public AudioClip flapSound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -58,6 +60,7 @@ public class Slime_bird_double_jump : MonoBehaviour
     public void DoubleJump()
     {
         rb.velocity = new Vector2(rb.velocity.x, DoubleJumpForce);
+        SoundEffectManager.Instance.PlaySoundEffect(flapSound,transform,0.5f);
         anim.SetBool("doubleJump", false);
     }
 

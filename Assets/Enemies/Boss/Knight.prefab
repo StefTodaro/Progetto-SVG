@@ -203,12 +203,6 @@ MonoBehaviour:
   attackTimer: 0
   backForce: 5
   jumpForce: 4
-  minJumpForce: 4
-  maxJumpForce: 10
-  minJumpHorizontalForce: 3
-  maxJumpHorizontalForce: 25
-  minDistance: 2.5
-  maxDistance: 50
   phase: 000000000000
   p: 0
   inAirTimer: 0
@@ -219,6 +213,9 @@ MonoBehaviour:
   isFighting: 1
   escapePoint: {fileID: 0}
   hitBox: {fileID: 5573013922826527399}
+  blockDropper: {fileID: 0}
+  landingSound: {fileID: 8300000, guid: cb2790b17cb7ae7488fcfb3bd34763d6, type: 3}
+  swordSound: {fileID: 8300000, guid: 8d13fb2a06edcd040ad571df98273c77, type: 3}
 --- !u!114 &5573013921925676428
 MonoBehaviour:
   m_ObjectHideFlags: 0

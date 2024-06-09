@@ -78,3 +78,5 @@ MonoBehaviour:
   coinCounter: {fileID: 0}
   price: 0
   aquisitionEffect: {fileID: 4264474510233936447, guid: eacf4d69d07bd3646adffff5626b6836, type: 3}
+  cashInSound: {fileID: 8300000, guid: 77563844d1e3ee248b73f15b0ff976bf, type: 3}
+  cantBuySound: {fileID: 8300000, guid: ef271b68049c18c419232a37976fa241, type: 3}

@@ -6,6 +6,7 @@ public class BlockBreakEffect : MonoBehaviour
 {
 
     public GameObject breakEffect;
+    public AudioClip breakAudioClip;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,7 +22,10 @@ public class BlockBreakEffect : MonoBehaviour
 
     public void CallBreakEffect()
     {
-
+        if (breakAudioClip != null)
+        {
+            SoundEffectManager.Instance.PlaySoundEffect(breakAudioClip, transform, 0.45f);
+        }
         Instantiate(breakEffect, transform.position, transform.rotation);
         if (transform.childCount > 0)
         {

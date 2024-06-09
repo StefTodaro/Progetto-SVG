@@ -14,7 +14,6 @@ GameObject:
   - component: {fileID: 8845110733657389867}
   - component: {fileID: 8845110733657389871}
   - component: {fileID: -6551690017378000557}
-  - component: {fileID: -7612329939152127251}
   m_Layer: 3
   m_Name: Block
   m_TagString: Object
@@ -175,15 +174,5 @@ MonoBehaviour:
   onGround: 0
   dropCoin: 1
   cloud: {fileID: 3693174588062043796, guid: 2d2d97124dda3094493ac661b6d64a5a, type: 3}
---- !u!114 &-7612329939152127251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8845110733657389862}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9bfdb1afb6ae39646ae71becde578f44, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  boxBreakAudioClip: {fileID: 8300000, guid: 4e38923b629eb3a419a4f098ec5bf020, type: 3}
+  boxBreakEffect: {fileID: 6839261453018002354, guid: 8f78179ff1d8d0c4298dffe408112699, type: 3}

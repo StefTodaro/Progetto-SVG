@@ -11,6 +11,8 @@ public class slime_lizard_logic : MonoBehaviour
     public movement mov;
     public Animator anim;
 
+    public AudioClip tonguesound;
+
     void Start()
     {
         mov = GetComponent<movement>();
@@ -77,9 +79,11 @@ public class slime_lizard_logic : MonoBehaviour
             {
                 swing.isSwinging = true;
                 attached = true;
+                SoundEffectManager.Instance.PlaySoundEffect(tonguesound, transform, 0.4f);
                 anim.SetBool("attached", true);
 
-            } 
+            }
+
         }
 
         if(Input.GetMouseButtonUp(0) && attached)

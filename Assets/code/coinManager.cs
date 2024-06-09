@@ -14,6 +14,7 @@ public class coinManager : MonoBehaviour
     private coinCounter cC;
 
     public GameObject takenEffect;
+    public AudioClip pickUpAudio;
   
     
     private void Start()
@@ -37,7 +38,8 @@ public class coinManager : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
-        {   
+        {   if (pickUpAudio != null)
+                SoundEffectManager.Instance.PlaySoundEffect(pickUpAudio, transform, 0.35f);
             Instantiate(takenEffect,transform.position, transform.rotation);
             CollectCoin(collision.gameObject);
         }

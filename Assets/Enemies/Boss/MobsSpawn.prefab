@@ -58,6 +58,7 @@ MonoBehaviour:
   activated: 0
   cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
   waitTime: 0
+  spawnSound: {fileID: 8300000, guid: bbf175395568c014eb3b68e85dc051ef, type: 3}
 --- !u!114 &3063185486184214630
 MonoBehaviour:
   m_ObjectHideFlags: 0

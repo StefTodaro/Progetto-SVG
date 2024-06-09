@@ -124,6 +124,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   hitEffect: {fileID: 6178930922089588593, guid: 07241c38e811a1140aa0ed19ec2d39ce, type: 3}
+  hitAudio: {fileID: 8300000, guid: 4c4b472499c507744a039b4147a3d7f6, type: 3}
 --- !u!70 &8054048249270176385
 CapsuleCollider2D:
   m_ObjectHideFlags: 0

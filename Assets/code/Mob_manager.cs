@@ -7,6 +7,8 @@ public class Mob_manager : MonoBehaviour
 {
     public List<GameObject> Mobs;
     public GameObject cloud;
+
+    public AudioClip respawnSound;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,12 +35,14 @@ public class Mob_manager : MonoBehaviour
         if (mob.GetComponent<Mob_respawn>().respawnTimer >= 12)
         {
             MakeCloud(mob.transform);
+
             mob.GetComponent<ResettableObjects>().ResetState();
         }
     }
 
     public void MakeCloud(Transform t)
     {
+        SoundEffectManager.Instance.PlaySoundEffect(respawnSound, t, 0.4f);
         Instantiate(cloud, t.position, cloud.transform.rotation);
 
     }

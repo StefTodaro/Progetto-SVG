@@ -11,6 +11,8 @@ public class Mob_bullet_script : MonoBehaviour
     public LayerMask targetLayer;
 
     public GameObject hitEffect;
+
+    public AudioClip hitAudio;
     // Start is called before the first frame update
     void Start()
     {
@@ -39,16 +41,12 @@ public class Mob_bullet_script : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            Instantiate(hitEffect,transform.position,transform.rotation);
-            Destroy(gameObject);
-        }
 
         // Verifica se la collisione è avvenuta con un oggetto del layer desiderato
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ground") && collision.gameObject.tag!="platform")
+        if (collision.gameObject.CompareTag("Player") || (collision.gameObject.layer == LayerMask.NameToLayer("ground") && collision.gameObject.tag!="platform"))
         {
             // Distruggi l'oggetto corrente
+            SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             Instantiate(hitEffect, transform.position, transform.rotation);
             Destroy(gameObject);
         }

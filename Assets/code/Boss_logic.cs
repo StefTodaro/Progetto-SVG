@@ -20,9 +20,9 @@ public class Boss_logic : MonoBehaviour
     //phase[0]:prima fase
     //phase[1]:seconda fase
     //phase[2]:fuga
-    //phase[3]:attesa e ritorno in combattimento
+    //phase[3]:attesa
     //phase[4]:ultima fase
-    public bool[] phase=new bool[6];
+    public bool[] phase=new bool[5];
     //intero per tenere traccia delle fasi 
     public int p;
     //timer per che tiene conto del tempo in aria trascorso dal boss
@@ -41,6 +41,10 @@ public class Boss_logic : MonoBehaviour
     public BoxCollider2D hitBox;
 
     public GameObject blockDropper;
+
+    public AudioClip landingSound;
+    public AudioClip swordSound;
+  
 
 
 
@@ -227,11 +231,11 @@ public class Boss_logic : MonoBehaviour
        
             if (!Wallcheck())
             {
-                rb.AddForce(-transform.right * backForce , ForceMode2D.Impulse);
+                rb.AddForce(transform.right * backForce*2 , ForceMode2D.Impulse);
             }
             else
             {
-                rb.AddForce(transform.right * backForce , ForceMode2D.Impulse);
+                rb.AddForce(-transform.right * backForce * 2, ForceMode2D.Impulse);
             }
     }
 
@@ -288,9 +292,10 @@ public class Boss_logic : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             isGrounded = true;
+            SoundEffectManager.Instance.PlaySoundEffect(landingSound, transform, 0.5f);
             Instantiate(landingEffect, new Vector2(transform.position.x +0.5f,transform.position.y-1f), landingEffect.transform.rotation);
             if (phase[4] && isFighting)
-            {
+            {   
                 Instantiate(landingAttack, new Vector2(transform.position.x + 0.5f, transform.position.y - 0.8f), landingAttack.transform.rotation);
             }
 
@@ -317,7 +322,7 @@ public class Boss_logic : MonoBehaviour
         //distruzione degli oggetti che colpisce
         if (collision.CompareTag("Object"))
         {
-            Destroy(collision.gameObject);
+            collision.GetComponent<Object_logic>().Break();
         }
     }
 
@@ -402,6 +407,7 @@ public class Boss_logic : MonoBehaviour
     //funzione per instanziare il fendente d'aria 
     public void InstatiateSlash()
     {
+        SoundEffectManager.Instance.PlaySoundEffect(swordSound, transform, 0.6f);
         if (facingRight) {
             Instantiate(slashEffect, new Vector2(transform.position.x + 2f, transform.position.y), transform.rotation);
         }

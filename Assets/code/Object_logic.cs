@@ -7,6 +7,9 @@ public class Object_logic : MonoBehaviour
     public bool onGround;
     public bool dropCoin=true;
     public GameObject cloud;
+    public AudioClip boxBreakAudioClip;
+    public GameObject boxBreakEffect;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -18,11 +21,23 @@ public class Object_logic : MonoBehaviour
     {
     }
 
+    public void Break()
+    {
+        if (boxBreakAudioClip != null)
+        {
+            SoundEffectManager.Instance.PlaySoundEffect(boxBreakAudioClip, transform, 0.2f);
+        }
+        Instantiate(boxBreakEffect, transform.position, transform.rotation);
+        gameObject.SetActive(false);
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player")){
+        if (collision.gameObject.CompareTag("Player") && GetComponent<Animator>())
+        {
                 GetComponent<Animator>().SetBool("jumpOn", true);
             
+          
         }
     }
 
@@ -58,6 +73,11 @@ public class Object_logic : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D collision)
     {
-        GetComponent<Animator>().SetBool("jumpOn", false);
+        if (collision.gameObject.CompareTag("Player") && GetComponent<Animator>())
+        {
+            GetComponent<Animator>().SetBool("jumpOn", false);
+
+        }
+       
     }
 }

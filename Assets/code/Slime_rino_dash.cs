@@ -19,6 +19,10 @@ public class Slime_rino_dash : MonoBehaviour
     public  GameObject coinPrefab;
     public GameObject boxBreakEffect;
 
+    public AudioClip dashSound;
+    public AudioClip boxBreakAudioClip;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +41,7 @@ public class Slime_rino_dash : MonoBehaviour
 
         if (canDash && Input.GetMouseButtonDown(0) && mov.isGrounded)
         {
+            SoundEffectManager.Instance.PlaySoundEffect(dashSound, transform, 0.1f);
             if (mov.facingRight)
             {
                 Instantiate(dashEffect, transform.position, transform.rotation);
@@ -103,23 +108,22 @@ public class Slime_rino_dash : MonoBehaviour
         {
             if (collision.gameObject.CompareTag("Obstacles"))
             {
-                collision.gameObject.SetActive(false); // Distruggi la tile individuale
+               collision.gameObject.SetActive(false); // Distruggi la tile individuale
                 collision.gameObject.GetComponent<BlockBreakEffect>().CallBreakEffect();
             }
-
         }
 
         if (collision.gameObject.CompareTag("Object"))
         {
             if (isDashing)
-            { 
+            {
+             
                 coinManager coinManager = coinPrefab.GetComponent<coinManager>();
                 if (coinManager != null && collision.gameObject.GetComponent<Object_logic>().dropCoin)
                 {
                     coinManager.InstantiateCoin(collision.transform.position);
                 }
-                Instantiate(boxBreakEffect, collision.transform.position, collision.transform.rotation);
-                collision.gameObject.SetActive(false);
+                collision.gameObject.GetComponent<Object_logic>().Break();
             }
         }
     }

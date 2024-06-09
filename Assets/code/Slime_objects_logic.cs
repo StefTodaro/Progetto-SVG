@@ -13,6 +13,8 @@ public class Slime_objects_logic : MonoBehaviour
     public float ejectTime = 0.2f;
     public bool canIncorporate = true;
     public bool canEject = true;
+
+    public AudioClip interactSound;
     
 
 
@@ -53,7 +55,8 @@ public class Slime_objects_logic : MonoBehaviour
 
         // Interagisci solo con l'oggetto più vicino se è stato trovato e il giocatore preme il tasto
         if (nearestCollider != null && Input.GetButtonDown("Fire2") && canIncorporate)
-        { 
+        {
+            SoundEffectManager.Instance.PlaySoundEffect(interactSound, transform, 1f);
             inObject.GetComponent<Incorporated_objects_list>().list.Add(nearestCollider.gameObject);
             nearestCollider.gameObject.SetActive(false);
         }
@@ -79,6 +82,7 @@ public class Slime_objects_logic : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && canEject)
         {
+            SoundEffectManager.Instance.PlaySoundEffect(interactSound, transform, 1f);
             GetComponent<movement>().anim.SetBool("drop", true);
             canIncorporate = false;
             canEject = false;

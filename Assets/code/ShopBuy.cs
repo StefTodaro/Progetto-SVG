@@ -15,6 +15,9 @@ public class ShopBuy : MonoBehaviour
 
     public GameObject aquisitionEffect;
 
+    public AudioClip cashInSound;
+    public AudioClip cantBuySound;
+
 
     // Start is called before the first frame update
     void Start()
@@ -33,31 +36,41 @@ public class ShopBuy : MonoBehaviour
     {
         handler = collision.gameObject.GetComponent<Transformation_handler>();
         //il secondo controllo permette di effettuare l'acquisto solo se il giocatore salta sopra l'oggetto
-        if (collision.gameObject.CompareTag("Player") && 
-            collision.gameObject.transform.position.y> (transform.position.y+0.5)&&
-            !transformations.full && coinCounter.getCoin()>=price)
+        if (collision.gameObject.CompareTag("Player") &&
+            collision.gameObject.transform.position.y > (transform.position.y + 0.5) &&
+            !transformations.full)
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
-
-
-            if (slime_form != null)
+            if (coinCounter.getCoin() >= price)
             {
-                AddTransformation();
-                handler.ChangeForm();
-            }
-            
+                SoundEffectManager.Instance.PlaySoundEffect(cashInSound, transform, 0.7f);
+                collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
 
-            if (collision.gameObject.GetComponent<movement>().isSlamming)
+
+                if (slime_form != null)
+                {
+                    AddTransformation();
+                    handler.ChangeForm();
+                }
+
+
+                if (collision.gameObject.GetComponent<movement>().isSlamming)
+                {
+                    collision.gameObject.GetComponent<movement>().isSlamming = false;
+                    collision.gameObject.GetComponent<movement>().canSlam = true;
+                }
+
+                coinCounter.setCoin(coinCounter.getCoin() - price);
+                GameManager_logic.Instance.UpdateCoinText();
+                Instantiate(aquisitionEffect, transform.position, transform.rotation);
+                Destroy(parent);
+            }
+            else
             {
-                collision.gameObject.GetComponent<movement>().isSlamming = false;
-                collision.gameObject.GetComponent<movement>().canSlam = true;
-            }
+                SoundEffectManager.Instance.PlaySoundEffect(cantBuySound, transform, 0.7f);
 
-           coinCounter.setCoin(coinCounter.getCoin()-price);
-           GameManager_logic.Instance.UpdateCoinText();
-            Instantiate(aquisitionEffect,transform.position,transform.rotation);
-            Destroy(parent);
+            }
         }
+        
     }
 
     public void AddTransformation()

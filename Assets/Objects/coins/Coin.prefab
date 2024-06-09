@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 6499098341093493465}
   - component: {fileID: 6499098341093493464}
   m_Layer: 0
-  m_Name: MonedaD_0
+  m_Name: Coin
   m_TagString: coin
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: 6088342627132289551, guid: 58cd58180df024442bc08e9c72d2defd, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -119,6 +119,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   coinPrefab: {fileID: 6499098341093493459}
   takenEffect: {fileID: 6383117432350686876, guid: 2f53cfb6ee1ab9c47bf209425b139153, type: 3}
+  pickUpAudio: {fileID: 8300000, guid: 7902bda724da75040ba704eac7e8bbcd, type: 3}
 --- !u!50 &6499098341093493465
 Rigidbody2D:
   serializedVersion: 4
