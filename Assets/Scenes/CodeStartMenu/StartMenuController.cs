@@ -5,11 +5,10 @@ using UnityEngine.SceneManagement;
 
 public class StartMenuController : MonoBehaviour
 {
+    public GameObject OptionPanel;
+    public GameObject CreditsPanel;
+    public GameObject ControlsPanel;
 
-    public CanvasGroup OptionPanel;
-    public CanvasGroup CreditsPanel;
-    public CanvasGroup ControlPanel;
-    
     public void PlayGame()
     {
         SceneManager.LoadScene("Selezione livelli");
@@ -17,26 +16,27 @@ public class StartMenuController : MonoBehaviour
 
     public void Option()
     {
-        OptionPanel.alpha = 1;
-        OptionPanel.blocksRaycasts = true;
+        OptionPanel.SetActive(true);
 
     }
     public void Back()
     {
-        OptionPanel.alpha = 0;
-        OptionPanel.blocksRaycasts = false;
-
+        if (OptionPanel.activeInHierarchy)
+        {
+            OptionPanel.SetActive(false);
+        } else if (CreditsPanel.activeInHierarchy) 
+        {
+            CreditsPanel.SetActive(false);
+        } else
+        {
+            ControlsPanel.SetActive(false);
+        }
     }
     public void Credits()
     {
-        CreditsPanel.alpha = 1;
-        CreditsPanel.blocksRaycasts = true;
+        CreditsPanel.SetActive(true);
     }
-    public void BackC()
-    {
-        CreditsPanel.alpha = 0;
-        CreditsPanel.blocksRaycasts = false;
-    }
+   
     public void QuitGame()
     {
         Application.Quit();
@@ -44,15 +44,10 @@ public class StartMenuController : MonoBehaviour
 
     public void Control()
     {
-        ControlPanel.alpha = 1;
-        ControlPanel.blocksRaycasts = true;
+        ControlsPanel.SetActive(true);
     }
 
-    public void BackControl()
-    {
-        ControlPanel.alpha = 0;
-        ControlPanel.blocksRaycasts = false;
-    }
+   
 
     
 

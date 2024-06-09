@@ -77,7 +77,7 @@ public class Transformation_handler : MonoBehaviour
         }
     }
 
-   
+   //Metodo che cicla sul vettore delle trasformazioni
 
 
     public void LosePower()

@@ -50,13 +50,13 @@ public class coinManager : MonoBehaviour
        
         cC.addCoin();
         
-        
-        GameManager_logic.Instance.UpdateCoinText();
         gameObject.SetActive(false); // Disattiva la moneta
          
-        
     }
 
+    
+
+    
     public int getNumberCoin()
     {
         return cC.getCoin();
@@ -66,7 +66,7 @@ public class coinManager : MonoBehaviour
     public void resetCoin(int nCoin)
     {
         cC.setCoin(nCoin);
-        GameManager_logic.Instance.UpdateCoinText();
+        
     }
 
 

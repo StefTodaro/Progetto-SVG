@@ -96,6 +96,11 @@ public class Slime_objects_logic : MonoBehaviour
 
         }
     }
+    public void ClearInObject()
+    {
+        inObject.GetComponent<Incorporated_objects_list>().list.Clear();
+    }
+
 
     public void EndDrop()
     {
