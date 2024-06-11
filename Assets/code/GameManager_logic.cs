@@ -58,7 +58,7 @@ public class GameManager_logic : MonoBehaviour
         var Player = GameObject.FindGameObjectWithTag("Player");
         cCounter.ResetCoinsToLevel();
         Player.GetComponent<Slime_objects_logic>().ClearInObject(); //Svuota la lista degli oggetti assorbiti
-        transformationHandler.GetComponent<Transformation_logic>().ClearTransformation();   //Rinizializza la lista delle trasformazioni NON FUNZIONA
+       // transformationHandler.GetComponent<Transformation_logic>().ClearTransformation();   //Rinizializza la lista delle trasformazioni NON FUNZIONA
         var Checkpoint = GameObject.Find("Checkpoint");
         if (Checkpoint.GetComponent<checkpoint_handler>().isActive(startCheckPoint)) //Se il checkpoint è stato attivato
         {
@@ -96,25 +96,7 @@ public class GameManager_logic : MonoBehaviour
             }
             else if (!obj.CompareTag("Object"))
             {
-
-
-                //controlla che l'oggetto sia il gestore di mob della bossfight
-                if (obj.GetComponent<BossMobsSpawn>())
-                {
-                    obj.GetComponent<BossMobsSpawn>().ResetMobInScene();
-                }
-
-
-                if (obj.GetComponent<Boss_trigger>())
-                {
-                    obj.GetComponent<Boss_trigger>().ResetTrigger();
-                }
-
-                //controlla che l'oggetto sia il boss e ne resetta le caratteristiche principali
-                if (obj.GetComponent<Boss_logic>())
-                {
-                    obj.GetComponent<Boss_logic>().ResetBossFight();
-                }
+               
                 obj.GetComponent<ResettableObjects>().ResetState();
             }
 

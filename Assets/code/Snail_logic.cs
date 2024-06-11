@@ -6,7 +6,7 @@ public class Snail_logic : MonoBehaviour
 {
     public Animator anim;
     public Rigidbody2D rb;
-    public Mob_patrol mob;
+    public Mob_patrol patrol;
     public bool hide=false;
     public float distance=3f;
     public Transform player;
@@ -16,10 +16,10 @@ public class Snail_logic : MonoBehaviour
     void Start()
     {
         anim = GetComponent<Animator>();
-        mob = GetComponent<Mob_patrol>();
+        patrol = GetComponent<Mob_patrol>();
         rb = GetComponent<Rigidbody2D>();
         
-        originaleSpeed = mob.moveSpeed;
+        originaleSpeed = patrol.moveSpeed;
     }
 
     // Update is called once per frame
@@ -29,14 +29,15 @@ public class Snail_logic : MonoBehaviour
         float distanceToTarget = Vector2.Distance(transform.position, player.position);
         
         anim.SetBool("hide", hide);
+
         if (distanceToTarget<=distance && !hide)
         {
-            mob.moveSpeed = 0;
+            patrol.moveSpeed = 0;
             hide = true;
         }
         else if (distanceToTarget > distance && hide)
         {
-            mob.moveSpeed = originaleSpeed;
+            patrol.moveSpeed = originaleSpeed;
             hide = false;
         }
 

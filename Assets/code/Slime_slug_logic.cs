@@ -33,52 +33,20 @@ public class Slime_slug_logic : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isOnWall)
+         
+        RaycastHit hit;
+
+       
+        if (Physics.Raycast(transform.position, -transform.up, out hit, 1f, LayerMask.NameToLayer("ground"))
+            && !mov.isGrounded )
         {
-           
-            if (mov.isSlamming)
-            {
-                mov.isSlamming = false;
-            }
-
-            if (mov.facingRight)
-            {
-                transform.rotation = Quaternion.Euler(0, 0, 90);
-            }
-            else if (!mov.facingRight)
-            {
-                transform.rotation = Quaternion.Euler(0, 0, -90);
-
-            }
-
-            rb.gravityScale = 0;
-            vertical_movement = Input.GetAxis("Vertical");
-            mov.anim.SetFloat("speed", Mathf.Abs(vertical_movement));
-            rb.velocity = new Vector2(rb.velocity.x, vertical_movement * mov.moveSpeed);
-            
-           
-
-            if (vertical_movement<0 && facingUp)
-            {
-                FlipVertical();
-                facingUp = false;
-            }
-            else if (vertical_movement>0 && !facingUp)
-            {
-                FlipVertical();
-                facingUp=true;
-
-            }
-
-            if(canWallJumpTimer <= 0)
-            {
-                canWallJumpTimer = canWallJumpTime;
-            }
+            isOnWall = true;
         }
-
-        if (!isOnWall)
+       /* else if (!Physics.Raycast(transform.position, -transform.up, out hit, 1f, LayerMask.NameToLayer("ground"))
+            &&  isOnWall)
         {
-            rb.gravityScale = 1;           
+            isOnWall= false;
+            rb.gravityScale = 1;
             transform.rotation = Quaternion.Euler(0, 0, 0);
 
             //per riportare il personaggio nella rotazione corretta anche se è girato verso il basso 
@@ -88,8 +56,16 @@ public class Slime_slug_logic : MonoBehaviour
                 facingUp = true;
             }
             canWallJumpTimer -= Time.deltaTime;
+        }*/
 
+        if (isOnWall)
+        {
+            AttachToWall();
         }
+
+            // Visualizza il raycast nella scena (solo per debugging)
+            Debug.DrawLine(transform.position, transform.position + -transform.up * 1, Color.red);
+     
 
         if ((isOnWall|| canWallJumpTimer>=0) && Input.GetKeyDown(KeyCode.Space))
         {
@@ -111,12 +87,10 @@ public class Slime_slug_logic : MonoBehaviour
         if (hasWallJumped)
         {
             WallJump();
-            
         }
 
         if (wallJumpTimer <= 0)
         {
-           
             wallJumpTimer = wallJumpTime;
             hasWallJumped = false;
         }
@@ -125,50 +99,6 @@ public class Slime_slug_logic : MonoBehaviour
         {
             wallJumpTimer = wallJumpTime;
         }
-    }
-
-    void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall")&& !mov.isGrounded )
-        {
-            isOnWall = true;
-
-            if (hasWallJumped)
-            {
-                hasWallJumped = false;
-            }
-        }
-        
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall") && !mov.isGrounded)
-        {
-            isOnWall = true;
-
-            if (hasWallJumped)
-            {
-                hasWallJumped = false;
-            }
-
-        }
-    }
-
-    private void OnCollisionExit2D(Collision2D collision)
-    {
-        if (collision.gameObject.CompareTag("Wall") && !mov.isGrounded)
-        {
-            isOnWall = false;
-        }
-    }
-
-
-
-    private void OnTriggerExit2D(Collider2D collision)
-    {   
-        if(isOnWall)
-            isOnWall = false;
     }
 
     private void FlipVertical()
@@ -180,7 +110,6 @@ public class Slime_slug_logic : MonoBehaviour
 
     private void WallJump()
     {
-
         wallJumpTimer -= Time.deltaTime;
         mov.moveInput = 0;
         isOnWall = false;
@@ -189,13 +118,65 @@ public class Slime_slug_logic : MonoBehaviour
         if (!mov.facingRight)
         {
             rb.velocity = new Vector2(-sideJumpForce, mov.jumpForce);
-
         }
         else
         {
             rb.velocity = new Vector2(sideJumpForce, mov.jumpForce);
+        }
+    }
+
+    public void RoteateSlime()
+    {
+        if (mov.isSlamming)
+        {
+            mov.isSlamming = false;
+        }
+
+        if (mov.facingRight)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, 90);
+        }
+        else if (!mov.facingRight)
+        {
+            transform.rotation = Quaternion.Euler(0, 0, -90);
+        }
+
+    }
+
+    public void AttachToWall()
+    {
+
+        
+        rb.gravityScale = 0;
+        vertical_movement = Input.GetAxis("Vertical");
+        mov.anim.SetFloat("speed", Mathf.Abs(vertical_movement));
+        rb.velocity = new Vector2(rb.velocity.x, vertical_movement * mov.moveSpeed);
+
+
+        if (vertical_movement < 0 && facingUp)
+        {
+            FlipVertical();
+            facingUp = false;
+        }
+        else if (vertical_movement > 0 && !facingUp)
+        {
+            FlipVertical();
+            facingUp = true;
 
         }
+
+        if (canWallJumpTimer <= 0)
+        {
+            canWallJumpTimer = canWallJumpTime;
+        }
+    }
+
+    void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.CompareTag("Wall") && !mov.isGrounded  && !isOnWall)
+        {
+            RoteateSlime();
+        }  
     }
 
 }

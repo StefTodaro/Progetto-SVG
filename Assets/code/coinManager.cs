@@ -39,7 +39,7 @@ public class coinManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {   if (pickUpAudio != null)
-                SoundEffectManager.Instance.PlaySoundEffect(pickUpAudio, transform, 0.35f);
+            SoundEffectManager.Instance.PlaySoundEffect(pickUpAudio, transform, 0.35f);
             Instantiate(takenEffect,transform.position, transform.rotation);
             CollectCoin(collision.gameObject);
         }

@@ -168,6 +168,17 @@ public class movement : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         // Specchia lo sprite sull'asse x
         spriteRenderer.flipX = !spriteRenderer.flipX;
+        
+        /*
+        if (facingRight)
+        {
+            transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
+        }
+        else
+        {
+            transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
+        }
+        */
     }
 
     //effetua l'effetto lampeggiante 
@@ -180,7 +191,6 @@ public class movement : MonoBehaviour
         if (flashTimer >= 0.3f)
         {
             // Alterna la visibilità dello sprite renderer
-
             GetComponent<SpriteRenderer>().enabled = !GetComponent<SpriteRenderer>().enabled;
             flashTimer = 0f;
         }
@@ -198,8 +208,6 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
-        
-
     }
 
 
@@ -207,8 +215,7 @@ public class movement : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Mob") && canBeHit)
         {
-            Hit();
-            
+            Hit();  
         }
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
@@ -218,10 +225,10 @@ public class movement : MonoBehaviour
 
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
-        {
-            isGrounded = true;
 
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {   
+            //controlli per l'istaziazione delle interazioni con il terreno
             if (!collision.gameObject.CompareTag("Object"))
             {
                 Instantiate(landingEffect, transform.position, transform.rotation);
@@ -253,15 +260,8 @@ public class movement : MonoBehaviour
                 collision.GetComponent<Object_logic>().Break();
             }
         }
-
-
     }
 
-
-
-    
-
-   
     private void OnTriggerExit2D(Collider2D collision)
     {  
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
@@ -270,7 +270,15 @@ public class movement : MonoBehaviour
             isGrounded = false;
            
         }
+    }
 
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        //controlla se il personaggio è a terra
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+            isGrounded = true;
+        }
     }
 
     public void DieAndRespawn()

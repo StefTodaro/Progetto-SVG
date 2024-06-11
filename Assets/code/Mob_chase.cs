@@ -12,6 +12,8 @@ public class Mob_chase : MonoBehaviour
     private AIPath path;
     public float activationDistance = 5f;
     private Vector3 initialPosition;
+    //indica che il nemico è stato colpito
+    public bool canChase=true;
 
 
 
@@ -27,9 +29,9 @@ public class Mob_chase : MonoBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         float distanceToTarget = Vector2.Distance(transform.position, player.position);
 
-        if (distanceToTarget <= activationDistance)
+        if (distanceToTarget <= activationDistance && canChase)
         {
-            // Calcola il percorso
+            // Calcola il percorso per raggiungere il giocatore 
             path.maxSpeed = moveSpeed;
             path.destination = player.position;
         }else if(distanceToTarget > activationDistance && gameObject.transform.position!= initialPosition)

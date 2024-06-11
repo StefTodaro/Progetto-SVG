@@ -13,11 +13,11 @@ GameObject:
   - component: {fileID: 4747472078341550583}
   - component: {fileID: 4747472078341550584}
   - component: {fileID: 4747472078341550585}
-  - component: {fileID: 4747472078341550586}
   - component: {fileID: 4747472078341550587}
   - component: {fileID: 1640881582798325397}
   - component: {fileID: 6597572053927603691}
   - component: {fileID: 7596324788030950226}
+  - component: {fileID: 1949442198008949737}
   m_Layer: 0
   m_Name: Bee
   m_TagString: Mob
@@ -146,21 +146,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
   deathSound: {fileID: 8300000, guid: de494378940a2ba47b86a305d977cc39, type: 3}
---- !u!114 &4747472078341550586
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4747472078341550588}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fa84b546746b69144a692b857b195667, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  moveSpeed: 3
-  activationDistance: 5
 --- !u!114 &4747472078341550587
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -232,6 +217,23 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 0.55827844, y: 0.6444142}
   m_EdgeRadius: 0
+--- !u!114 &1949442198008949737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4747472078341550588}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cf2a81090cfa2764faf145498aa0d478, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 3
+  patrolPoints: []
+  movingRight: 0
+  isPatrolling: 1
+  anim: {fileID: 0}
 --- !u!1 &4747472078977022330
 GameObject:
   m_ObjectHideFlags: 0

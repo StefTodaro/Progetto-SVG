@@ -30,8 +30,15 @@ public class Stomp : MonoBehaviour
     {
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
-        {   
-            if(hitAudio!=null)
+        {
+            if (collision.GetComponent<movement>().isSlamming)
+            {
+                collision.GetComponent<movement>().isSlamming = false;
+            }
+
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
+
+            if (hitAudio!=null)
             SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f); 
 
             if (!transformations.full && slime_form!=null)
@@ -55,14 +62,16 @@ public class Stomp : MonoBehaviour
                     collision.GetComponent<Slime_bird_double_jump>().jumped = false;
                 }
             }
-
-            parent.GetComponent<Animator>().SetBool("hit", true);
-            if(collision.GetComponent<movement>().isSlamming)
+            //controllo per impedire a certi nemici di inseguire il giocatore 
+            //dopo essere stati colpiti
+            if (parent.GetComponent<Mob_chase>())
             {
-                collision.GetComponent<movement>().isSlamming=false;
+                parent.GetComponent<Mob_chase>().canChase = false;
             }
 
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);            
+            parent.GetComponent<Animator>().SetBool("hit", true);
+           
+
         }
     }
 
