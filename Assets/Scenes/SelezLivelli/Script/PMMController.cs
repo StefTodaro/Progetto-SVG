@@ -12,6 +12,7 @@ public class PMMController : MonoBehaviour
     public GameObject Options;
 
     
+    
 
 
   
@@ -20,19 +21,23 @@ public class PMMController : MonoBehaviour
     public void option()
     {
         Options.SetActive(true);
+        
     }
 
     public void controls()
     {
         Controls.SetActive(true);
+        
     }
     
     public void quit()
     {
         Confirm.SetActive(true);
+       
     }
     public void back()
     {
+        
         if (Controls.activeInHierarchy)
         {
             Controls.SetActive(false);
@@ -44,6 +49,7 @@ public class PMMController : MonoBehaviour
 
     public void yesChoice()
     {
+       
         MapMenu.SetActive(false);
         Confirm.SetActive(false);
         Application.Quit();
@@ -51,6 +57,9 @@ public class PMMController : MonoBehaviour
 
     public void noChoice()
     {
+
         Confirm.SetActive(false);
     }
+
+   
 }
