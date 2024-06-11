@@ -14,24 +14,28 @@ public class PMM : MonoBehaviour
     public GameObject Options;
 
 
-    public void Update()
+    public void ResumePause()
     {
-        
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             if (isPaused)
             {
-              
+
                 Resume();
             }
             else
             {
-                
+
                 Pause();
                 ReloadMenu();
             }
 
         }
+    }
+
+    public void Update()
+    {
+        ResumePause();
     }
 
     public void Resume()
