@@ -18,8 +18,6 @@ public class PauseMenuController : MonoBehaviour
         //Richiamare funzione per il restart livello
         pauseMenuScript.GetComponent<PauseMenu>().Resume();
         GameManager_logic.Instance.RestartLevel();
-
-
     }
     
 

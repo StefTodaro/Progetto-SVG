@@ -14,6 +14,7 @@ public class Rino_Logic : MonoBehaviour
     public float patrolSpeed;
     public float chargeSpeed = 6.5f;
     public bool stunned = false;
+    public Animator anim;
 
     public float bounceStength = 3;
 
@@ -23,8 +24,12 @@ public class Rino_Logic : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //si prende (se esiste) la meccanica di patrol del mob
         patrol = GetComponent<Mob_patrol>();
+        if(patrol != null )
         patrolSpeed = patrol.moveSpeed;
+
+        anim=GetComponent<Animator>();
     }
 
   
@@ -44,8 +49,10 @@ public class Rino_Logic : MonoBehaviour
                     if (canCharge)
                     {
                         canCharge = false;
-                        patrol.isPatrolling = false;
-                        patrol.anim.SetBool("charge", true);
+                        if (patrol != null)
+                            patrol.isPatrolling = false;
+
+                        anim.SetBool("charge", true);
                     }
                 }
             }
@@ -62,15 +69,18 @@ public class Rino_Logic : MonoBehaviour
 
     private void Charge()
     {
-        patrol.anim.SetBool("charge", false);
+        anim.SetBool("charge", false);
         isCharging = true;
        
     }
 
     private void Unstun()
     {
-        patrol.anim.SetBool("stunned", false);
+       anim.SetBool("stunned", false);
+
+        if(patrol != null)
         patrol.isPatrolling = true;
+
         canCharge = true;
     }
 
@@ -79,12 +89,19 @@ public class Rino_Logic : MonoBehaviour
     {
         if (isCharging )
         {
-            if (collision.gameObject.CompareTag("Mob") || collision.gameObject.CompareTag("coin"))
+            if (collision.gameObject.CompareTag("Mob") || 
+                collision.gameObject.CompareTag("coin")||
+                collision.gameObject.CompareTag("SecretWall"))
             {
                 Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); ;
             }
             else
-            {
+            {   
+                //se incontra un oggetto mentre carica lo distrugge
+                if (collision.CompareTag("Object")){
+                    collision.GetComponent<Object_logic>().Break();
+                }
+
                 SoundEffectManager.Instance.PlaySoundEffect(crashAudio, transform, 0.45f);
                 gameObject.GetComponent<Rigidbody2D>().AddForce(transform.right * bounceStength, ForceMode2D.Impulse);
                 gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bounceStength, ForceMode2D.Impulse);
