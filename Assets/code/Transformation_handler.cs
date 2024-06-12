@@ -77,16 +77,16 @@ public class Transformation_handler : MonoBehaviour
         }
     }
 
-   //Metodo che cicla sul vettore delle trasformazioni
+  
 
 
     public void LosePower()
     {
+        //si diminuisce il contatore delle trasformazioni ottenute
         transformations.t-=1;
         //la forma attuale viene disattivata e vengono raccolti tutti i dati utili
         var isGrounded = currentTransformation.GetComponent<movement>().isGrounded;
         var actualPosition = currentTransformation.transform.position;
-
         currentTransformation.SetActive(false);
         
         //si sostituisce la forma attuale con quella di base
@@ -95,7 +95,7 @@ public class Transformation_handler : MonoBehaviour
 
         transformations.UpdateUI(transformations.c);
 
-        //vengono assegnate le iniformazioni raccolte prima alla nuova forma(slime base )
+        //vengono assegnate le iniformazioni raccolte prima alla nuova forma(slime base)
         currentTransformation.SetActive(true);
         currentTransformation.GetComponent<movement>().isSwinging = false;
         currentTransformation.transform.position = actualPosition;
@@ -105,7 +105,6 @@ public class Transformation_handler : MonoBehaviour
    public void ActivateInvulnerability()
     {
         currentTransformation.GetComponent<movement>().canBeHit = false;
-        //da perfezionare 
         currentTransformation.GetComponent<movement>().rb.velocity = new Vector2(0, 6);
         
     }
