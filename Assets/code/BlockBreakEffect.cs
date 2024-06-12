@@ -24,7 +24,7 @@ public class BlockBreakEffect : MonoBehaviour
     {
         if (breakAudioClip != null)
         {
-            SoundEffectManager.Instance.PlaySoundEffect(breakAudioClip, transform, 0.45f);
+            SoundEffectManager.Instance.PlaySoundEffect(breakAudioClip, transform, 0.35f);
         }
         Instantiate(breakEffect, transform.position, transform.rotation);
         if (transform.childCount > 0)

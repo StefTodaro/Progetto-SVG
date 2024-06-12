@@ -19,8 +19,6 @@ public class PauseMenuController : MonoBehaviour
         SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
         pauseMenuScript.GetComponent<PauseMenu>().Resume();
         GameManager_logic.Instance.RestartLevel();
-
-
     }
     
 

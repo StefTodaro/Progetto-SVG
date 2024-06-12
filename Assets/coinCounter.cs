@@ -6,6 +6,7 @@ public class coinCounter : MonoBehaviour
 {
     public int numCoin= 0; //Numero monete in generale
     public int coinsAtLevel = 0; //Numero monete all'inizio del livello
+   
 
 
     //Nello start segnare il numero di monete iniziali

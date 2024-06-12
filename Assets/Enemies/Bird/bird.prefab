@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
-  deathSound: {fileID: 8300000, guid: de494378940a2ba47b86a305d977cc39, type: 3}
+  deathSound: {fileID: 8300000, guid: bbf175395568c014eb3b68e85dc051ef, type: 3}
 --- !u!61 &8231707070793672661
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -213,7 +213,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   version: 5
-  radius: 0.46
+  radius: 0.34
   height: 2.18
   canMove: 1
   maxSpeed: 1
@@ -257,6 +257,7 @@ MonoBehaviour:
   player: {fileID: 0}
   moveSpeed: 3.5
   activationDistance: 5
+  canChase: 1
 --- !u!114 &8231707070793672656
 MonoBehaviour:
   m_ObjectHideFlags: 0

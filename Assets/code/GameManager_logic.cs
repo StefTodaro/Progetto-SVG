@@ -17,13 +17,13 @@ public class GameManager_logic : MonoBehaviour
     
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
+    //Lista che tiene conto delle monete prese. Utile per la gestione del respawn
+    public List<GameObject> coinsTaken = new List<GameObject>();
 
-    
+
     private coinManager cManager;
-  
     private coinCounter cCounter;
     private GameObject transformationHandler;
-    public GameObject startCheckPoint;
     public GameObject startPosition;
     private bool restart = false;
 
@@ -44,7 +44,6 @@ public class GameManager_logic : MonoBehaviour
         objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
         objectList = GameObject.FindGameObjectWithTag("inObjects");
 
-
         cManager = GameObject.FindGameObjectWithTag("coin").GetComponent<coinManager>();
         cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
         transformationHandler = GameObject.FindGameObjectWithTag("t_handler");
@@ -55,18 +54,15 @@ public class GameManager_logic : MonoBehaviour
     public void RestartLevel()
     {
         restart = true;
+        transformationHandler.GetComponent<Transformation_logic>().ResetTransformation();   //Rinizializza la lista delle trasformazioni
         var Player = GameObject.FindGameObjectWithTag("Player");
         cCounter.ResetCoinsToLevel();
+        coinsTaken.Clear();// si ripulisce la lista delle monete prese 
         Player.GetComponent<Slime_objects_logic>().ClearInObject(); //Svuota la lista degli oggetti assorbiti
-        transformationHandler.GetComponent<Transformation_logic>().ClearTransformation();   //Rinizializza la lista delle trasformazioni NON FUNZIONA
         var Checkpoint = GameObject.Find("Checkpoint");
-        if (Checkpoint.GetComponent<checkpoint_handler>().isActive(startCheckPoint)) //Se il checkpoint è stato attivato
-        {
-            checkpointPosition = startCheckPoint.transform.position;//Pone come checkpoint attuale il checkpoint iniziale
-        } else
-        {
-            Player.transform.position = startPosition.transform.position;
-        }
+        //si reimposta come checkpoint attuale la posizione iniziale 
+        checkpointPosition = startPosition.transform.position;
+        
         RespawnPlayer(Player);
         restart = false;
         
@@ -76,7 +72,19 @@ public class GameManager_logic : MonoBehaviour
     public void SetCheckpoint(Vector2 newCheckpointPosition)
     {
         checkpointPosition = newCheckpointPosition;
-        checkpointCoins = cCounter.getCoinLevel();  
+        checkpointCoins = cCounter.getCoinLevel();
+
+        /* si fa un controllo sulle monete che il giocatore
+         * ha preso fino al momento di attivazione del checkpoint 
+         * per non farle respawnare*/
+        foreach (GameObject obj in objectsToReset)
+        {
+            if(obj.CompareTag("coin") && !obj.activeSelf)
+            {
+                coinsTaken.Add(obj);
+            }
+        }
+
     }
 
 
@@ -85,36 +93,12 @@ public class GameManager_logic : MonoBehaviour
         player.transform.position = checkpointPosition;
         foreach (GameObject obj in objectsToReset)
         {
-
-
-            //Se l'oggetto è inglobato dal giocatore allora non respawna
-            if (obj.CompareTag("Object") &&
-                !objectList.GetComponent<Incorporated_objects_list>().list.Contains(obj))
+            /*Se l'oggetto è inglobato dal giocatore oppure
+            è una moneta presa dal giocatore 
+            prima di raggiungere il checjpoint non respawna*/
+            if (!objectList.GetComponent<Incorporated_objects_list>().list.Contains(obj) &&
+                !coinsTaken.Contains(obj))
             {
-                obj.GetComponent<ResettableObjects>().ResetState();
-
-            }
-            else if (!obj.CompareTag("Object"))
-            {
-
-
-                //controlla che l'oggetto sia il gestore di mob della bossfight
-                if (obj.GetComponent<BossMobsSpawn>())
-                {
-                    obj.GetComponent<BossMobsSpawn>().ResetMobInScene();
-                }
-
-
-                if (obj.GetComponent<Boss_trigger>())
-                {
-                    obj.GetComponent<Boss_trigger>().ResetTrigger();
-                }
-
-                //controlla che l'oggetto sia il boss e ne resetta le caratteristiche principali
-                if (obj.GetComponent<Boss_logic>())
-                {
-                    obj.GetComponent<Boss_logic>().ResetBossFight();
-                }
                 obj.GetComponent<ResettableObjects>().ResetState();
             }
 

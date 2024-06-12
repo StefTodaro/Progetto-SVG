@@ -15,7 +15,7 @@ public class Transformation_logic : MonoBehaviour
     public bool full=false;
     //contatore delle trasformazioni
     public int t=0;
-    //variabile per tenere conto della trasformazione attuale
+    //variabile della trasformazione attuale
     public int c = 0;
     public GameObject baseSlime;
 
@@ -50,19 +50,31 @@ public class Transformation_logic : MonoBehaviour
         {
             full = false;
         }
+
+        //controllo per far muovere il cursore sulla trasformazione attuale 
         if (selector.transform.position!= transformationsUI[c].transform.position)
         {
             selector.transform.position = Vector2.MoveTowards(selector.transform.position, transformationsUI[c].transform.position, 1080);
         }
     }
-    public void ClearTransformation() //NON FUNZIA, anche perché il BaseSlime viene disabilitato dopo che ti sei trasformado 
+    public void ResetTransformation()
     {
-        
-        transformations[0] = baseSlime;
-        transformations[1] = baseSlime;
-        transformations[2] = baseSlime;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player.GetComponent<Transformation_handler>().transformed){
+            player.GetComponent<Transformation_handler>().LosePower();
+        }
+        for (int i = 0;  i<3;i++)
+        {
+            transformations[i] = baseSlime;
+            UpdateUI(i);
+        }
+
+        //si riporta il giocatore alla prima trasformazione
+        c = 0;
         
     }
+
+
     public void UpdateUI(int n)
     {
         foreach (Sprite sprite in transformationSprite)
@@ -71,7 +83,6 @@ public class Transformation_logic : MonoBehaviour
             {
                 transformationsUI[n].GetComponent<Image>().sprite = sprite;
 
-                // Muove il giocatore nella direzione dell'oggetto
                 break;
             }
         }

@@ -33,7 +33,7 @@ public class ResettableObjects : MonoBehaviour
             transform.rotation = initialRotation;
             transform.localScale = initialScale;
         
-        //reset di stati per diverse caratteristiche dei mob
+        //reset di stati per diverse caratteristiche di vari gameObject
         if (gameObject.GetComponent<Mob_patrol>())
         {
             gameObject.GetComponent<Mob_patrol>().isPatrolling = initialPatrolState;
@@ -49,7 +49,30 @@ public class ResettableObjects : MonoBehaviour
             gameObject.GetComponent<Animator>().SetBool("respawn", true);
             gameObject.GetComponent<Rock_logic>().hit.hit = 0 ;
         }
-       
 
+         //si reimposta un mob per l'inseguimento
+        if (gameObject.GetComponent<Mob_chase>())
+        {
+            gameObject.GetComponent<Mob_chase>().canChase = true;
+        }
+
+
+        //controlla che l'oggetto sia il gestore di mob della bossfight
+        if (gameObject.GetComponent<BossMobsSpawn>())
+        {
+            gameObject.GetComponent<BossMobsSpawn>().ResetMobInScene();
+        }
+
+
+        if (gameObject.GetComponent<Boss_trigger>())
+        {
+            gameObject.GetComponent<Boss_trigger>().ResetTrigger();
+        }
+
+        //controlla che l'oggetto sia il boss e ne resetta le caratteristiche principali
+        if (gameObject.GetComponent<Boss_logic>())
+        {
+            gameObject.GetComponent<Boss_logic>().ResetBossFight();
+        }
     }
 }
