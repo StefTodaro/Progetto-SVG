@@ -55,14 +55,17 @@ public class Transformation_logic : MonoBehaviour
             selector.transform.position = Vector2.MoveTowards(selector.transform.position, transformationsUI[c].transform.position, 1080);
         }
     }
-    public void ClearTransformation() //NON FUNZIA, anche perché il BaseSlime viene disabilitato dopo che ti sei trasformado 
+    public void ResetTransformation() 
     {
-        
-        transformations[0] = baseSlime;
-        transformations[1] = baseSlime;
-        transformations[2] = baseSlime;
+        for (int i = 0;  i== transformations.Length;i++)
+        {
+            transformations[i] = baseSlime;
+            UpdateUI(i);
+        }
         
     }
+
+
     public void UpdateUI(int n)
     {
         foreach (Sprite sprite in transformationSprite)

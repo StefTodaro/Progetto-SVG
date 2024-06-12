@@ -18,7 +18,6 @@ public class Rino_Logic : MonoBehaviour
     public float bounceStength = 3;
 
 
-    public Mob_onGround_chase chase;
     public AudioClip crashAudio;
 
     // Start is called before the first frame update
@@ -78,14 +77,23 @@ public class Rino_Logic : MonoBehaviour
     
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (isCharging && !collision.CompareTag("Mob"))
+        if (isCharging )
         {
-            SoundEffectManager.Instance.PlaySoundEffect(crashAudio, transform, 0.45f);
-            gameObject.GetComponent<Rigidbody2D>().AddForce(transform.right * bounceStength, ForceMode2D.Impulse);
-            gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bounceStength, ForceMode2D.Impulse);
-            isCharging = false;
-            stunned = true;
-            patrol.anim.SetBool("stunned", true);
+            if (collision.gameObject.CompareTag("Mob") || collision.gameObject.CompareTag("coin"))
+            {
+                Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); ;
+            }
+            else
+            {
+                SoundEffectManager.Instance.PlaySoundEffect(crashAudio, transform, 0.45f);
+                gameObject.GetComponent<Rigidbody2D>().AddForce(transform.right * bounceStength, ForceMode2D.Impulse);
+                gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * bounceStength, ForceMode2D.Impulse);
+                isCharging = false;
+                stunned = true;
+                patrol.anim.SetBool("stunned", true);
+            }
+
+           
         }
     }
 }

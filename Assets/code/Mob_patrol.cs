@@ -26,7 +26,11 @@ public class Mob_patrol : MonoBehaviour
         rotationx = transform.rotation.eulerAngles.x;
         rotationy = transform.rotation.eulerAngles.y;
         rotationz = transform.rotation.eulerAngles.z;
-        anim = gameObject.GetComponent<Animator>();
+        if (gameObject.GetComponent<Animator>())
+        {
+            anim = gameObject.GetComponent<Animator>();
+        }
+
         currentPatrolIndex = 0;
 
     }
@@ -37,12 +41,16 @@ public class Mob_patrol : MonoBehaviour
 
         ChangePatrolPoint();
 
-        if (isPatrolling)
+        //si controlla che ci sia almeno un punto di patrol
+        if (isPatrolling && patrolPoints[0]!=null)
         {
 
             SetDirection();
-
-            anim.SetFloat("speed", moveSpeed);
+            if (anim!=null)
+            {   
+                
+                anim.SetFloat("speed", moveSpeed);
+            }
             // Muovi il nemico verso il punto di pattuglia corrente
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[currentPatrolIndex].position, moveSpeed * Time.deltaTime);
         }
@@ -112,7 +120,7 @@ public class Mob_patrol : MonoBehaviour
     public void OnCollisionEnter2D(Collision2D collision)
     {
         //per fare in modo che i nemici non collidano tra loro nel movimento
-        if (collision.gameObject.CompareTag("Mob") && collision.gameObject.CompareTag("coin"))
+        if (collision.gameObject.CompareTag("Mob") || collision.gameObject.CompareTag("coin"))
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); ;
         }

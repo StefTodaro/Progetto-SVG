@@ -10,7 +10,7 @@ public class Slime_objects_logic : MonoBehaviour
     public float incorporateTimer;
     public float incorporateTime = 0.8f;
     public float ejectTimer;
-    public float ejectTime = 0.2f;
+    public float ejectTime = 0.8f;
     public bool canIncorporate = true;
     public bool canEject = true;
 

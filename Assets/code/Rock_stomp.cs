@@ -55,6 +55,13 @@ public class Rock_stomp : MonoBehaviour
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
         {
+            if (collision.GetComponent<movement>().isSlamming)
+            {
+                collision.GetComponent<movement>().isSlamming = false;
+            }
+
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
+
             SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             hit++;
              if (!transformations.full && hit==3 && slime_form != null) 
@@ -63,13 +70,7 @@ public class Rock_stomp : MonoBehaviour
                 handler.ChangeForm();
             }
 
-
-            if (collision.GetComponent<movement>().isSlamming)
-            {
-                collision.GetComponent<movement>().isSlamming = false;
-            }
             parent.GetComponent<Animator>().SetBool("hit", true);
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
             
             if (collision.GetComponent<Slime_bird_double_jump>())
             {

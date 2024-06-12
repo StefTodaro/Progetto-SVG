@@ -6,6 +6,7 @@ using UnityEngine;
 public class platform_logic : MonoBehaviour
 {
     public bool on=false;
+    public GameObject player;
     public Collider2D col;
     // Start is called before the first frame update
     void Start()
@@ -21,26 +22,30 @@ public class platform_logic : MonoBehaviour
         {   
             StartCoroutine(DisablePlatformCollider());
         }
+
     }
 
     private IEnumerator DisablePlatformCollider()
     {
         // Disabilita il collider della piattaforma
-        col.enabled = false;
+
+        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), player.GetComponent<Collider2D>(), true);
 
         // Attendere per la durata specificata
         yield return new WaitForSeconds(0.5f);
 
-        // Riabilita il collider della piattaforma
-        col.enabled = true;
+        Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), player.GetComponent<Collider2D>(), false);
+
+
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-
             on = true;
+            player=collision.gameObject;
+           
         }
     }
 
@@ -49,7 +54,6 @@ public class platform_logic : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Player"))
         {
-
             on = false;
         }
     }
