@@ -9,13 +9,14 @@ public class PauseMenuController : MonoBehaviour
     public GameObject controls;
     public GameObject options;
     private GameObject pauseMenuScript;
-   
+    [SerializeField] private AudioClip buttonClick;
 
-    
-    
+
+
     public void RestartLevel()
     {
         //Richiamare funzione per il restart livello
+        SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
         pauseMenuScript.GetComponent<PauseMenu>().Resume();
         GameManager_logic.Instance.RestartLevel();
 
@@ -25,16 +26,19 @@ public class PauseMenuController : MonoBehaviour
 
     public void ExitLevel()
     {
+        SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
         confirm.SetActive(true);
     }
 
     public void Controls()
     {
+        SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
         controls.SetActive(true);
     }
 
     public void Options()
     {
+        SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
         options.SetActive(true);
     }
 
@@ -47,7 +51,7 @@ public class PauseMenuController : MonoBehaviour
         {
             options.SetActive(false);
         }
-
+        SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
     }
 
     public void yesChoice()
@@ -55,14 +59,15 @@ public class PauseMenuController : MonoBehaviour
         //programmare l'uscita dal livello 
         PauseMenu.SetActive(false);
         pauseMenuScript.GetComponent<PauseMenu>().LoadLevelSelection();
-        
-       
+        SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
+
 
     }
 
     public void noChoice()
     {
         confirm.SetActive(false);
+        SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.25f);
     }
 
   
