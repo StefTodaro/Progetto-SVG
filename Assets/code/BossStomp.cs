@@ -32,9 +32,12 @@ public class BossStomp : MonoBehaviour
 
     public void Hit()
     {
-        parent.GetComponent<Boss_logic>().HitJump();
-        parent.GetComponent<Boss_logic>().PassToNextPhase();
-        parent.GetComponent<Animator>().SetBool("hit", true);
+        if (parent.GetComponent<Boss_logic>().isFighting)
+        {
+            parent.GetComponent<Boss_logic>().HitJump();
+            parent.GetComponent<Boss_logic>().PassToNextPhase();
+            parent.GetComponent<Animator>().SetBool("hit", true);
+        }
     }
 
   

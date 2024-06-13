@@ -8,6 +8,7 @@ public class Boss_landing_attack_logic : MonoBehaviour
     public float timeToLive = 1.5f;
     public float timerOfLife;
     public float speed=4.2f;
+    public bool OnGround = true;
 
     // Start is called before the first frame update
     void Start()
@@ -33,6 +34,7 @@ public class Boss_landing_attack_logic : MonoBehaviour
             {
                 Destroy(gameObject);
             }
+        
     }
 
     public void OnTriggerEnter2D(Collider2D collision)
@@ -43,4 +45,13 @@ public class Boss_landing_attack_logic : MonoBehaviour
             Destroy(gameObject);
         }
     }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if (!collision.IsTouchingLayers(LayerMask.NameToLayer("ground"))) {
+            Destroy(gameObject);
+        }
+    }
+
+
 }

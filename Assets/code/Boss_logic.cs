@@ -37,7 +37,11 @@ public class Boss_logic : MonoBehaviour
     public bool isFighting = false;
     float waitTime = 0;
 
+    float restartFight = 0;
+
     public Transform escapePoint;
+    public Transform returnPoint;
+
     public BoxCollider2D hitBox;
 
     public GameObject blockDropper;
@@ -81,7 +85,7 @@ public class Boss_logic : MonoBehaviour
         if (!isGrounded)
         {
             inAirTimer += Time.deltaTime;
-            if (inAirTimer >= 5f)
+            if (inAirTimer >= 3f)
             {
                 inAirTimer = 0f;
                 isGrounded = true;
@@ -147,11 +151,11 @@ public class Boss_logic : MonoBehaviour
         }
     }
 
-    //funzione per controllare che il boss non sia bloccato da un muro
+    //funzione per controllare che il boss non sia bloccato contro un muro
     public bool Wallcheck()
     {
         RaycastHit hit;
-        if (Physics.Raycast(transform.position, transform.right, out hit, 1.5f))
+        if (Physics.Raycast(transform.position, transform.right, out hit, 2f, LayerMask.NameToLayer("ground")))
         {
             return true;
         }
@@ -171,14 +175,15 @@ public class Boss_logic : MonoBehaviour
         if (isGrounded)
         {
             anim.SetBool("death", true);
+            //si rende il corpo del boss inoffensivo
             gameObject.tag = "Untagged";
-            this.enabled = false;
         }
     }
 
 
     public void StartFight()
     {
+        
         isFighting = true;
         StartCoroutine(RandomJump());
     }
@@ -256,8 +261,10 @@ public class Boss_logic : MonoBehaviour
     {
         
         waitTime += Time.deltaTime;
-        if (waitTime >= 1.5f)
+        if (waitTime >= 0.8f)
         {
+            //si modifica il tag in modo che il colpisca il giocatore 
+            gameObject.tag = ("Untagged");
             // mobs.GetComponent<BossMobsSpawn>().SpawnMobs();
             Vector3 direction = (escapePoint.position - transform.position).normalized;
             var distanceToPoint = Mathf.Abs(transform.position.x - escapePoint.position.x);
@@ -272,7 +279,16 @@ public class Boss_logic : MonoBehaviour
 
     }
 
- 
+    //funzione per far tornare il boss in combattimento
+    public void ReturnToBattle()
+    {
+        // mobs.GetComponent<BossMobsSpawn>().SpawnMobs();
+        gameObject.transform.position = returnPoint.position;
+        StartFight();
+        
+    }
+
+
     //funzione per resettare tutte le componenti principali del boss
     public void ResetBossFight()
     {
@@ -289,12 +305,19 @@ public class Boss_logic : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+       
+
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
-            isGrounded = true;
-            SoundEffectManager.Instance.PlaySoundEffect(landingSound, transform, 0.5f);
-            Instantiate(landingEffect, new Vector2(transform.position.x +0.5f,transform.position.y-1f), landingEffect.transform.rotation);
-            if (phase[4] && isFighting)
+            if (isFighting)
+            {
+                isGrounded = true;
+                SoundEffectManager.Instance.PlaySoundEffect(landingSound, transform, 0.5f);
+                Instantiate(landingEffect, new Vector2(transform.position.x + 0.5f, transform.position.y - 1f), landingEffect.transform.rotation);
+            }
+
+            //nell'ultima fase di combattimento attiva gli attacchi d'atterraggio
+            if (phase[4] && isFighting && !collision.CompareTag("platform"))
             {   
                 Instantiate(landingAttack, new Vector2(transform.position.x + 0.5f, transform.position.y - 0.8f), landingAttack.transform.rotation);
             }
@@ -312,17 +335,28 @@ public class Boss_logic : MonoBehaviour
         {
             hitBox.isTrigger = false;
 
-            //raggiunta la posizione richiama i nemici
+            //raggiunta la posizione di fuga si attiva la fase di attesa 
             if (phase[2])
             {
+                // si reimposta il tag 
+                gameObject.tag = ("Mob");
                 GameObject.Find("MobsSpawn").GetComponent<BossMobsSpawn>().SpawnMobs();
                 PassToNextPhase();
             }
+
         }
         //distruzione degli oggetti che colpisce
         if (collision.CompareTag("Object"))
         {
             collision.GetComponent<Object_logic>().Break();
+        }
+    }
+
+    public void OnTriggerStay2D(Collider2D collision)
+    {
+        if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+            isGrounded = true;
         }
     }
 
@@ -351,18 +385,18 @@ public class Boss_logic : MonoBehaviour
             if (phase[0])
             {
                 probability = 0.65f;
-                 waitTime = Random.Range(2, 5);
+                 waitTime = Random.Range(1.3f, 4);
                 anim.speed = 1;
             }
             else if(phase[1]){
                 probability = 0.50f;
                 waitTime = Random.Range(1, 4);
-                anim.speed = 1.2f;
+                anim.speed = 1.4f;
             }else if (phase[4])
             {
                 probability = 0.35f;
-                waitTime = Random.Range(1, 3);
-                anim.speed = 1.5f;
+                waitTime = Random.Range(1, 3.5f);
+                anim.speed = 1.7f;
             }
 
             yield return new WaitForSeconds(waitTime);
@@ -370,8 +404,6 @@ public class Boss_logic : MonoBehaviour
 
             if (isGrounded && !anim.GetBool("attack") && !anim.GetBool("hit")  && isFighting ) 
             {
-               
-
                 //si controlla prima qual è la distanza ideale per effettuare una determinata azione
                 if (distanceToPlayer < 3.5f )
                 {
@@ -409,10 +441,10 @@ public class Boss_logic : MonoBehaviour
     {
         SoundEffectManager.Instance.PlaySoundEffect(swordSound, transform, 0.6f);
         if (facingRight) {
-            Instantiate(slashEffect, new Vector2(transform.position.x + 2f, transform.position.y), transform.rotation);
+            Instantiate(slashEffect, new Vector2(transform.position.x + 2.5f, transform.position.y), transform.rotation);
         }
         else {
-            Instantiate(slashEffect, new Vector2(transform.position.x - 2f, transform.position.y), transform.rotation);
+            Instantiate(slashEffect, new Vector2(transform.position.x - 2.5f, transform.position.y), transform.rotation);
         }
     }
 
