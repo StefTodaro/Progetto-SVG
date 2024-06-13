@@ -1207,6 +1207,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   on: 0
+  player: {fileID: 0}
   col: {fileID: 0}
 --- !u!1 &307513294
 GameObject:
@@ -11813,6 +11814,18 @@ PrefabInstance:
     - target: {fileID: 6720378564081707256, guid: 77771f3579c742444be5dc7875a84c06, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720378564455993333, guid: 77771f3579c742444be5dc7875a84c06, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720378564455993333, guid: 77771f3579c742444be5dc7875a84c06, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720378564455993333, guid: 77771f3579c742444be5dc7875a84c06, type: 3}
+      propertyPath: m_OnValueChanged.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 77771f3579c742444be5dc7875a84c06, type: 3}
