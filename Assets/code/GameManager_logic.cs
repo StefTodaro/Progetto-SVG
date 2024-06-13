@@ -6,6 +6,7 @@ using Unity.Collections;
 //using UnityEditor.EditorTools;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class GameManager_logic : MonoBehaviour
 {
@@ -114,11 +115,12 @@ public class GameManager_logic : MonoBehaviour
     
     public void UpdateCoinText()
     {
-        GameObject coinCounter = GameObject.Find("CoinCounterG");
+        TextMeshProUGUI coinText = GameObject.FindGameObjectWithTag("coinNum").GetComponent<TextMeshProUGUI>();
+        GameObject coinCounter = GameObject.FindGameObjectWithTag("coinNum");
         
-        Text coinText = coinCounter.GetComponentInChildren<Text>();
-        
-        coinText.text = cCounter.getCoin().ToString();
+        //TextMeshPro coinText = coinCounter.GetComponentInChildren<TextMeshPro>();
+
+        coinText.SetText(cCounter.getCoin().ToString());
         
         
     }

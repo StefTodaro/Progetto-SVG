@@ -4519,6 +4519,7 @@ MonoBehaviour:
   Confirm: {fileID: 2051148912104410979}
   Controls: {fileID: 1962824559250200080}
   Options: {fileID: 4206442012229809154}
+  buttonClick: {fileID: 0}
 --- !u!1 &5276445366544684432
 GameObject:
   m_ObjectHideFlags: 0
@@ -6889,7 +6890,7 @@ GameObject:
   - component: {fileID: 816322838504337649}
   - component: {fileID: 7643462277098267543}
   m_Layer: 5
-  m_Name: Volume
+  m_Name: Music
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6942,7 +6943,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Volume
+  m_text: Music
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: b2db614bab672f047b2b3ca49c53951c, type: 2}
   m_sharedMaterial: {fileID: 4671650848183989325, guid: b2db614bab672f047b2b3ca49c53951c, type: 2}

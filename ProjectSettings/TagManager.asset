@@ -21,6 +21,7 @@ TagManager:
   - camera
   - Trigger
   - SecretWall
+  - coinNum
   layers:
   - Default
   - TransparentFX
