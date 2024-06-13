@@ -35,10 +35,10 @@ public class BossMobsSpawn : MonoBehaviour
         if (mobsSpawned.Count == 0 && activated)
         {
             waitTime += Time.deltaTime;
-            if (waitTime > 1.5f)
-            {  
+            if (waitTime > 1f)
+            {
                 //sconfitti tutti i nemici e passato il tempo di attesa si avvia l'ultima fase
-                GameObject.FindObjectOfType<Boss_logic>().StartFight();
+                GameObject.FindObjectOfType<Boss_logic>().ReturnToBattle();
                 GameObject.FindObjectOfType<Boss_logic>().MakeBlockFall();
                 GameObject.FindObjectOfType<Boss_logic>().PassToNextPhase();
                 activated = false;
