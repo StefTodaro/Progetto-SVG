@@ -101,14 +101,13 @@ public class Slime_rino_dash : MonoBehaviour
         mov.anim.SetBool("isDashing", false);
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    public void BreakObject(Collision2D collision)
     {
-       
         if (isDashing)
         {
             if (collision.gameObject.CompareTag("Obstacles"))
             {
-               collision.gameObject.SetActive(false); // Distruggi la tile individuale
+                collision.gameObject.SetActive(false); // Distruggi la tile individuale
                 collision.gameObject.GetComponent<BlockBreakEffect>().CallBreakEffect();
             }
         }
@@ -117,7 +116,7 @@ public class Slime_rino_dash : MonoBehaviour
         {
             if (isDashing)
             {
-             
+
                 coinManager coinManager = coinPrefab.GetComponent<coinManager>();
                 if (coinManager != null && collision.gameObject.GetComponent<Object_logic>().dropCoin)
                 {
@@ -126,5 +125,16 @@ public class Slime_rino_dash : MonoBehaviour
                 collision.gameObject.GetComponent<Object_logic>().Break();
             }
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+       
+       BreakObject(collision);
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        BreakObject(collision);
     }
 }

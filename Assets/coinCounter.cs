@@ -43,7 +43,7 @@ public class coinCounter : MonoBehaviour
     //Richiamare quando si ricomincia il livello
     public void ResetCoinsToLevel()
     {
-        numCoin -= coinsAtLevel;
+        numCoin = 0;
         coinsAtLevel = 0;
         Debug.Log("Metodo Reset numCoin: " + numCoin);
         Debug.Log("Metodo Reset CoinsAtLevel: " + coinsAtLevel);
