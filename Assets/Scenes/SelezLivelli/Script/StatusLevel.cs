@@ -44,6 +44,7 @@ public class StatusLevel : MonoBehaviour
         {
             initLevels(); //Da mettere in un ipotetico START del gioco!
         }
+        
             //TEST
         //setStatusLevel(3, true); 
         //setStatusLevel(4, true);
@@ -58,6 +59,13 @@ public class StatusLevel : MonoBehaviour
         levels.Add(new Level(4, false, GameObject.Find("wayPoint4")));
         levels.Add(new Level(5, false, GameObject.Find("wayPoint5")));
 
+        foreach(var level in levels)
+        {
+            if(PlayerPrefs.GetInt("Level"+level.numberLevel+ " Complete", 0) == 1)
+            {
+                level.status = true;
+            }
+        }
         UpdateLevelStatus();
 
     }
@@ -71,14 +79,12 @@ public class StatusLevel : MonoBehaviour
     // Prende il numero di un livello, e lo setta true(sbloccato) o false(bloccato)
     public void setStatusLevel(int level, bool status)
     {
-        for (int i= 0; i < levels.Count; i++)
+        foreach(var l in levels)
         {
-            if (levels[i].numberLevel == level)
+            if(l.numberLevel == level)
             {
-                levels[i].status = status;
-                EnableLevel(levels[i]);
-                //Debug.Log($"Level {level} status updated to: {status}");
-                
+                l.status = status;
+                EnableLevel(l);
                 break;
             }
         }
@@ -87,9 +93,9 @@ public class StatusLevel : MonoBehaviour
     //Funzione per Aggiornare lo stato del livello
     private void UpdateLevelStatus()
     {
-        for(int i= 0; i < levels.Count; i++)
+       foreach(var level in levels)
         {
-            EnableLevel(levels[i]);
+            EnableLevel(level);
         }
     }
 
@@ -121,16 +127,15 @@ public class StatusLevel : MonoBehaviour
     //Funzione che restituisce lo stato di un livello
     public bool isLevelEnabled(int level)
     {
-        for(int i= 0; i < levels.Count; i++)
+        foreach (var l in levels)
         {
-            if (levels[i].numberLevel == level)
+            if (l.numberLevel == level)
             {
-                return levels[i].status;
+                return l.status;
             }
         }
         return false;
 
     }
-
 
 }

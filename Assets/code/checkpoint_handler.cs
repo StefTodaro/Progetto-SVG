@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -34,6 +35,9 @@ public class checkpoint_handler : MonoBehaviour
 
     }
 
+    
+
+
     // Update is called once per frame
     void Update()
     {
@@ -44,15 +48,24 @@ public class checkpoint_handler : MonoBehaviour
       // checkpoint_base = GameObject.Find("slime").GetComponent<checkpoint_handler>().checkpoint_base;
     }
 
+    public void DisableCheckPoint()
+    {
+        activated = false;
+        anim.SetBool("active", activated);
+
+    }
+
+    
   
 
-        private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
         {
-            if (collision.CompareTag("Player")  && !activated)
-            {
+        anim = gameObject.GetComponent<Animator>();
+        if (collision.CompareTag("Player")  && !activated)
+            { 
                 SoundEffectManager.Instance.PlaySoundEffect(activationAudio, transform, 0.5f);
                 activated = true;
-                game_manager.GetComponent<GameManager_logic>().SetCheckpoint(transform.position);
+                game_manager.GetComponent<GameManager_logic>().SetCheckpoint(gameObject);
                 anim.SetBool("active", activated);
             }
         }

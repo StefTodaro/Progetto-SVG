@@ -7,6 +7,7 @@ using Unity.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Security.Cryptography;
 
 public class GameManager_logic : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class GameManager_logic : MonoBehaviour
     
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
+
+    public List<GameObject> activatedCheckpoints;
     //Lista che tiene conto delle monete prese. Utile per la gestione del respawn
     public List<GameObject> coinsTaken = new List<GameObject>();
 
@@ -27,6 +30,9 @@ public class GameManager_logic : MonoBehaviour
     private GameObject transformationHandler;
     public GameObject startPosition;
     private bool restart = false;
+    GameObject Player;
+
+    GameObject inc_obj; //Da inizializzare
 
     private void Start()
     {
@@ -48,7 +54,15 @@ public class GameManager_logic : MonoBehaviour
         cManager = GameObject.FindGameObjectWithTag("coin").GetComponent<coinManager>();
         cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
         transformationHandler = GameObject.FindGameObjectWithTag("t_handler");
+       Player= GameObject.FindGameObjectWithTag("Player");
+        inc_obj = GameObject.FindGameObjectWithTag("inObjects");
 
+    }
+
+    //Metodo che restituisce il valore della variabile booleana restart
+    public bool hasRestart()
+    {
+        return restart;
     }
 
     //Va chiamato nella funzione restart level del menu di pausa
@@ -56,24 +70,36 @@ public class GameManager_logic : MonoBehaviour
     {
         restart = true;
         transformationHandler.GetComponent<Transformation_logic>().ResetTransformation();   //Rinizializza la lista delle trasformazioni
-        var Player = GameObject.FindGameObjectWithTag("Player");
+        
         cCounter.ResetCoinsToLevel();
         coinsTaken.Clear();// si ripulisce la lista delle monete prese 
-        Player.GetComponent<Slime_objects_logic>().ClearInObject(); //Svuota la lista degli oggetti assorbiti
+        inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject(); //Svuota la lista degli oggetti assorbiti
+
         var Checkpoint = GameObject.Find("Checkpoint");
         //si reimposta come checkpoint attuale la posizione iniziale 
         checkpointPosition = startPosition.transform.position;
-        
         RespawnPlayer(Player);
+        ResetCheckpoints();
         restart = false;
         
     }
    
-
-    public void SetCheckpoint(Vector2 newCheckpointPosition)
+    
+    public void ResetCheckpoints()
     {
-        checkpointPosition = newCheckpointPosition;
+        foreach(GameObject checkpoint in activatedCheckpoints)
+        {
+            checkpoint.GetComponent<checkpoint_handler>().DisableCheckPoint();
+        }
+        activatedCheckpoints.Clear();  
+    }
+    public void SetCheckpoint(GameObject newCheckpointPosition)
+    {
+        activatedCheckpoints.Add(newCheckpointPosition);
+        checkpointPosition = newCheckpointPosition.transform.position;
         checkpointCoins = cCounter.getCoinLevel();
+       
+
 
         /* si fa un controllo sulle monete che il giocatore
          * ha preso fino al momento di attivazione del checkpoint 
@@ -92,6 +118,7 @@ public class GameManager_logic : MonoBehaviour
     public void RespawnPlayer(GameObject player)
     {
         player.transform.position = checkpointPosition;
+        
         foreach (GameObject obj in objectsToReset)
         {
             /*Se l'oggetto è inglobato dal giocatore oppure
@@ -103,12 +130,20 @@ public class GameManager_logic : MonoBehaviour
                 obj.GetComponent<ResettableObjects>().ResetState();
             }
 
+
+            
+
         }
 
         if (!restart)
         {
             //Reset the coin in the level 
+           
             cManager.resetCoin(checkpointCoins);
+            objectList.GetComponent<Incorporated_objects_list>().ClearInObject();
+           
+            
+
         }
     }
 
@@ -137,6 +172,15 @@ public class GameManager_logic : MonoBehaviour
     }
 
 
+    public void EndLevel()
+    {
+        cCounter.SaveCoinsAtLevel();
+        transformationHandler.GetComponent<Transformation_logic>().ResetTransformation();
+        coinsTaken.Clear();
+        inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
+        ResetCheckpoints();
+        
+    }
 
 
 }
