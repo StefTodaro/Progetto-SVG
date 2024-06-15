@@ -42,6 +42,7 @@ public class Snail_stomp : MonoBehaviour
             SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             if (collision.GetComponent<movement>().isSlamming)
             {
+               
                 collision.GetComponent<movement>().isSlamming = false;
 
                 if (!transformations.full && slime_form != null)

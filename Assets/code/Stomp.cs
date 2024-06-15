@@ -4,7 +4,7 @@ using System.Linq;
 using UnityEngine;
 
 public class Stomp : MonoBehaviour
-{
+{   //booleano per indicare se il mob si può muovere o meno
     public float bounce=6;
     public GameObject parent;
     public GameObject slime_form;
@@ -31,6 +31,14 @@ public class Stomp : MonoBehaviour
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
         {
+
+            //controllo per impedire a certi nemici di inseguire il giocatore 
+            //dopo essere stati colpito
+            if (parent.GetComponent<Mob_chase>())
+            {
+                parent.GetComponent<Mob_chase>().canChase = false;
+            }
+
             if (collision.GetComponent<movement>().isSlamming)
             {
                 collision.GetComponent<movement>().isSlamming = false;
@@ -62,12 +70,7 @@ public class Stomp : MonoBehaviour
                     collision.GetComponent<Slime_bird_double_jump>().jumped = false;
                 }
             }
-            //controllo per impedire a certi nemici di inseguire il giocatore 
-            //dopo essere stati colpiti
-            if (parent.GetComponent<Mob_chase>())
-            {
-                parent.GetComponent<Mob_chase>().canChase = false;
-            }
+           
 
             parent.GetComponent<Animator>().SetBool("hit", true);
            

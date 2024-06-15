@@ -31,18 +31,31 @@ public class Slime_stinger_script : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Mob"))
-        {
+        {   // controlla che il pungiglione non abbia colpito una lumaca (immune)
             if (!collision.GetComponent<Snail_logic>())
             {
+                //controllo per impedire a certi nemici di inseguire il giocatore 
+                //dopo essere stati colpito
+                if (collision.GetComponent<Mob_chase>())
+                {
+                    collision.GetComponent<Mob_chase>().canChase = false;
+                }
+
                 collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
+                //attiva la funzione di contraccolpo del boss
                 if (collision.GetComponent<Boss_logic>())
                 {
                     collision.GetComponent<Boss_logic>().HitJump();
                 }
                 else
-                {
+                {   //se colpisce un mob roccia gli aumenta il counter dei colpi
+                    if (collision.GetComponent<Rock_logic>())
+                    {
+                        collision.GetComponent<Rock_logic>().hit.hit += 1;
+                    }
                     collision.gameObject.GetComponent<Animator>().SetBool("hit", true);
                 }
+               
                
             }
             Instantiate(hitEffect, transform.position, transform.rotation);

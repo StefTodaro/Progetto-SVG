@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 4014680486670152021}
   - component: {fileID: 153690357559263540}
   - component: {fileID: 5037770173782215978}
+  - component: {fileID: 7058149513384007718}
   m_Layer: 3
   m_Name: DestructableBlock
   m_TagString: Obstacles
@@ -124,3 +125,15 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &7058149513384007718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4014680486670152023}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfdb1afb6ae39646ae71becde578f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -11,6 +11,9 @@ public class Mob_patrol : MonoBehaviour
     // Flag per tenere traccia della direzione di movimento
     //da settare in base allo sprite iniziale
     public bool movingRight = false;
+    //Flag che controlla se il mob si muove su o giù
+    public bool movingUp = false;
+    //controlla se il mob si può muovere 
     public bool isPatrolling = true;
     public Animator anim;
 
@@ -39,11 +42,12 @@ public class Mob_patrol : MonoBehaviour
     void Update()
     {
 
-        ChangePatrolPoint();
+       
 
         //si controlla che ci sia almeno un punto di patrol
         if (isPatrolling && patrolPoints[0]!=null)
         {
+            ChangePatrolPoint();
 
             SetDirection();
             if (anim!=null)
@@ -51,6 +55,7 @@ public class Mob_patrol : MonoBehaviour
                 
                 anim.SetFloat("speed", moveSpeed);
             }
+
             // Muovi il nemico verso il punto di pattuglia corrente
             transform.position = Vector2.MoveTowards(transform.position, patrolPoints[currentPatrolIndex].position, moveSpeed * Time.deltaTime);
         }
@@ -85,6 +90,15 @@ public class Mob_patrol : MonoBehaviour
         {
             movingRight = false;
         }
+
+        if (gameObject.transform.position.y <= patrolPoints[currentPatrolIndex].position.y)
+        {
+            movingUp = true;
+        }
+        else
+        {
+            movingUp = false;
+        }
         RoteateMob();
     }
 
@@ -106,13 +120,16 @@ public class Mob_patrol : MonoBehaviour
         }
         else
         {
-            if (movingRight)
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            // Si effettua solo uno specchiamento dello sprite
+           
+            if (movingUp)
             {
-                transform.rotation = Quaternion.Euler(0, rotationy, rotationz);
+                spriteRenderer.flipX = false;
             }
             else
             {
-                transform.rotation = Quaternion.Euler(180, rotationy, rotationz);
+                spriteRenderer.flipX =true;
             }
         }
     }
@@ -123,6 +140,11 @@ public class Mob_patrol : MonoBehaviour
         if (collision.gameObject.CompareTag("Mob") || collision.gameObject.CompareTag("coin"))
         {
             Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); ;
+        }
+
+        if (collision.gameObject.CompareTag("Object"))
+        {
+            collision.gameObject.GetComponent<Object_logic>().Break();  
         }
     }
 }

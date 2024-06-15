@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6052997992705584932}
   - component: {fileID: 6052997992705584935}
   - component: {fileID: -4457734577610229341}
+  - component: {fileID: 7807533814013016163}
   m_Layer: 3
   m_Name: movingPlatformRock
   m_TagString: Untagged
@@ -166,6 +167,18 @@ MonoBehaviour:
   on: 0
   player: {fileID: 0}
   col: {fileID: 0}
+--- !u!114 &7807533814013016163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6052997992705584934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 015bc9ace59ea5c41a968bc83ee0954b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6052997992968099452
 GameObject:
   m_ObjectHideFlags: 0

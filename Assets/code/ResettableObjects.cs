@@ -38,12 +38,13 @@ public class ResettableObjects : MonoBehaviour
         {
             gameObject.GetComponent<Mob_patrol>().isPatrolling = initialPatrolState;
         }
-
+        //si resetta la possibilità di caricare del rinoceronte
         if (gameObject.GetComponent<Rino_Logic>())
         {
             gameObject.GetComponent<Rino_Logic>().canCharge=true;
         }
 
+        //si riporta la roccia nella prima fase 
         if (gameObject.GetComponent<Rock_logic>())
         {
             gameObject.GetComponent<Animator>().SetBool("respawn", true);
@@ -63,7 +64,7 @@ public class ResettableObjects : MonoBehaviour
             gameObject.GetComponent<BossMobsSpawn>().ResetMobInScene();
         }
 
-
+        //si resetta il trigger che dà inizio alla bossfight 
         if (gameObject.GetComponent<Boss_trigger>())
         {
             gameObject.GetComponent<Boss_trigger>().ResetTrigger();

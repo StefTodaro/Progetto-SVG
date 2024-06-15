@@ -59,6 +59,7 @@ public class Rock_logic : MonoBehaviour
 
     }
 
+    //termina l'animazione di hit del mob
     private void SetNewHit()
     {
 

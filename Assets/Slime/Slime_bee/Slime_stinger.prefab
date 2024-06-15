@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 2868845448259514839}
   m_Layer: 0
   m_Name: Slime_stinger
-  m_TagString: Untagged
+  m_TagString: PStinger
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

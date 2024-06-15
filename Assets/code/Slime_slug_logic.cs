@@ -10,11 +10,10 @@ public class Slime_slug_logic : MonoBehaviour
     public float vertical_movement;
     private Rigidbody2D rb;
     public bool facingUp ;
+    public bool isRotated;
     public float sideJumpForce = 6f;
-    public float wallJumpTime = 0.3f;
-    public float wallJumpTimer;
+  
     public bool hasWallJumped = false;
-
 
     public float canWallJumpTimer;
     public float canWallJumpTime = 0.15f;
@@ -26,53 +25,61 @@ public class Slime_slug_logic : MonoBehaviour
         mov = GetComponent<movement>();
         rb = GetComponent<Rigidbody2D>();
         facingUp = true;
-        wallJumpTimer = wallJumpTime;
+    
         canWallJumpTimer = canWallJumpTime;
     }
 
     // Update is called once per frame
     void Update()
     {
-         
-        RaycastHit hit;
 
-       
-        if (Physics.Raycast(transform.position, -transform.up, out hit, 1f, LayerMask.NameToLayer("ground"))
-            && !mov.isGrounded )
-        {
-            isOnWall = true;
-        }
-       /* else if (!Physics.Raycast(transform.position, -transform.up, out hit, 1f, LayerMask.NameToLayer("ground"))
-            &&  isOnWall)
-        {
-            isOnWall= false;
-            rb.gravityScale = 1;
-            transform.rotation = Quaternion.Euler(0, 0, 0);
 
-            //per riportare il personaggio nella rotazione corretta anche se è girato verso il basso 
-            if (!facingUp)
+        if (!mov.isGrounded && !isOnWall)
+        {
+            int direction;
+            if (mov.facingRight)
             {
-                FlipVertical();
-                facingUp = true;
+                direction = 1;
             }
-            canWallJumpTimer -= Time.deltaTime;
-        }*/
+            else
+            {
+                direction = -1;
+            }
+            RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right*direction, 0.555f, LayerMask.GetMask("ground"));
+            if (hit.collider != null && !hit.collider.CompareTag("platform") ||
+                hit.collider != null && !hit.collider.CompareTag("Object"))
+            {
+                    RoteateSlime();
+            }else
+            {
+                transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
+
+            }
+        }
+        
 
         if (isOnWall)
         {
             AttachToWall();
         }
 
-            // Visualizza il raycast nella scena (solo per debugging)
-            Debug.DrawLine(transform.position, transform.position + -transform.up * 1, Color.red);
-     
+        if (!isOnWall )
+        {
+            rb.gravityScale = 1;
+           
+            if (canWallJumpTime > 0)
+            {
+                canWallJumpTimer -= Time.deltaTime;
+            }
+        }
 
-        if ((isOnWall|| canWallJumpTimer>=0) && Input.GetKeyDown(KeyCode.Space))
+
+        if (((isOnWall && isRotated )|| canWallJumpTimer >= 0) && Input.GetKeyDown(KeyCode.Space))
         {
             isOnWall = false;
-            mov.anim.SetBool("jump", true);
-            hasWallJumped = true;
-            
+            mov.Jump();
+            WallJump();
+            //controllo che serve a far girare il giocatore nella direzione di salto
             if (mov.facingRight)
             {
                 mov.facingRight = false;
@@ -84,21 +91,8 @@ public class Slime_slug_logic : MonoBehaviour
             mov.Flip();
         }
 
-        if (hasWallJumped)
-        {
-            WallJump();
-        }
+     
 
-        if (wallJumpTimer <= 0)
-        {
-            wallJumpTimer = wallJumpTime;
-            hasWallJumped = false;
-        }
-
-        if((mov.isGrounded || isOnWall) && wallJumpTimer >= 0)
-        {
-            wallJumpTimer = wallJumpTime;
-        }
     }
 
     private void FlipVertical()
@@ -110,43 +104,44 @@ public class Slime_slug_logic : MonoBehaviour
 
     private void WallJump()
     {
-        wallJumpTimer -= Time.deltaTime;
         mov.moveInput = 0;
         isOnWall = false;
+        isRotated = false;
+        transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
 
 
         if (!mov.facingRight)
         {
-            rb.velocity = new Vector2(-sideJumpForce, mov.jumpForce);
+            rb.velocity = new Vector2(sideJumpForce, mov.jumpForce * 1.3f);
         }
         else
         {
-            rb.velocity = new Vector2(sideJumpForce, mov.jumpForce);
+            rb.velocity = new Vector2(-sideJumpForce, mov.jumpForce * 1.3f  );
         }
     }
 
     public void RoteateSlime()
+    {
+       
+        isRotated = true;
+        if (mov.facingRight)
+        {
+            transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 90);
+        }
+        else if (!mov.facingRight)
+        {
+            transform.rotation = Quaternion.Euler(rotation.x, rotation.y,-90);
+        }
+    }
+
+
+    public void AttachToWall()
     {
         if (mov.isSlamming)
         {
             mov.isSlamming = false;
         }
 
-        if (mov.facingRight)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, 90);
-        }
-        else if (!mov.facingRight)
-        {
-            transform.rotation = Quaternion.Euler(0, 0, -90);
-        }
-
-    }
-
-    public void AttachToWall()
-    {
-
-        
         rb.gravityScale = 0;
         vertical_movement = Input.GetAxis("Vertical");
         mov.anim.SetFloat("speed", Mathf.Abs(vertical_movement));
@@ -171,12 +166,34 @@ public class Slime_slug_logic : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter2D(Collision2D collision)
+   
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Wall") && !mov.isGrounded  && !isOnWall)
+        if (!mov.isGrounded && isRotated && !isOnWall)
         {
-            RoteateSlime();
-        }  
+            //controlla se il personaggio è roteato e tocca un muro
+            if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+            {
+                isOnWall = true;
+            }
+        }
+        
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        //controlla se il personaggio è roteato e tocca un muro
+        if (isOnWall && collision.gameObject.layer == LayerMask.NameToLayer("ground"))
+        {
+            isOnWall = false;
+            isRotated = false;
+            //per riportare il personaggio nella rotazione corretta anche se è girato verso il basso 
+            if (!facingUp)
+            {
+                FlipVertical();
+                facingUp = true;
+            }
+        }
     }
 
 }
