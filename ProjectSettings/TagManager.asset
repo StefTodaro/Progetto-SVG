@@ -22,6 +22,8 @@ TagManager:
   - Trigger
   - SecretWall
   - coinNum
+  - boxCounter
+  - wayPoint
   layers:
   - Default
   - TransparentFX

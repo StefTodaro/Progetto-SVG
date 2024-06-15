@@ -1,31 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using System.Linq;
 
 public class Slime_objects_logic : MonoBehaviour
 {
     public float detectionRadius = 0.7f;
     //oggetti inglobati dal giocatore
     public GameObject inObject;
+    
     public float incorporateTimer;
     public float incorporateTime = 0.8f;
     public float ejectTimer;
     public float ejectTime = 0.8f;
     public bool canIncorporate = true;
     public bool canEject = true;
+    public int indexCoin = 0; //Contatore delle box incorporate
 
     public AudioClip interactSound;
+
+    private TextMeshProUGUI boxText;
     
-
-
-
-
+  
     // Start is called before the first frame update
     void Start()
     {
         ejectTimer = ejectTime;
         incorporateTimer = incorporateTime;
         inObject = GameObject.FindGameObjectWithTag("inObjects");
+        
     }
 
     
@@ -59,6 +63,10 @@ public class Slime_objects_logic : MonoBehaviour
             SoundEffectManager.Instance.PlaySoundEffect(interactSound, transform, 1f);
             inObject.GetComponent<Incorporated_objects_list>().list.Add(nearestCollider.gameObject);
             nearestCollider.gameObject.SetActive(false);
+            
+            Debug.Log("**Box: " + indexCoin);
+            UpdateInObjectUI(inObject.GetComponent<Incorporated_objects_list>().list.Count());
+            
         }
         if (canIncorporate == false)
         {
@@ -82,23 +90,35 @@ public class Slime_objects_logic : MonoBehaviour
 
         if (Input.GetKeyDown(KeyCode.LeftControl) && canEject)
         {
-            SoundEffectManager.Instance.PlaySoundEffect(interactSound, transform, 1f);
-            GetComponent<movement>().anim.SetBool("drop", true);
-            canIncorporate = false;
-            canEject = false;
-            inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1].SetActive(true);
-
-            // Posiziona l'oggetto sotto i piedi del giocatore
-            Vector3 playerFeetPosition = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y, 0f);
-            inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count -1].transform.position = playerFeetPosition;
-            inObject.GetComponent<Incorporated_objects_list>().list.Remove(inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1]);
-           
+            //Se non si hanno casse non fare niente
+            if (inObject.GetComponent<Incorporated_objects_list>().list.Count() > 0){
+                canIncorporate = false;
+                canEject = false;
+                SoundEffectManager.Instance.PlaySoundEffect(interactSound, transform, 1f);
+                GetComponent<movement>().anim.SetBool("drop", true);
+                inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1].SetActive(true);
+                
+                // Posiziona l'oggetto sotto i piedi del giocatore
+                Vector3 playerFeetPosition = transform.position - new Vector3(0f, GetComponent<Collider2D>().bounds.extents.y, 0f);
+                inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1].transform.position = playerFeetPosition;
+                removeBox();
+            }
 
         }
     }
-    public void ClearInObject()
+
+    public void removeBox()
     {
-        inObject.GetComponent<Incorporated_objects_list>().list.Clear();
+        
+        inObject.GetComponent<Incorporated_objects_list>().list.Remove(inObject.GetComponent<Incorporated_objects_list>().list[inObject.GetComponent<Incorporated_objects_list>().list.Count - 1]);
+        UpdateInObjectUI(inObject.GetComponent<Incorporated_objects_list>().list.Count());
+    }
+    
+    public void UpdateInObjectUI(int num)
+    {
+        boxText = GameObject.FindGameObjectWithTag("boxCounter").GetComponent<TextMeshProUGUI>();
+
+        boxText.SetText(num.ToString());
     }
 
 
