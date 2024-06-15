@@ -108,11 +108,26 @@ public class Mob_onGround_chase : MonoBehaviour
         }
     }
 
+
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        //per fare in modo che i nemici non collidano tra loro nel movimento
+        if (collision.gameObject.CompareTag("Mob") || collision.gameObject.CompareTag("coin"))
+        {
+            Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); ;
+        }
+    }
+
     private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             onGround = false;
+        }
+
+        if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
+        {
+            GetComponent<Animator>().SetBool("hit", true);
         }
     }
 }

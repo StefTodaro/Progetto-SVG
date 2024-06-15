@@ -89,13 +89,8 @@ public class Rino_Logic : MonoBehaviour
     {
         if (isCharging )
         {
-            if (collision.gameObject.CompareTag("Mob") || 
-                collision.gameObject.CompareTag("coin")||
-                collision.gameObject.CompareTag("SecretWall"))
-            {
-                Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>()); ;
-            }
-            else
+           if(collision.gameObject.layer==LayerMask.NameToLayer("ground") || 
+                collision.CompareTag("Player"))
             {   
                 //se incontra un oggetto mentre carica lo distrugge
                 if (collision.CompareTag("Object")){
@@ -109,8 +104,16 @@ public class Rino_Logic : MonoBehaviour
                 stunned = true;
                 patrol.anim.SetBool("stunned", true);
             }
+            else
+            {
+                    Physics2D.IgnoreCollision(gameObject.GetComponent<BoxCollider2D>(), collision.gameObject.GetComponent<BoxCollider2D>());  
+            } 
+        }
 
-           
+        if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
+        {
+            anim.SetBool("hit", true);
         }
     }
+
 }

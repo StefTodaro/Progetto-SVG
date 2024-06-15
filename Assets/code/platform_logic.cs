@@ -45,6 +45,7 @@ public class platform_logic : MonoBehaviour
         {
             on = true;
             player=collision.gameObject;
+            collision.transform.SetParent(transform);
            
         }
     }
@@ -55,6 +56,7 @@ public class platform_logic : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             on = false;
+            collision.transform.SetParent(null);
         }
     }
 
