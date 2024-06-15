@@ -208,6 +208,12 @@ public class movement : MonoBehaviour
         {
             Hit();
         }
+        //controllo per non far sbattere il giocatore contro le monete
+        if (collision.gameObject.CompareTag("coin"))
+        {
+            Physics2D.IgnoreCollision(gameObject.GetComponent<Collider2D>(), collision.gameObject.GetComponent<Collider2D>()); ;
+
+        }
     }
 
 
@@ -228,7 +234,7 @@ public class movement : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {   
-            //controlli per l'istaziazione delle interazioni con il terreno
+            //controlli per l'istanziazione delle interazioni con il terreno
             if (!collision.gameObject.CompareTag("Object"))
             {
                 Instantiate(landingEffect, transform.position, transform.rotation);
@@ -244,7 +250,6 @@ public class movement : MonoBehaviour
                         SoundEffectManager.Instance.PlaySoundEffect(slamAudioClip, transform, 1f);
                 }
             }
-
         }
 
         if (collision.gameObject.CompareTag("Object"))

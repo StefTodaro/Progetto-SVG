@@ -226,7 +226,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
-  deathSound: {fileID: 0}
+  deathSound: {fileID: 8300000, guid: bbf175395568c014eb3b68e85dc051ef, type: 3}
 --- !u!50 &347272839471551148
 Rigidbody2D:
   serializedVersion: 4
@@ -281,7 +281,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   anim: {fileID: 0}
   rb: {fileID: 0}
-  mob: {fileID: 0}
   hide: 0
   distance: 3
   player: {fileID: 0}

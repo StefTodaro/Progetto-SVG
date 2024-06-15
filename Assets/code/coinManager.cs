@@ -35,15 +35,22 @@ public class coinManager : MonoBehaviour
     }
 
    
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {   if (pickUpAudio != null)
+        if (collision.CompareTag("Player"))
+        {
+            Debug.Log("trigger take");
+            CollectCoin(collision.gameObject);
+            if (pickUpAudio != null)
             SoundEffectManager.Instance.PlaySoundEffect(pickUpAudio, transform, 0.35f);
             Instantiate(takenEffect,transform.position, transform.rotation);
-            CollectCoin(collision.gameObject);
+            
         }
     }
+
+
+
+
 
     private void CollectCoin(GameObject player)
     {

@@ -38,7 +38,7 @@ public class Rock_stomp : MonoBehaviour
     void Update()
     {   
        
-        //si adatta all'utlima forma del mob
+        //si adatta il boxcollider all'utlima forma del mob
         if (hit >= 2)
         {
             gameObject.GetComponent<BoxCollider2D>().size = new Vector2(0.41f,0.21f);
@@ -49,12 +49,16 @@ public class Rock_stomp : MonoBehaviour
             gameObject.GetComponent<BoxCollider2D>().size = initialColliderSize;
             gameObject.GetComponent<BoxCollider2D>().offset = initialColliderOffset;
         }
+
     }
     void OnTriggerEnter2D(Collider2D collision)
     {
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
         {
+
+            
+
             if (collision.GetComponent<movement>().isSlamming)
             {
                 collision.GetComponent<movement>().isSlamming = false;
@@ -64,10 +68,11 @@ public class Rock_stomp : MonoBehaviour
 
             SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             hit++;
-             if (!transformations.full && hit==3 && slime_form != null) 
+             if (!transformations.full && hit>=3 && slime_form != null) 
              {
                 AddTransformation();
                 handler.ChangeForm();
+
             }
 
             parent.GetComponent<Animator>().SetBool("hit", true);
