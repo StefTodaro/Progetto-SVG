@@ -28,18 +28,10 @@ public class endLevel : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Player"))
         {
-            /*
-            CoinCounterScript.SaveCoinsAtLevel();
-            transf_l.ResetTransformation();
-            GameManager_logic.Instance.coinsTaken.Clear();
-            inc_obj.ClearInObject();
-            gManager.ResetCheckpoints();
             
-            */
             gManager.EndLevel();
             Completed = true;
             
-            Debug.Log("Livello completato con: " + CoinCounterScript.getCoin()  + " monete. il valore di CoinsAtLevel è " + CoinCounterScript.coinsAtLevel);
         }
     }
 
