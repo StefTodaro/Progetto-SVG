@@ -17,7 +17,8 @@ public class Mob_manager : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
+    {   
+        //controlla quali mob sono stati sconfitti
         foreach(GameObject mob in Mobs)
         {
             if (!mob.active)
@@ -34,12 +35,13 @@ public class Mob_manager : MonoBehaviour
 
         if (mob.GetComponent<Mob_respawn>().respawnTimer >= 12)
         {
-            MakeCloud(mob.transform);
-
+           
             mob.GetComponent<ResettableObjects>().ResetState();
+            MakeCloud(mob.transform);
         }
     }
 
+    //effetto di per i mostri che sono sconfitti o respawnano
     public void MakeCloud(Transform t)
     {
         SoundEffectManager.Instance.PlaySoundEffect(respawnSound, t, 0.4f);

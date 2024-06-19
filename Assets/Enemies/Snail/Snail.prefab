@@ -156,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_Sprite: {fileID: -2470267783429805470, guid: 29e4befe3b3969a409e1f4d8de31c4df, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -211,6 +211,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   movingRight: 0
+  movingUp: 0
   isPatrolling: 1
   anim: {fileID: 0}
 --- !u!114 &347272839471551149
@@ -282,7 +283,7 @@ MonoBehaviour:
   anim: {fileID: 0}
   rb: {fileID: 0}
   hide: 0
-  distance: 3
+  distance: 3.8
   player: {fileID: 0}
   originaleSpeed: 0
 --- !u!114 &347272839471551145

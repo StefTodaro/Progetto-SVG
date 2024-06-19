@@ -46,8 +46,8 @@ public class Slime_slug_logic : MonoBehaviour
                 direction = -1;
             }
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right*direction, 0.555f, LayerMask.GetMask("ground"));
-            if (hit.collider != null && !hit.collider.CompareTag("platform") ||
-                hit.collider != null && !hit.collider.CompareTag("Object"))
+            if (hit.collider != null && !hit.collider.CompareTag("platform") 
+               && !hit.collider.CompareTag("Object"))
             {
                     RoteateSlime();
             }else
@@ -107,6 +107,11 @@ public class Slime_slug_logic : MonoBehaviour
         mov.moveInput = 0;
         isOnWall = false;
         isRotated = false;
+        //si riporta lo sprite nelle condizioni originali
+        if (!facingUp)
+        {
+            FlipVertical();
+        }
         transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
 
 
@@ -118,6 +123,8 @@ public class Slime_slug_logic : MonoBehaviour
         {
             rb.velocity = new Vector2(-sideJumpForce, mov.jumpForce * 1.3f  );
         }
+
+
     }
 
     public void RoteateSlime()
@@ -132,6 +139,9 @@ public class Slime_slug_logic : MonoBehaviour
         {
             transform.rotation = Quaternion.Euler(rotation.x, rotation.y,-90);
         }
+
+        //lo slime inizialmente sarà sempre orientato verso l'alto
+        facingUp = true;
     }
 
 
