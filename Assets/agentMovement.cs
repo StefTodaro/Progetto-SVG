@@ -5,7 +5,6 @@ using UnityEngine.AI;
 
 public class agentMovement : MonoBehaviour
 {
-    public Transform[] waypoints;
     private int currentWaypointIndex = 0;
     private NavMeshAgent agent;
     
@@ -16,6 +15,8 @@ public class agentMovement : MonoBehaviour
         agent.updateRotation = false;
         agent.updateUpAxis = false;
     }
+
+
 
     public void Movement(Transform waypoint)
     {
@@ -33,6 +34,5 @@ public class agentMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
     }
 }

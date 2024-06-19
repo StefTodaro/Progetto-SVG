@@ -13,7 +13,8 @@ public class Level : MonoBehaviour
     [SerializeField] private bool unlocked;
     [SerializeField] private bool completed;
     [SerializeField] private int levelIndex; //Indice del livello
-    [SerializeField] private string levelName;
+    [SerializeField] private string levelName;//per richiamare la scena associata
+    //i waypoint accessibili dal livello viaggiando nelle direzioni associate
     [SerializeField] private Transform waypointUp;
     [SerializeField] private Transform waypointDown;
     [SerializeField] private Transform waypointRight;
@@ -21,9 +22,10 @@ public class Level : MonoBehaviour
     bool isOnLevel;
 
     Animator anim;
-    
+    //livelli che vengono sbloccati una volta completato il livello corrente
     public List<GameObject> waypoints;
 
+    //riferimento lo slime all'interno della mappa 
     agentMovement agent;
 
     void Start()
@@ -37,20 +39,27 @@ public class Level : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        anim.SetBool("unlocked", unlocked);
-        anim.SetBool("completed", completed);
+    {   
+        //setta le animazioni dei waypoint per un feeedback visivo
+        if (!anim.GetBool("unlocked"))
+        
+            anim.SetBool("unlocked", unlocked);
+        
+        if (!anim.GetBool("completed"))
+            anim.SetBool("completed", completed);
 
 
         StartLevel();
         Movement();
     }
 
+    //rende il livello raggiungibile
     public void unlock()
     {
         unlocked = true;
     }
 
+    //imposta il livello completato e rende accessibili i livelli collegati
     public void complete()
     {
         completed = true;
@@ -60,6 +69,7 @@ public class Level : MonoBehaviour
         }
     }
 
+    //inizia il livello associato al waypoint
     public void StartLevel()
     {
         if (Input.GetKeyDown(KeyCode.Return)){
@@ -71,11 +81,11 @@ public class Level : MonoBehaviour
         }
     }
 
+    //definisce se il giocatore è sopra il waypoint o meno
     public void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("Collision");
             isOnLevel = true;
             agent = collision.GetComponent<agentMovement>();
         }
@@ -93,26 +103,28 @@ public class Level : MonoBehaviour
         
     }
 
+    //indica in quali posizioni il giocatore si possa muovere in base ai waypoint collegati 
+    //nelle quattro direzioni
     void Movement()
     {
         if (isOnLevel)
         {
             if (waypointUp != null && (Input.GetKeyDown(KeyCode.UpArrow) || Input.GetKeyDown(KeyCode.W)))
             {
-                if (waypointUp.GetComponent<Level>().unlocked) { Debug.Log("UP"); agent.Movement(waypointUp); }
+                if (waypointUp.GetComponent<Level>().unlocked) { agent.Movement(waypointUp); }
 
             }
             if (waypointDown != null && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.S)))
             {
-                if (waypointDown.GetComponent<Level>().unlocked) { Debug.Log("DOWN"); agent.Movement(waypointDown); }
+                if (waypointDown.GetComponent<Level>().unlocked) { agent.Movement(waypointDown); }
             }
             if (waypointRight != null && (Input.GetKeyDown(KeyCode.RightArrow) || Input.GetKeyDown(KeyCode.D)))
             {
-                if (waypointRight.GetComponent<Level>().unlocked) { Debug.Log("RIGHT"); agent.Movement(waypointRight); }
+                if (waypointRight.GetComponent<Level>().unlocked) {  agent.Movement(waypointRight); }
             }
             if (waypointLeft != null && (Input.GetKeyDown(KeyCode.LeftArrow) || Input.GetKeyDown(KeyCode.A)))
             {
-                if (waypointLeft.GetComponent<Level>().unlocked) { Debug.Log("LEFT"); agent.Movement(waypointLeft); }
+                if (waypointLeft.GetComponent<Level>().unlocked) { agent.Movement(waypointLeft); }
             }
         }
     }

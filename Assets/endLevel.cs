@@ -13,14 +13,15 @@ public class endLevel : MonoBehaviour
     private Transformation_logic transf_l;
     private Incorporated_objects_list inc_obj;
     private GameManager_logic gManager;
+    [SerializeField] private Animator anim;
     
     void Start()
     {
 
         //inc_obj = GameObject.FindGameObjectWithTag("inObjects").GetComponent<Incorporated_objects_list>();
         //CoinCounterScript = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
-        gManager = GameObject.FindGameObjectWithTag("game_manager").GetComponent<GameManager_logic>();
         //transf_l = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
+        anim.GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -28,8 +29,7 @@ public class endLevel : MonoBehaviour
         
         if (collision.gameObject.CompareTag("Player"))
         {
-            
-            gManager.EndLevel();
+            anim.SetBool("end", true);
             Completed = true;
             
         }
@@ -40,6 +40,9 @@ public class endLevel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (Completed)
+        {
+            GameManager_logic.Instance.EndLevel();
+        }
     }
 }

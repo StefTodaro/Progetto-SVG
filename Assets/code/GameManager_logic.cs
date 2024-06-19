@@ -8,6 +8,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Security.Cryptography;
+using UnityEngine.SceneManagement;
 
 public class GameManager_logic : MonoBehaviour
 {
@@ -33,6 +34,9 @@ public class GameManager_logic : MonoBehaviour
     GameObject Player;
 
     GameObject inc_obj; //Da inizializzare
+
+    public float endLevelTimer;
+    public AudioClip endLevelMusic;
 
     private void Start()
     {
@@ -179,7 +183,14 @@ public class GameManager_logic : MonoBehaviour
         coinsTaken.Clear();
         inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
         ResetCheckpoints();
-        
+
+        endLevelTimer += Time.deltaTime;
+        SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 0.75f);
+        if (endLevelTimer >= endLevelMusic.length )
+        {
+            endLevelTimer = 0;
+            SceneManager.LoadScene("Selezione Livelli");
+        }
     }
 
 
