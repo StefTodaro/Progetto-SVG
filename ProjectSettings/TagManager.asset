@@ -24,6 +24,10 @@ TagManager:
   - coinNum
   - boxCounter
   - wayPoint
+  - PStinger
+  - gameMusic
+  - soundMixerManager
+  - clip
   layers:
   - Default
   - TransparentFX
