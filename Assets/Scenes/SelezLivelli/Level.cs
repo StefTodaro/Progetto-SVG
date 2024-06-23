@@ -37,6 +37,20 @@ public class Level : MonoBehaviour
     }
 
 
+    public int index() { return levelIndex; }
+
+    //Funzione per debug 
+    public string status()
+    {
+        return "level: " + levelIndex + " status: " + unlocked;
+    }
+
+    public bool isCompleted()
+    {
+        return completed;
+    }
+
+    public bool isUnlocked() { return unlocked; }
     // Update is called once per frame
     void Update()
     {   
@@ -49,9 +63,12 @@ public class Level : MonoBehaviour
             anim.SetBool("completed", completed);
 
 
-        StartLevel();
         Movement();
+        StartLevel();
+        
     }
+
+
 
     //rende il livello raggiungibile
     public void unlock()

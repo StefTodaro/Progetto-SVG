@@ -38,6 +38,10 @@ public class GameManager_logic : MonoBehaviour
     public float endLevelTimer;
     public AudioClip endLevelMusic;
 
+    [SerializeField] int indexLevel;
+
+    //Variabile per assicurarsi che il registro di "livello" sia stato settato 
+    public static bool hasSetted = false;
     private void Start()
     {
         if (Instance == null)
@@ -174,8 +178,8 @@ public class GameManager_logic : MonoBehaviour
     {
         mainCamera.GetComponent<Camera_Follow>().cameraLocked = false;
     }
-
-
+    
+   
     public void EndLevel()
     {
         cCounter.SaveCoinsAtLevel();
@@ -184,13 +188,26 @@ public class GameManager_logic : MonoBehaviour
         inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
         ResetCheckpoints();
 
+        var exitTime = 1f;
         endLevelTimer += Time.deltaTime;
-        SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 0.75f);
-        if (endLevelTimer >= endLevelMusic.length )
+        if (endLevelMusic != null )
+        {
+            exitTime = endLevelMusic.length;
+            SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 0.75f);
+        }
+        if (endLevelTimer > exitTime )
         {
             endLevelTimer = 0;
             SceneManager.LoadScene("Selezione Livelli");
         }
+        PlayerPrefs.SetInt("livello", indexLevel);
+        if (!hasSetted)
+        {
+            hasSetted = true;
+        }
+        PlayerPrefs.Save();
+        
+
     }
 
 
