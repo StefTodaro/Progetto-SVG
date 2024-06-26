@@ -24,19 +24,12 @@ public class levelManager : MonoBehaviour
            children[i] = parent.transform.GetChild(i).gameObject;
                
        }
-
-      
-
-
-
-
     }
 
   
     
     void Update()
     {
-        
         //Prende la variabile dal registro
         levelIndex = PlayerPrefs.GetInt("livello");
         

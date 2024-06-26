@@ -28,6 +28,7 @@ TagManager:
   - gameMusic
   - soundMixerManager
   - clip
+  - Start
   layers:
   - Default
   - TransparentFX

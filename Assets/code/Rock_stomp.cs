@@ -64,16 +64,18 @@ public class Rock_stomp : MonoBehaviour
                 collision.GetComponent<movement>().isSlamming = false;
             }
 
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
 
             SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             hit++;
              if (!transformations.full && hit>=3 && slime_form != null) 
              {
                 AddTransformation();
-                handler.ChangeForm();
+                transformations.ChangeForm(transformations.GetCurrentTransformation());
 
             }
+
+            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
+
 
             parent.GetComponent<Animator>().SetBool("hit", true);
             
@@ -92,16 +94,16 @@ public class Rock_stomp : MonoBehaviour
     public void AddTransformation()
     {
        //controlla che la trasformazione non sia già contenuta nella lista delle trasformazioni 
-            if (!transformations.transformations.Contains(slime_form))
+            if (!transformations.ContainsTransformation(slime_form))
             {
             //cerca la prima posizione in cui è possibile inserire la trasformazione appena ottenuta
             for (int i = 0; i < 3; i++)
             {
-                if (transformations.transformations[i] == transformations.baseSlime)
+                if (transformations.transformations[i].transformation == transformations.baseSlime)
                 {
                     //trasforma il giocatore nella forma appena ottenuta
                     transformations.c = i;
-                    transformations.transformations[transformations.c] = slime_form;
+                    transformations.SetCurrentTransformation(slime_form);
                     break;
                 }
             }

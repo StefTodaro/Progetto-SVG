@@ -72,7 +72,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 6
   slime: {fileID: 0}
-  slime_form: {fileID: 0}
+  slime_form: {fileID: 4636424003151133839, guid: a715b2cf12ddd4c419e4f96f632ddaa5, type: 3}
   anim: {fileID: 0}
   transformations: {fileID: 0}
   handler: {fileID: 0}

@@ -175,6 +175,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   movingRight: 0
+  movingUp: 0
   isPatrolling: 1
   anim: {fileID: 0}
 --- !u!114 &6162503913335913489
@@ -237,8 +238,8 @@ MonoBehaviour:
   patrolSpeed: 0
   chargeSpeed: 6.5
   stunned: 0
+  anim: {fileID: 0}
   bounceStength: 3
-  chase: {fileID: 0}
   crashAudio: {fileID: 8300000, guid: cdd10cf1d572d674da42248fefabceda, type: 3}
 --- !u!114 &6162503913335913481
 MonoBehaviour:
@@ -338,7 +339,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 6
   parent: {fileID: 6162503913335913503}
-  slime_form: {fileID: 0}
+  slime_form: {fileID: 6693223477065526608, guid: e3f633b13e70eca41bc2fef3ee0aab80, type: 3}
   transformations: {fileID: 0}
   handler: {fileID: 0}
   hitAudio: {fileID: 8300000, guid: b4bce86abefa1a64889f8ae81e78ec4f, type: 3}

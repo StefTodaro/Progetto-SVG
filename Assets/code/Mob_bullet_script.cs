@@ -33,7 +33,7 @@ public class Mob_bullet_script : MonoBehaviour
     {
         timer += Time.deltaTime;
 
-        if (timer > 5)
+        if (timer > 2.5f)
         {
             Destroy(gameObject);
         }

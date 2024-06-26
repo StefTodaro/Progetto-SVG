@@ -8,6 +8,8 @@ public class platform_logic : MonoBehaviour
     public bool on=false;
     public GameObject player;
     public Collider2D col;
+    //oggetto che serve per far tornare le trasformazioni nella loro collezione iniziale
+    public Transform originalParent;
     // Start is called before the first frame update
     void Start()
     {
@@ -45,6 +47,7 @@ public class platform_logic : MonoBehaviour
         {
             on = true;
             player=collision.gameObject;
+            originalParent= collision.transform.parent;
             collision.transform.SetParent(transform);
            
         }
@@ -56,7 +59,7 @@ public class platform_logic : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             on = false;
-            collision.transform.SetParent(null);
+            collision.transform.SetParent(originalParent);
         }
     }
 

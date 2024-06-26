@@ -22,7 +22,6 @@ public class Snail_stomp : MonoBehaviour
     void Start()
     {
         anim = GetComponentInParent<Animator>();
-
         transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
     }
 
@@ -37,7 +36,6 @@ public class Snail_stomp : MonoBehaviour
         handler = collision.GetComponent<Transformation_handler>();
         if (collision.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
 
             SoundEffectManager.Instance.PlaySoundEffect(hitAudio, transform, 0.6f);
             if (collision.GetComponent<movement>().isSlamming)
@@ -48,7 +46,7 @@ public class Snail_stomp : MonoBehaviour
                 if (!transformations.full && slime_form != null)
                 {
                     AddTransformation();
-                    handler.ChangeForm();
+                    transformations.ChangeForm(transformations.GetCurrentTransformation());
                 }
 
                 anim.SetBool("hit", true);
@@ -65,21 +63,23 @@ public class Snail_stomp : MonoBehaviour
             }
  
         }
+        collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
+
 
     }
     public void AddTransformation()
     {
         //controlla che la trasformazione non sia già contenuta nella lista delle trasformazioni 
-        if (!transformations.transformations.Contains(slime_form))
+        if (!transformations.ContainsTransformation(slime_form))
         {
             //cerca la prima posizione in cui è possibile inserire la trasformazione appena ottenuta
             for (int i = 0; i < 3; i++)
             {
-                if (transformations.transformations[i] == transformations.baseSlime)
+                if (transformations.transformations[i].transformation == transformations.baseSlime)
                 {
                     //trasforma il giocatore nella forma appena ottenuta
                     transformations.c = i;
-                    transformations.transformations[transformations.c] = slime_form;
+                    transformations.SetCurrentTransformation(slime_form);
                     break;
                 }
             }

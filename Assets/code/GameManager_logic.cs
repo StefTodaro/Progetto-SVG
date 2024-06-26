@@ -13,7 +13,7 @@ using UnityEngine.SceneManagement;
 public class GameManager_logic : MonoBehaviour
 {
     public static GameManager_logic Instance;
-    private Vector2 checkpointPosition;
+    public Vector2 checkpointPosition;
     public List<GameObject> objectsToReset;
     public GameObject objectList;
     public GameObject mainCamera;
@@ -28,12 +28,12 @@ public class GameManager_logic : MonoBehaviour
 
     private coinManager cManager;
     private coinCounter cCounter;
-    private GameObject transformationHandler;
+    private Transformation_logic transformations;
     public GameObject startPosition;
     private bool restart = false;
-    GameObject Player;
+    GameObject player;
 
-    GameObject inc_obj; //Da inizializzare
+    GameObject inc_obj;
 
     public float endLevelTimer;
     public AudioClip endLevelMusic;
@@ -55,16 +55,28 @@ public class GameManager_logic : MonoBehaviour
         }
 
         mainCamera = GameObject.FindGameObjectWithTag("camera");
-
+        startPosition = GameObject.FindGameObjectWithTag("Start");
         objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
         objectList = GameObject.FindGameObjectWithTag("inObjects");
 
         cManager = GameObject.FindGameObjectWithTag("coin").GetComponent<coinManager>();
         cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
-        transformationHandler = GameObject.FindGameObjectWithTag("t_handler");
-       Player= GameObject.FindGameObjectWithTag("Player");
+        transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>(); ;
         inc_obj = GameObject.FindGameObjectWithTag("inObjects");
 
+    }
+
+
+    //si inizializzano le variabili utili ad inizio livello non permanenti
+    public void StartLevel()
+    { //si prende il riferimento al livello attuale
+      
+        player = GameObject.FindGameObjectWithTag("Player");
+        startPosition = GameObject.FindGameObjectWithTag("Start");
+        mainCamera = GameObject.FindGameObjectWithTag("camera");
+        objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
+        objectList = GameObject.FindGameObjectWithTag("inObjects");
+        inc_obj = GameObject.FindGameObjectWithTag("inObjects");
     }
 
     //Metodo che restituisce il valore della variabile booleana restart
@@ -77,16 +89,16 @@ public class GameManager_logic : MonoBehaviour
     public void RestartLevel()
     {
         restart = true;
-        transformationHandler.GetComponent<Transformation_logic>().ResetTransformation();   //Rinizializza la lista delle trasformazioni
-        
+        transformations.ResetTransformation();   //Rinizializza la lista delle trasformazioni
+        player = GameObject.FindGameObjectWithTag("Player");
+
         cCounter.ResetCoinsToLevel();
         coinsTaken.Clear();// si ripulisce la lista delle monete prese 
         inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject(); //Svuota la lista degli oggetti assorbiti
-
         var Checkpoint = GameObject.Find("Checkpoint");
         //si reimposta come checkpoint attuale la posizione iniziale 
         checkpointPosition = startPosition.transform.position;
-        RespawnPlayer(Player);
+        RespawnPlayer(player);
         ResetCheckpoints();
         restart = false;
         
@@ -136,22 +148,14 @@ public class GameManager_logic : MonoBehaviour
                 !coinsTaken.Contains(obj))
             {
                 obj.GetComponent<ResettableObjects>().ResetState();
-            }
-
-
-            
-
+            } 
         }
 
         if (!restart)
         {
             //Reset the coin in the level 
-           
             cManager.resetCoin(checkpointCoins);
             objectList.GetComponent<Incorporated_objects_list>().ClearInObject();
-           
-            
-
         }
     }
 
@@ -164,32 +168,41 @@ public class GameManager_logic : MonoBehaviour
         //TextMeshPro coinText = coinCounter.GetComponentInChildren<TextMeshPro>();
 
         coinText.SetText(cCounter.getCoin().ToString());
-        
-        
+       
     }
 
     //funzioni per gestire l'obbiettivo della main caamera
     public void LockCamera()
     {
+        /*if (mainCamera == null)
+        {
+            mainCamera = GameObject.FindGameObjectWithTag("camera");
+        }*/
         mainCamera.GetComponent<Camera_Follow>().cameraLocked = true;
     } 
     
     public void UnlockCamera()
     {
+       /* if (mainCamera == null)
+        {
+            mainCamera = GameObject.FindGameObjectWithTag("camera");
+        }*/
         mainCamera.GetComponent<Camera_Follow>().cameraLocked = false;
     }
+
     
    
     public void EndLevel()
     {
         cCounter.SaveCoinsAtLevel();
-        transformationHandler.GetComponent<Transformation_logic>().ResetTransformation();
         coinsTaken.Clear();
         inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
         ResetCheckpoints();
 
         var exitTime = 1f;
         endLevelTimer += Time.deltaTime;
+        //se c'è la musica di fine livello allora prima di caricare la nuova scena 
+        //aspetterà che finisca
         if (endLevelMusic != null )
         {
             exitTime = endLevelMusic.length;
@@ -200,15 +213,20 @@ public class GameManager_logic : MonoBehaviour
             endLevelTimer = 0;
             SceneManager.LoadScene("Selezione Livelli");
         }
-        PlayerPrefs.SetInt("livello", indexLevel);
+
+        //PlayerPrefs.SetInt("livello", indexLevel);
+
+        //si resettano le trasformazioni dello slime a fine livello
+        transformations.ResetTransformation();
+
+        //si svuota la lista degli elementi da ricaricare
+        objectsToReset.Clear();
         if (!hasSetted)
         {
             hasSetted = true;
         }
         PlayerPrefs.Save();
-        
-
+      
     }
-
 
 }

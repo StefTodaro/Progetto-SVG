@@ -232,6 +232,7 @@ MonoBehaviour:
   moveSpeed: 3
   patrolPoints: []
   movingRight: 0
+  movingUp: 0
   isPatrolling: 1
   anim: {fileID: 0}
 --- !u!1 &4747472078977022330
@@ -306,7 +307,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 6
   parent: {fileID: 4747472078341550588}
-  slime_form: {fileID: 4979979483999387485, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
+  slime_form: {fileID: 3372897824792118087, guid: a42652c0211689141ac5d950ebe65b1b, type: 3}
   transformations: {fileID: 0}
   handler: {fileID: 0}
   hitAudio: {fileID: 8300000, guid: b4bce86abefa1a64889f8ae81e78ec4f, type: 3}
