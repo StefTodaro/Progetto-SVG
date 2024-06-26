@@ -200,6 +200,7 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   movingRight: 0
+  movingUp: 0
   isPatrolling: 0
   anim: {fileID: 0}
 --- !u!114 &1384142092642832273
@@ -307,7 +308,7 @@ MonoBehaviour:
   bounce: 6
   parent: {fileID: 0}
   slime: {fileID: 0}
-  slime_form: {fileID: 0}
+  slime_form: {fileID: 8979685145127967541, guid: 45a1290254d843a4f89095f9c603d750, type: 3}
   patrol: {fileID: 0}
   transformations: {fileID: 0}
   handler: {fileID: 0}

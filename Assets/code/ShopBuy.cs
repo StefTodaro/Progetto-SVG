@@ -32,6 +32,8 @@ public class ShopBuy : MonoBehaviour
     void Update()
     {
     }
+
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         handler = collision.gameObject.GetComponent<Transformation_handler>();
@@ -43,21 +45,31 @@ public class ShopBuy : MonoBehaviour
             if (coinCounter.getCoin() >= price)
             {
                 SoundEffectManager.Instance.PlaySoundEffect(cashInSound, transform, 0.7f);
+
+                if (collision.GetComponent<movement>().isSlamming)
+                {
+                    collision.GetComponent<movement>().isSlamming = false;
+                }
+
+               
+
+                if (!transformations.full && slime_form != null)
+                {
+                    AddTransformation();
+                    transformations.ChangeForm(transformations.GetCurrentTransformation());
+                }
+
                 collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
 
 
-                if (slime_form != null)
+                if (collision.GetComponent<movement>().isSlamming)
                 {
-                    AddTransformation();
-                    handler.ChangeForm();
+                    collision.GetComponent<movement>().isSlamming = false;
+                    collision.GetComponent<movement>().canSlam = true;
                 }
 
-
-                if (collision.gameObject.GetComponent<movement>().isSlamming)
-                {
-                    collision.gameObject.GetComponent<movement>().isSlamming = false;
-                    collision.gameObject.GetComponent<movement>().canSlam = true;
-                }
+                //controllo per far effettuare un ulteriore salto allo slime_bird
+              
 
                 coinCounter.setCoin(coinCounter.getCoin() - price);
                 GameManager_logic.Instance.UpdateCoinText();
@@ -66,7 +78,7 @@ public class ShopBuy : MonoBehaviour
             }
             else
             {
-                SoundEffectManager.Instance.PlaySoundEffect(cantBuySound, transform, 0.7f);
+                SoundEffectManager.Instance.PlaySoundEffect(cantBuySound, transform, 1f);
 
             }
         }
@@ -76,16 +88,17 @@ public class ShopBuy : MonoBehaviour
     public void AddTransformation()
     {
         //controlla che la trasformazione non sia già contenuta nella lista delle trasformazioni 
-        if (!transformations.transformations.Contains(slime_form))
+        if (!transformations.ContainsTransformation(slime_form))
         {
             //cerca la prima posizione in cui è possibile inserire la trasformazione appena ottenuta
             for (int i = 0; i < 3; i++)
             {
-                if (transformations.transformations[i] == transformations.baseSlime)
+                if (transformations.transformations[i].transformation == transformations.baseSlime)
                 {
                     //trasforma il giocatore nella forma appena ottenuta
                     transformations.c = i;
-                    transformations.transformations[transformations.c] = slime_form;
+                    transformations.SetCurrentTransformation(slime_form);
+                    transformations.SetFromShop(true);
                     break;
                 }
             }

@@ -30,6 +30,8 @@ public class movement : MonoBehaviour
     public GameObject coinPrefab;
     public GameObject deathPanel;
 
+    public Transformation_logic transformations;
+
     public GameObject landingEffect;
     public GameObject slimeDrops;
 
@@ -286,14 +288,21 @@ public class movement : MonoBehaviour
         }
     }
 
+
+   
+
     public void DieAndRespawn()
     {
-      
+        if (transformations == null)
+        {
+        transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
+        }
+
         Instantiate(slimeDrops, transform.position, transform.rotation);
         SoundEffectManager.Instance.PlaySoundEffect(deathAudioClip, transform, 0.5f);
         GameManager_logic.Instance.LockCamera();
         deathPanel.GetComponent<Death_panel_logic>().ActivePanel();
-        gameObject.GetComponent<Transformation_handler>().LosePower();
+        transformations.LosePower();
         GameManager_logic.Instance.RespawnPlayer(gameObject);
     }  
 
@@ -303,10 +312,15 @@ public class movement : MonoBehaviour
 
         if (gameObject.GetComponent<Transformation_handler>().transformed)
         {
+            if (transformations == null)
+            {
+                transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
+            }
+
             SoundEffectManager.Instance.PlaySoundEffect(hitAudioClip, transform, 0.4f);
-            gameObject.GetComponent<Transformation_handler>().LosePower();
+            transformations.LosePower();
             //attiva l'invulnerabilità così che sia attiva per tutte le trasformazioni
-            gameObject.GetComponent<Transformation_handler>().ActivateInvulnerability();
+            transformations.ActivateInvulnerability();
             
         }
         else

@@ -356,7 +356,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 6
   parent: {fileID: 0}
-  slime_form: {fileID: 0}
+  slime_form: {fileID: 2527423760716626835, guid: fdbbd79108ac89344bd675915f40702a, type: 3}
   transformations: {fileID: 0}
   handler: {fileID: 0}
   hitAudio: {fileID: 8300000, guid: b4bce86abefa1a64889f8ae81e78ec4f, type: 3}

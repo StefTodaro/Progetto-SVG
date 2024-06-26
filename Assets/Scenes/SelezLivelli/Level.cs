@@ -92,10 +92,21 @@ public class Level : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Return)){
             if (levelName != null && isOnLevel)
             {
+                SceneManager.sceneLoaded += OnSceneLoaded;
+                PlayerPrefs.SetInt("livello", levelIndex);
+                PlayerPrefs.Save();
                 SceneManager.LoadScene(levelName);
-
             }
         }
+    }
+
+    //una volta caricato il livello si inizializzano tutti i valori utili
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+    {
+        // Disiscriversi dall'evento sceneLoaded per evitare problemi di memoria
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+
+        GameManager_logic.Instance.StartLevel();
     }
 
     //definisce se il giocatore è sopra il waypoint o meno
@@ -110,14 +121,11 @@ public class Level : MonoBehaviour
 
     public void OnTriggerExit2D(Collider2D collision)
     {
-
-
         if (collision.CompareTag("Player"))
         {
             isOnLevel = false;
             agent = null;
         }
-        
     }
 
     //indica in quali posizioni il giocatore si possa muovere in base ai waypoint collegati 
@@ -145,8 +153,5 @@ public class Level : MonoBehaviour
             }
         }
     }
-    
-    
-    //TODO 
-
+  
 }

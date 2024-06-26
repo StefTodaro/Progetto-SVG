@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4929723726098238791}
   - component: {fileID: 4929723726098238790}
+  - component: {fileID: 1632601947070772593}
   m_Layer: 0
   m_Name: BirdForm
   m_TagString: Untagged
@@ -83,6 +84,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1632601947070772593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4929723726098238793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9bfdb1afb6ae39646ae71becde578f44, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8131666245159909707
 PrefabInstance:
   m_ObjectHideFlags: 0
