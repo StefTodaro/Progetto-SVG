@@ -74,6 +74,8 @@ public class Rino_Logic : MonoBehaviour
        
     }
 
+    
+
     private void Unstun()
     {
        anim.SetBool("stunned", false);
@@ -84,7 +86,7 @@ public class Rino_Logic : MonoBehaviour
         canCharge = true;
     }
 
-    
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (isCharging )

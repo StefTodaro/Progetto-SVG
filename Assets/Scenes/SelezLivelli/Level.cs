@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
@@ -33,7 +32,6 @@ public class Level : MonoBehaviour
         
         anim = GetComponent<Animator>();
         
-        
     }
 
 
@@ -64,7 +62,10 @@ public class Level : MonoBehaviour
 
 
         Movement();
-        StartLevel();
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            StartLevel();
+        }
         
     }
 
@@ -89,33 +90,37 @@ public class Level : MonoBehaviour
     //inizia il livello associato al waypoint
     public void StartLevel()
     {
-        if (Input.GetKeyDown(KeyCode.Return)){
             if (levelName != null && isOnLevel)
-            {
+            {   
+                //salvo la posizione dello slime nella mappa
+                PlayerPrefs.SetFloat("slimePosx",agent.transform.position.x);
+                PlayerPrefs.SetFloat("slimePosy",agent.transform.position.y);
+                SetCurrentLevel();
+               
                 SceneManager.sceneLoaded += OnSceneLoaded;
-                PlayerPrefs.SetInt("livello", levelIndex);
-                PlayerPrefs.Save();
                 SceneManager.LoadScene(levelName);
-            }
+            
         }
     }
 
     //una volta caricato il livello si inizializzano tutti i valori utili
     private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
     {
-        // Disiscriversi dall'evento sceneLoaded per evitare problemi di memoria
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-
+       
         GameManager_logic.Instance.StartLevel();
     }
+
+   
+
 
     //definisce se il giocatore è sopra il waypoint o meno
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && agent==null)
         {
             isOnLevel = true;
             agent = collision.GetComponent<agentMovement>();
+            
         }
     }
 
@@ -153,5 +158,17 @@ public class Level : MonoBehaviour
             }
         }
     }
-  
+
+    //funzione per definire qual è il livello che si sta giocando
+    public void SetCurrentLevel()
+    {
+        PlayerPrefs.SetInt("currentLevel" , levelIndex);
+    }
+
+    //metodo per salvare i livelli completati
+    public void SaveLevelCompleted(int i)
+    {
+        //si salva il numero del livello
+        PlayerPrefs.SetInt("level" + i, i);
+    }
 }

@@ -16,11 +16,35 @@ public class UItransformation : MonoBehaviour
     public GameObject rino;
     public GameObject bird;
     public GameObject bee;
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         StartCoroutine(InitializeAfterDelay());
     }
+    void Update()
+    {
+        player = GameObject.FindGameObjectWithTag("Player");
+        if (rino.name== player.name && repeat1)
+        {
+            activeTransfRinoPanel();
+            repeat1 = false;
+
+        }
+        if (bird.name == player.name && repeat2)
+        {
+            activeTransfBirdPanel();
+            repeat2 = false;
+        }
+        if (bee.name==player.name && repeat3)
+        {
+            activeTransfBeePanel();
+            repeat3 = false;
+        }
+
+        closePanel();
+    }
+
 
     IEnumerator InitializeAfterDelay()
     {
@@ -36,32 +60,11 @@ public class UItransformation : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
-    {
-        if(rino.activeInHierarchy && repeat1)
-        {
-            activeTransfRinoPanel();
-            repeat1 = false;
-            
-        }
-        if(bird.activeInHierarchy && repeat2)
-        {
-            activeTransfBirdPanel();
-            repeat2 = false;
-        }
-        if(bee.activeInHierarchy && repeat3)
-        {
-            activeTransfBeePanel();
-                repeat3 = false;
-        }
-        
-        closePanel();
-    }
-
+    
    
     public void closePanel()
     {
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetMouseButtonDown(1))
         {
             Time.timeScale = 1f;
             if (plateBird.activeInHierarchy)

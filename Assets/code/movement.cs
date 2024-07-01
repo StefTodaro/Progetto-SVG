@@ -74,73 +74,86 @@ public class movement : MonoBehaviour
             isSwinging = false;
         }
 
-        // Movimento orizzontale
-        if (!isSlamming && !isSwinging) {
-            Movement();
-        }
-        anim.SetFloat("speed", Mathf.Abs(moveInput));
+        
+            // Movimento orizzontale
+            if (!isSlamming && !isSwinging)
+            {
+                Movement();
+            }
+            anim.SetFloat("speed", Mathf.Abs(moveInput));
 
-        // Salto
-        if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-        {
-            Jump();
-            anim.SetBool("jump", true);
-        }
+            // Salto
+            if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+            {
+                Jump();
+                anim.SetBool("jump", true);
+            }
 
-        if (!isGrounded)
-        {
-            anim.SetBool("jump", true);
-        }
-        else
-        {
-            anim.SetBool("jump", false);
-        }
+            if (!isGrounded)
+            {
+                anim.SetBool("jump", true);
+            }
+            else
+            {
+                anim.SetBool("jump", false);
+            }
 
-        if (moveInput < 0 && facingRight)
-        {
-            facingRight = false;
-            Flip();
+            //rotazione del giocatore nella direzione di movimento
+            if (moveInput < 0 && facingRight)
+            {
+                facingRight = false;
+                Flip();
 
-        }
-        else if (moveInput > 0 && !facingRight)
-        {
-            facingRight = true;
-            Flip();
-        }
+            }
+            else if (moveInput > 0 && !facingRight)
+            {
+                facingRight = true;
+                Flip();
+            }
+        
 
 
-        SlamCharge();
+            SlamCharge();
 
-        if (!isGrounded && Input.GetKeyDown(KeyCode.S) && canSlam)
-        {
-            Slam();
-        }
+            if (!isGrounded && Input.GetKeyDown(KeyCode.S) && canSlam)
+            {
+                Slam();
+            }
 
-        if ((isGrounded || isSwinging) && isSlamming)
-        {
-            isSlamming = false;
-            canSlam = true;
-        }
+            if ((isGrounded || isSwinging) && isSlamming)
+            {
+                isSlamming = false;
+                canSlam = true;
+            }
 
-        if (!canBeHit)
-        {
-           FlashEffect();
-        }
-        else if(canBeHit && !GetComponent<SpriteRenderer>().enabled)
-        {
-            GetComponent<SpriteRenderer>().enabled = true;
-        }
+            if (!canBeHit)
+            {
+                FlashEffect();
+            }
+            else if (canBeHit && !GetComponent<SpriteRenderer>().enabled)
+            {
+                GetComponent<SpriteRenderer>().enabled = true;
+            }
+        
     }
 
     public void Movement()
-    {
-        moveInput = Input.GetAxisRaw("Horizontal");
-        rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+    { //controlla che il giocatore non abbia terminato il livello
+        if (!GameManager_logic.Instance.GetInactive())
+        {
+            moveInput = Input.GetAxisRaw("Horizontal");
+            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+        }
+        else
+        {   
+            //se il livello è terminato il giocatore non potrà muoversi
+            rb.velocity = new Vector2(0, rb.velocity.y);
+        }
     }
 
     public void Jump()
     {
-        if(jumpAudioClip!=null)
+        if(jumpAudioClip!=null && !GameManager_logic.Instance.GetInactive())
         SoundEffectManager.Instance.PlaySoundEffect(jumpAudioClip, transform, 0.5f);
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
     }
@@ -170,17 +183,7 @@ public class movement : MonoBehaviour
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         // Specchia lo sprite sull'asse x
         spriteRenderer.flipX = !spriteRenderer.flipX;
-        
-        /*
-        if (facingRight)
-        {
-            transform.rotation = Quaternion.Euler(transform.rotation.x, 0, transform.rotation.z);
-        }
-        else
-        {
-            transform.rotation = Quaternion.Euler(transform.rotation.x, 180, transform.rotation.z);
-        }
-        */
+       
     }
 
     //effetua l'effetto lampeggiante 
@@ -206,7 +209,7 @@ public class movement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.CompareTag("Mob") && canBeHit)
+        if (collision.gameObject.CompareTag("Mob") && canBeHit && !GameManager_logic.Instance.GetInactive())
         {
             Hit();
         }
@@ -221,12 +224,12 @@ public class movement : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Mob") && canBeHit)
+        if (collision.gameObject.CompareTag("Mob") && canBeHit && !GameManager_logic.Instance.GetInactive())
         {
             Hit();  
         }
 
-        if (collision.gameObject.layer == LayerMask.NameToLayer("death"))
+        if (collision.gameObject.layer == LayerMask.NameToLayer("death") && !GameManager_logic.Instance.GetInactive())
         {
             
             DieAndRespawn();

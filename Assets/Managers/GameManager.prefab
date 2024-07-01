@@ -623,7 +623,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 164, y: 706.9}
+  m_AnchoredPosition: {x: 197, y: 911}
   m_SizeDelta: {x: 200, y: 200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2477536197636159765
@@ -937,6 +937,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 669f8e395f30fd44582c7e0c85a4763a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  checkpointPosition: {x: 0, y: 0}
   objectsToReset: []
   objectList: {fileID: 0}
   mainCamera: {fileID: 0}
@@ -945,8 +946,9 @@ MonoBehaviour:
   coinsTaken: []
   startPosition: {fileID: 0}
   endLevelTimer: 0
-  endLevelMusic: {fileID: 0}
+  endLevelMusic: {fileID: 8300000, guid: acf6ae393bb7dac4f815dc3a7dd4193a, type: 3}
   indexLevel: 0
+  endLevel: 0
 --- !u!1 &2477536198855762285
 GameObject:
   m_ObjectHideFlags: 0
@@ -1555,6 +1557,10 @@ PrefabInstance:
       propertyPath: baseSlime
       value: 
       objectReference: {fileID: 2455127835275750411, guid: c9164093b79346c49ab41dc69f96ea77, type: 3}
+    - target: {fileID: 4551939853448537154, guid: 1e98be3b65a425140aa55bab150bf288, type: 3}
+      propertyPath: slimeForms
+      value: 
+      objectReference: {fileID: 1738431390575043377, guid: 070d89d0fe5ea3447b50b8b96c4488a1, type: 3}
     - target: {fileID: 4551939853448537155, guid: 1e98be3b65a425140aa55bab150bf288, type: 3}
       propertyPath: m_RootOrder
       value: 1

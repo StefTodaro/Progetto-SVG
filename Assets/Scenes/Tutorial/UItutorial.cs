@@ -19,7 +19,7 @@ public class UItutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isPaused && Input.GetKeyDown(KeyCode.Return))
+        if(isPaused && Input.GetMouseButtonDown(1))
         {
             HideTutorialMessage();
         }

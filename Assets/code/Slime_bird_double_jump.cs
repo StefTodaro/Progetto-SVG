@@ -27,34 +27,26 @@ public class Slime_bird_double_jump : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!mov.isGrounded && !jumped)
+        if (mov.isGrounded && !canDoubleJump)
         {
             canDoubleJump = true;
         }
 
-        if(mov.isGrounded && canDoubleJump)
+        if( canDoubleJump && Input.GetKeyDown(KeyCode.Space) && !mov.isGrounded)
         {
-            canDoubleJump = false;
-        }
 
-        if( canDoubleJump && Input.GetKeyDown(KeyCode.Space))
-        {
-            
+            if (mov.isSlamming)
+            {
+                mov.canSlam = true;
+                mov.isSlamming = false;
+            }
             canDoubleJump = false;
             anim.SetBool("doubleJump", true);
-            jumped = true;
+            
             
         }
 
-        if(mov.isGrounded && !canDoubleJump)
-        {
-            anim.SetBool("doubleJump", false);
-        }
 
-        if (mov.isGrounded && jumped && !onBox)
-        {
-            jumped = false;
-        }
     }
 
     public void DoubleJump()

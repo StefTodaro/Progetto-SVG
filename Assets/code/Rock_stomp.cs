@@ -51,6 +51,12 @@ public class Rock_stomp : MonoBehaviour
         }
 
     }
+
+    private void OnDisable()
+    {
+        //si resetta il numero di colpi subiti dal mob
+        hit = 0;
+    }
     void OnTriggerEnter2D(Collider2D collision)
     {
         handler = collision.GetComponent<Transformation_handler>();
@@ -71,13 +77,13 @@ public class Rock_stomp : MonoBehaviour
              {
                 AddTransformation();
                 transformations.ChangeForm(transformations.GetCurrentTransformation());
-
             }
 
             collision.gameObject.GetComponent<Rigidbody2D>().velocity = new Vector2(collision.gameObject.GetComponent<Rigidbody2D>().velocity.x, bounce);
 
 
             parent.GetComponent<Animator>().SetBool("hit", true);
+            
             
             if (collision.GetComponent<Slime_bird_double_jump>())
             {

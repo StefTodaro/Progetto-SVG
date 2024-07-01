@@ -9,7 +9,7 @@ public class StartMenuController : MonoBehaviour
     public GameObject CreditsPanel;
     public GameObject ControlsPanel;
     [SerializeField] private AudioClip buttonClick;
-
+    
     public void PlayGame()
     {
         SoundEffectManager.Instance.PlaySoundEffect(buttonClick, transform, 0.90f);

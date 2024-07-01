@@ -29,6 +29,8 @@ TagManager:
   - soundMixerManager
   - clip
   - Start
+  - levelManager
+  - creditsB
   layers:
   - Default
   - TransparentFX

@@ -39,7 +39,8 @@ public class Slime_rino_dash : MonoBehaviour
     {
         
 
-        if (canDash && Input.GetMouseButtonDown(0) && mov.isGrounded)
+        if (canDash && Input.GetMouseButtonDown(0) && mov.isGrounded 
+            && !GameManager_logic.Instance.GetInactive())
         {
             SoundEffectManager.Instance.PlaySoundEffect(dashSound, transform, 0.1f);
             if (mov.facingRight)

@@ -50,7 +50,7 @@ public class Slime_objects_logic : MonoBehaviour
 
             // Se l'oggetto è più vicino dell'oggetto attualmente più vicino, aggiornalo
             if (distance < minDistance && collider.CompareTag("Object") && 
-                inObject.GetComponent<Incorporated_objects_list>().list.Count<=4)
+                inObject.GetComponent<Incorporated_objects_list>().list.Count<4)
             {
                 minDistance = distance;
                 nearestCollider = collider;
@@ -63,8 +63,7 @@ public class Slime_objects_logic : MonoBehaviour
             SoundEffectManager.Instance.PlaySoundEffect(interactSound, transform, 1f);
             inObject.GetComponent<Incorporated_objects_list>().list.Add(nearestCollider.gameObject);
             nearestCollider.gameObject.SetActive(false);
-            
-            Debug.Log("**Box: " + indexCoin);
+          
             UpdateInObjectUI(inObject.GetComponent<Incorporated_objects_list>().list.Count());
             
         }
