@@ -6,20 +6,23 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
 
-public class Transformation_logic : MonoBehaviour
-{   
-    public class Transformations
-    {
-        public GameObject transformation;
-        //controlla se la trasformazione è stata acquistata dallo shop
-        public bool fromShop;
-    }
 
-   
+
+public class Transformations
+{
+    public GameObject transformation;
+    //controlla se la trasformazione è stata acquistata dallo shop
+    public bool fromShop;
+}
+
+public class Transformation_logic : MonoBehaviour
+{
     //controlla quali trasformazioni sono presenti nella scena
     public List<GameObject> transformationsInScene=new List<GameObject>();
     //lista delle trasformazioni acquisite
     public Transformations[] transformations = new Transformations[3];
+    //lista contenente tutte le trasformazioni
+    public GameObject slimeForms;
     //lista delle trasformazioni presenti nella scena
     public GameObject[] transformationsUI;
     //lista con gli sprite delle trasformazioni per la UI
@@ -35,8 +38,7 @@ public class Transformation_logic : MonoBehaviour
 
 
     public float transformJump = 5f;
-    //riferimento al giocatore (trasformazione) attivo 
-    public GameObject player;
+   
 
 
 
@@ -62,7 +64,8 @@ public class Transformation_logic : MonoBehaviour
         //si definisce il cursore dei selezione della trasformazione e la posizione iniziale
         selector = GameObject.FindGameObjectWithTag("Selector");
         selector.transform.position = transformationsUI[c].transform.position;
-
+        //si caricano le trasformazioni comprate dallo shop (se ce ne sono)
+        LoadTransformations();
 
     }
 
@@ -179,7 +182,7 @@ public class Transformation_logic : MonoBehaviour
 
     public void ActivateInvulnerability()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+       GameObject player = GameObject.FindGameObjectWithTag("Player");
         movement mov=player.GetComponent<movement>();
         mov.canBeHit = false;
         mov.rb.velocity = new Vector2(0, 6);
@@ -192,7 +195,7 @@ public class Transformation_logic : MonoBehaviour
         t -= 1;
         SetCurrentTransformation(baseSlime);
 
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         //la forma attuale viene disattivata e vengono raccolti tutti i dati utili
         var isGrounded = player.GetComponent<movement>().isGrounded;
         var actualPosition = player.transform.position;
@@ -234,19 +237,23 @@ public class Transformation_logic : MonoBehaviour
             transformationsInScene.Add(newForm);
         }
 
+
+        newForm.SetActive(true);
+
         newForm.GetComponent<movement>().isSwinging = false;
         newForm.transform.position = actualPosition;
         newForm.GetComponent<movement>().isGrounded = isGrounded;
 
-        newForm.SetActive(true);
+        //si applica la forza di salto dopo aver lasciato la trasformazione
+        var rb = newForm.GetComponent<Rigidbody2D>();
+        rb.velocity = new Vector2(rb.velocity.x, 6f);
     }
 
 
     public void ChangeForm(GameObject newTransformation)
-    {   
+    {
         //controlla prima che la nuova forma non sia nella scena
-
-        player = GameObject.FindGameObjectWithTag("Player");
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
 
         var isGrounded = player.GetComponent<movement>().isGrounded;
         var velocity = player.GetComponent<movement>().rb.velocity;
@@ -280,6 +287,8 @@ public class Transformation_logic : MonoBehaviour
             transformationsInScene.Add(newTransformation);
         }
 
+        newTransformation.SetActive(true);
+
         //per ristabilire la grandezza originale dopo il cambio forma
         newTransformation.transform.localScale = new Vector3(0.2f, 0.2f, 0);
         newTransformation.transform.position = actualPosition;
@@ -291,7 +300,7 @@ public class Transformation_logic : MonoBehaviour
         newTransformation.GetComponent<movement>().canSlam = canSlam;
         newTransformation.GetComponent<movement>().slamTimer = slamTimer;
         newTransformation.GetComponent<movement>().isGrounded = isGrounded;
-        newTransformation.SetActive(true);
+        
 
         //si ha comunque una modifica della selezione delle trasformazioni
         UpdateUI(c);
@@ -299,27 +308,70 @@ public class Transformation_logic : MonoBehaviour
 
     public void ResetTransformation()
     {
-         player = GameObject.FindGameObjectWithTag("Player");
-        //se la trasformazione non è proveniente dallo shop allora viene persa 
-        if (player.GetComponent<Transformation_handler>().transformed)
-        {
-            if (!IsFromShop(c))
-            {
-              LosePower();
-            }
-        }
-
+        
         //stessa cosa succede per le altre trasformazioni
         for (int i = 0; i < 3; i++)
         {
             if (!IsFromShop(i))
             {
                 transformations[i].transformation = baseSlime;
+                t -= 1;
                 UpdateUI(i);
             }
         }
+        c = 0;
         //si ripulisce la lista degli oggetti presenti in scena
         transformationsInScene.Clear();
+        ChangeForm(GetCurrentTransformation());
+    }
+
+    //salvataggio delle trasformazioni
+    public void SaveTransformations()
+    {
+        for (int i = 0; i < transformations.Length; i++)
+        {
+            if (transformations[i].fromShop)
+            {
+                PlayerPrefs.SetString("transformation" + i, transformations[i].transformation.name);
+            }
+            else
+            {   
+                //se lo slot trasformazione è occupato da una trasformazione non
+                //proveniente dallo shop, allora si svuota
+                if (transformations[i] != null)
+                {
+                    PlayerPrefs.SetString("transformation" + i,null);
+
+                }
+            }
+        }
+    }
+    //funzione utile per caricare i dati delle trasformazioni
+    public void LoadTransformations()
+    {   
+        GameObject form = null;
+
+        //scorrimento nel vettore delle trasformazioni 
+        for (int i = 0; i < transformations.Length; i++)
+        { 
+            if ((PlayerPrefs.GetString("transformation" + i)!=null))
+            {
+                //si ricerca il nome della trasformazione salvata all'interno
+                //della lista di tutte le trasformazioni
+                for (int c = 0; c < slimeForms.transform.childCount; c++)
+                {   
+                    form = slimeForms.transform.GetChild(c).gameObject;
+                    //trovato il nome corrispondente alla trasformazioni
+                    //si avvalora il vettore con il prefabbricato della trasformazione
+                    if ((PlayerPrefs.GetString("transformation" + i)== form.name)){
+                        transformations[i].transformation = form;
+                        transformations[i].fromShop = true;
+                        UpdateUI(i);
+                        break;
+                    }
+                }
+            }
+        }
     }
 
 

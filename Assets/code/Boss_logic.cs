@@ -48,6 +48,11 @@ public class Boss_logic : MonoBehaviour
 
     public AudioClip landingSound;
     public AudioClip swordSound;
+    
+    //timer per far iniziare la vittoria 
+    //dopo aver sconfitto il boss
+    public float winTimer = 0;
+    
   
 
 
@@ -108,6 +113,7 @@ public class Boss_logic : MonoBehaviour
         {
             Death();
         }
+
     }
 
     //funzione per far girare il boss nella direzione del giocatore
@@ -163,9 +169,11 @@ public class Boss_logic : MonoBehaviour
         {
             return false;
         }
+    }
 
-       
-
+    public int GetCurrentPhase()
+    {
+        return p;
     }
 
     public void Death()
@@ -177,6 +185,13 @@ public class Boss_logic : MonoBehaviour
             anim.SetBool("death", true);
             //si rende il corpo del boss inoffensivo
             gameObject.tag = "Untagged";
+        }
+
+        winTimer += Time.deltaTime;
+        //si aspetta qualche secondo prima di terminare il livello
+        if (winTimer >= 4f )
+        {
+            GameManager_logic.Instance.EndLevel();
         }
     }
 

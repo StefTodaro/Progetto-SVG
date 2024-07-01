@@ -10,7 +10,6 @@ public class coinManager : MonoBehaviour
     public GameObject coinPrefab;
     float bounceForce = 3.5f;
     
-    private GameObject cCObject;
     private coinCounter cC;
 
     public GameObject takenEffect;
@@ -19,8 +18,7 @@ public class coinManager : MonoBehaviour
     
     private void Start()
     {
-         cCObject = GameObject.FindGameObjectWithTag("coinCounter");
-         cC = cCObject.GetComponent<coinCounter>();
+         cC = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
         
     }
     public void InstantiateCoin(Vector3 spawnPosition)
@@ -39,7 +37,6 @@ public class coinManager : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            Debug.Log("trigger take");
             CollectCoin(collision.gameObject);
             if (pickUpAudio != null)
             SoundEffectManager.Instance.PlaySoundEffect(pickUpAudio, transform, 0.35f);
@@ -71,8 +68,8 @@ public class coinManager : MonoBehaviour
 
 
     public void resetCoin(int nCoin)
-    {
-        cC.setCoin(nCoin);
+    {   
+        cC.setCoin(nCoin + PlayerPrefs.GetInt("coins"));
         
     }
 

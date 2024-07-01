@@ -15,8 +15,9 @@ public class GameManager_logic : MonoBehaviour
     public static GameManager_logic Instance;
     public Vector2 checkpointPosition;
     public List<GameObject> objectsToReset;
-    public GameObject objectList;
+    public Incorporated_objects_list objectList;
     public GameObject mainCamera;
+
     
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
@@ -38,10 +39,15 @@ public class GameManager_logic : MonoBehaviour
     public float endLevelTimer;
     public AudioClip endLevelMusic;
 
-    [SerializeField] int indexLevel;
+
+    //booleano che indica se il gioco è inattivo
+    public bool inactive=false;
 
     //Variabile per assicurarsi che il registro di "livello" sia stato settato 
     public static bool hasSetted = false;
+
+    AudioSource audioSource;
+
     private void Start()
     {
         if (Instance == null)
@@ -54,10 +60,11 @@ public class GameManager_logic : MonoBehaviour
             Destroy(gameObject);
         }
 
+
         mainCamera = GameObject.FindGameObjectWithTag("camera");
         startPosition = GameObject.FindGameObjectWithTag("Start");
         objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
-        objectList = GameObject.FindGameObjectWithTag("inObjects");
+        objectList = GameObject.FindGameObjectWithTag("inObjects").GetComponent<Incorporated_objects_list>();
 
         cManager = GameObject.FindGameObjectWithTag("coin").GetComponent<coinManager>();
         cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
@@ -66,17 +73,35 @@ public class GameManager_logic : MonoBehaviour
 
     }
 
-
     //si inizializzano le variabili utili ad inizio livello non permanenti
     public void StartLevel()
-    { //si prende il riferimento al livello attuale
-      
+    {
+        
+
         player = GameObject.FindGameObjectWithTag("Player");
         startPosition = GameObject.FindGameObjectWithTag("Start");
+        checkpointPosition = startPosition.transform.position;
+        transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>(); ;
+        //si cancella la lista delle trasformazioni in scena
+        transformations.transformationsInScene.Clear();
+
+        cManager = GameObject.FindGameObjectWithTag("coin").GetComponent<coinManager>();
+        cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
         mainCamera = GameObject.FindGameObjectWithTag("camera");
         objectsToReset = FindObjectsOfType<ResettableObjects>().Select(o => o.gameObject).ToList();
-        objectList = GameObject.FindGameObjectWithTag("inObjects");
+        objectList = GameObject.FindGameObjectWithTag("inObjects").GetComponent<Incorporated_objects_list>();
         inc_obj = GameObject.FindGameObjectWithTag("inObjects");
+    }
+
+    //set e get sell inactive
+    public void SetInactive(bool inac)
+    {
+        inactive=inac;
+    }
+
+    public bool GetInactive()
+    {
+        return inactive;
     }
 
     //Metodo che restituisce il valore della variabile booleana restart
@@ -89,17 +114,16 @@ public class GameManager_logic : MonoBehaviour
     public void RestartLevel()
     {
         restart = true;
+        inactive = false;
         transformations.ResetTransformation();   //Rinizializza la lista delle trasformazioni
         player = GameObject.FindGameObjectWithTag("Player");
-
         cCounter.ResetCoinsToLevel();
         coinsTaken.Clear();// si ripulisce la lista delle monete prese 
         inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject(); //Svuota la lista degli oggetti assorbiti
-        var Checkpoint = GameObject.Find("Checkpoint");
-        //si reimposta come checkpoint attuale la posizione iniziale 
-        checkpointPosition = startPosition.transform.position;
-        RespawnPlayer(player);
+
         ResetCheckpoints();
+        //si reimposta come checkpoint attuale la posizione iniziale 
+        RespawnPlayer(player);       
         restart = false;
         
     }
@@ -111,7 +135,9 @@ public class GameManager_logic : MonoBehaviour
         {
             checkpoint.GetComponent<checkpoint_handler>().DisableCheckPoint();
         }
-        activatedCheckpoints.Clear();  
+        activatedCheckpoints.Clear();
+        checkpointPosition = startPosition.transform.position;
+        
     }
     public void SetCheckpoint(GameObject newCheckpointPosition)
     {
@@ -134,7 +160,6 @@ public class GameManager_logic : MonoBehaviour
 
     }
 
-
     public void RespawnPlayer(GameObject player)
     {
         player.transform.position = checkpointPosition;
@@ -143,90 +168,124 @@ public class GameManager_logic : MonoBehaviour
         {
             /*Se l'oggetto è inglobato dal giocatore oppure
             è una moneta presa dal giocatore 
-            prima di raggiungere il checjpoint non respawna*/
-            if (!objectList.GetComponent<Incorporated_objects_list>().list.Contains(obj) &&
-                !coinsTaken.Contains(obj))
+            prima di raggiungere il checkpoint non respawna*/
+            if (!objectList.list.Contains(obj) && !coinsTaken.Contains(obj))
             {
                 obj.GetComponent<ResettableObjects>().ResetState();
             } 
         }
-
         if (!restart)
         {
-            //Reset the coin in the level 
+            //Resetta le monete al numero di monete al momento 
+            //dell'attivazione del checkpoint
             cManager.resetCoin(checkpointCoins);
-            objectList.GetComponent<Incorporated_objects_list>().ClearInObject();
+        }
+        if (restart)
+        {
+            objectList.ClearInObject();
         }
     }
 
-    
-    public void UpdateCoinText()
-    {
-        TextMeshProUGUI coinText = GameObject.FindGameObjectWithTag("coinNum").GetComponent<TextMeshProUGUI>();
-        GameObject coinCounter = GameObject.FindGameObjectWithTag("coinNum");
-        
-        //TextMeshPro coinText = coinCounter.GetComponentInChildren<TextMeshPro>();
-
-        coinText.SetText(cCounter.getCoin().ToString());
-       
-    }
 
     //funzioni per gestire l'obbiettivo della main caamera
     public void LockCamera()
     {
-        /*if (mainCamera == null)
-        {
-            mainCamera = GameObject.FindGameObjectWithTag("camera");
-        }*/
         mainCamera.GetComponent<Camera_Follow>().cameraLocked = true;
     } 
     
     public void UnlockCamera()
     {
-       /* if (mainCamera == null)
-        {
-            mainCamera = GameObject.FindGameObjectWithTag("camera");
-        }*/
         mainCamera.GetComponent<Camera_Follow>().cameraLocked = false;
     }
+
+   
 
     
    
     public void EndLevel()
     {
-        cCounter.SaveCoinsAtLevel();
-        coinsTaken.Clear();
-        inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
-        ResetCheckpoints();
+        audioSource = GameObject.FindGameObjectWithTag("gameMusic").GetComponent<AudioSource>();
 
-        var exitTime = 1f;
-        endLevelTimer += Time.deltaTime;
+        inactive = true;
         //se c'è la musica di fine livello allora prima di caricare la nuova scena 
-        //aspetterà che finisca
-        if (endLevelMusic != null )
+        //aspetterà che finisca e suona una sola volta 
+        if (endLevelMusic != null && !inactive)
         {
-            exitTime = endLevelMusic.length;
             SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 0.75f);
         }
-        if (endLevelTimer > exitTime )
+
+        endLevelTimer += Time.deltaTime;
+      
+
+        
+
+        if (endLevelTimer > endLevelMusic.length)
         {
             endLevelTimer = 0;
+            SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("Selezione Livelli");
+           
+            audioSource.Stop();
+            cCounter.SaveCoinsAtLevel();
+            coinsTaken.Clear();
+            inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
+            //si resettano le trasformazioni dello slime una volta caricata la mappa 
+            transformations.ResetTransformation();
+
+
+            //si resettano i checkpoint del livello
+            ResetCheckpoints();
+
+            //si svuota la lista degli elementi da ricaricare
+            objectsToReset.Clear();
+
+            //a fine livello si salvano le trasformazioni e le monete
+            cCounter.SaveCoins();
+            transformations.SaveTransformations();
+
         }
 
-        //PlayerPrefs.SetInt("livello", indexLevel);
-
-        //si resettano le trasformazioni dello slime a fine livello
-        transformations.ResetTransformation();
-
-        //si svuota la lista degli elementi da ricaricare
-        objectsToReset.Clear();
-        if (!hasSetted)
-        {
-            hasSetted = true;
-        }
-        PlayerPrefs.Save();
       
     }
+
+
+    private void OnSceneLoaded(UnityEngine.SceneManagement.Scene scene, LoadSceneMode mode)
+    {
+        //fa ripartire la musica una volta tornanti nella selezione livelli
+        audioSource = GameObject.FindGameObjectWithTag("gameMusic").GetComponent<AudioSource>();
+        audioSource.Play();
+
+        inactive = false;
+       
+        //si aggiornano i dati sui livelli completati
+        levelManager lm = GameObject.FindGameObjectWithTag("levelManager").GetComponent<levelManager>();
+        lm.SetCurrentLevelCompl();
+
+
+    }
+
+    //funzione per quando il giocatore esce dal livello
+    //tramite il pulsante "quit"
+
+    public void QuitLevel()
+    {
+        
+        transformations.ResetTransformation();
+
+        //si resettano i checkpoint del livello
+        ResetCheckpoints();
+
+        objectsToReset.Clear();
+        inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
+
+        coinsTaken.Clear();
+        //si resetta il gioco come attivo
+        inactive = false;
+
+        SceneManager.LoadScene("Selezione livelli");
+
+    }
+
+
 
 }

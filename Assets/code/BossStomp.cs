@@ -6,14 +6,14 @@ using UnityEngine.XR;
 public class BossStomp : MonoBehaviour
 {
     public float bounce = 6;
-    public GameObject parent;
+    public Boss_logic boss;
     //serve per aumentare la precisione per il rilevamento dei colpi
     public float timeBetweenHits;
     public bool canBeHit = true;
     // Start is called before the first frame update
     void Start()
     {
-        parent = gameObject.transform.parent.gameObject;
+        boss = gameObject.GetComponentInParent<Boss_logic>();
     }
 
     // Update is called once per frame
@@ -32,11 +32,14 @@ public class BossStomp : MonoBehaviour
 
     public void Hit()
     {
-        if (parent.GetComponent<Boss_logic>().isFighting)
+        if (boss.isFighting)
         {
-            parent.GetComponent<Boss_logic>().HitJump();
-            parent.GetComponent<Boss_logic>().PassToNextPhase();
-            parent.GetComponent<Animator>().SetBool("hit", true);
+            boss.HitJump();
+            if (boss.GetCurrentPhase() != 2)
+            {
+                boss.PassToNextPhase();
+            }
+            GetComponentInParent<Animator>().SetBool("hit", true);
         }
     }
 

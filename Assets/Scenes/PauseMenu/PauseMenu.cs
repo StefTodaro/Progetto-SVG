@@ -22,12 +22,15 @@ public class PauseMenu : MonoBehaviour
             if (isPaused)
             {
                 Resume();
+                GameManager_logic.Instance.SetInactive(false);
                
             }
             else
             {
                 Pause();
                 ReloadPauseMenu();
+                GameManager_logic.Instance.SetInactive(true);
+
             }
         }   
     }
@@ -38,6 +41,7 @@ public class PauseMenu : MonoBehaviour
         Confirm.SetActive(false);
         Options.SetActive(false);
         Controls.SetActive(false);
+
     }
     public void Resume()
     {
@@ -59,7 +63,8 @@ public class PauseMenu : MonoBehaviour
     {
         Time.timeScale = 1f;
         isPaused = false;
-        SceneManager.LoadScene("Selezione livelli");
+
+        GameManager_logic.Instance.QuitLevel();
     }
 
 }

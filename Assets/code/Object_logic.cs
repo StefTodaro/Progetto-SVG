@@ -25,7 +25,7 @@ public class Object_logic : MonoBehaviour
     {
         if (boxBreakAudioClip != null)
         {
-            SoundEffectManager.Instance.PlaySoundEffect(boxBreakAudioClip, transform, 0.2f);
+            SoundEffectManager.Instance.PlaySoundEffect(boxBreakAudioClip, transform, 0.13f);
         }
         Instantiate(boxBreakEffect, transform.position, transform.rotation);
         gameObject.SetActive(false);

@@ -16,9 +16,7 @@ public class Transformation_handler : MonoBehaviour
     private void Start()
     {
         transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
-        //all'inizio di ogni livello si setta il baseSlime
-        //transformations.SetBaseSlime(gameObject);
-        //si trasforma il giocatore nella prima trasformazione posseduta
+        //si cambia nella prima trasformazione nella lista delel trasformazioni
         transformations.ChangeForm(transformations.GetCurrentTransformation());
 
     }
@@ -39,9 +37,6 @@ public class Transformation_handler : MonoBehaviour
             }
             SoundEffectManager.Instance.PlaySoundEffect(releaseTransformSound, transform, 0.6f);
             transformations.LosePower();
-            //si applica la forza di salto dopo aver lasciato la trasformazione
-            var rb = gameObject.GetComponent<Rigidbody2D>();
-            rb.velocity = new Vector2(rb.velocity.x, 6f);
         }
        
         //attivazione animazione per il cambio della trasformazione 

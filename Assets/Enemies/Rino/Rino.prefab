@@ -191,7 +191,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cloud: {fileID: 7083281009705095512, guid: 1385b2d6d39506b4992b575bbdab978f, type: 3}
-  deathSound: {fileID: 8300000, guid: 6a159f0823a059f4ba42bc50f6b3f80a, type: 3}
+  deathSound: {fileID: 8300000, guid: bbf175395568c014eb3b68e85dc051ef, type: 3}
 --- !u!61 &6162503913335913502
 BoxCollider2D:
   m_ObjectHideFlags: 0

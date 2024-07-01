@@ -72,9 +72,9 @@ public class ShopBuy : MonoBehaviour
               
 
                 coinCounter.setCoin(coinCounter.getCoin() - price);
-                GameManager_logic.Instance.UpdateCoinText();
+                coinCounter.UpdateCoinText();
                 Instantiate(aquisitionEffect, transform.position, transform.rotation);
-                Destroy(parent);
+                parent.SetActive(false);
             }
             else
             {

@@ -165,6 +165,7 @@ MonoBehaviour:
   maxAngle: 0
   minAngle: -190
   shotAudio: {fileID: 8300000, guid: 92a224be2b680374eb00e73639286971, type: 3}
+  startShootTimer: 1
 --- !u!114 &1640881582798325397
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -280,7 +281,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.15771729, y: -0.9309583}
+  m_Offset: {x: -0.103388906, y: -0.9309583}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -291,7 +292,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.0689, y: 2.487628}
+  m_Size: {x: 5.1340885, y: 2.487628}
   m_EdgeRadius: 0
 --- !u!114 &4747472078977022328
 MonoBehaviour:

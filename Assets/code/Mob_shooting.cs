@@ -14,7 +14,11 @@ public class Mob_shooting : MonoBehaviour
 
     public AudioClip shotAudio;
 
-    private float timer;
+    //tempo necessario per il mob per sparare il primo colpo
+    public float startShootTimer=0.65f;
+    //tempo che intercorre tra uno sparo e l'altro 
+    private float shootTimer=1.75f;
+    private bool canShoot=true;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,25 +38,43 @@ public class Mob_shooting : MonoBehaviour
         //distanza reltiva dal mob
         float distance = Vector2.Distance(transform.position, player.transform.position);
        
-
+        //se il giocatore è in range ed non si trova sopra il mob
         if (distance <range)
-        {
-
-            if (playerRelativeY < 0)
+        {  
+            if (playerRelativeY < 0 )
             {
-                timer += Time.deltaTime;
-                if (timer > 1.75f)
+                startShootTimer-=Time.deltaTime;
+                
+                if (canShoot  && startShootTimer<=0)
                 {
-                    timer = 0;
                     RotateTowardsTarget();
                     anim.SetBool("shoot", true);
+                    canShoot = false;                    
                 }
             }
 
         }
         else
         {
-             transform.rotation = Quaternion.identity;
+            
+            //si resetta il timer per iniziare a sparare
+            if (startShootTimer <= 0)
+            {
+                startShootTimer = 0.65f;
+            }
+        }
+
+        //tempo fra un colpo e l'altro
+        if (!canShoot)
+        {   
+            shootTimer -= Time.deltaTime;
+
+            if (shootTimer <=0f)
+            {
+                shootTimer = 1.75f;
+                canShoot = true;
+
+            }
         }
          
        
@@ -66,10 +88,14 @@ public class Mob_shooting : MonoBehaviour
         
     }
 
-    public void reload()
+    public void Reload()
     {
-        // Instantiate(bullet, bulletPos.position, Quaternion.identity);
+       
         anim.SetBool("shoot", false);
+        //si resetta la rotazione del mob dopo lo sparo
+        transform.rotation = Quaternion.identity;
+
+
     }
 
     private void RotateTowardsTarget()

@@ -42,6 +42,7 @@ public class ResettableObjects : MonoBehaviour
         if (gameObject.GetComponent<Rino_Logic>())
         {
             gameObject.GetComponent<Rino_Logic>().canCharge=true;
+            gameObject.GetComponent<Rino_Logic>().isCharging=false;
         }
 
         //si riporta la roccia nella prima fase 

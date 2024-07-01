@@ -1,8 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.U2D.Path.GUIFramework;
 using UnityEngine;
-using static UnityEditor.Progress;
+
 
 public class PMM : MonoBehaviour
 {
@@ -20,16 +19,13 @@ public class PMM : MonoBehaviour
         {
             if (isPaused)
             {
-
                 Resume();
             }
             else
             {
-
                 Pause();
                 ReloadMenu();
             }
-
         }
     }
 
