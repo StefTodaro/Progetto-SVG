@@ -10,6 +10,10 @@ public class Camera_Follow : MonoBehaviour
     // Riferimento al componente Cinemachine Virtual Camera
     private CinemachineVirtualCamera cinemachineCamera;
     public Vector2 checkpointPos;
+    [SerializeField] private CinemachineFramingTransposer transposer;
+    //variabile per controllare se il giocatore sta guardando a destra 
+    [SerializeField] private bool right;
+
 
     // Start is called before the first frame update
     void Start()
@@ -18,7 +22,7 @@ public class Camera_Follow : MonoBehaviour
 
         // Ottieni il componente Cinemachine Virtual Camera attaccato a questo GameObject
         cinemachineCamera = GetComponent<CinemachineVirtualCamera>();
-        checkpointPos = new Vector2(3.05715561f, -0.285339117f);
+        transposer=cinemachineCamera.GetCinemachineComponent<CinemachineFramingTransposer>();
 
     }
 
@@ -28,12 +32,25 @@ public class Camera_Follow : MonoBehaviour
         if (!cameraLocked)
         {
             player = GameObject.FindGameObjectWithTag("Player");
+            right=player.GetComponent<movement>().facingRight;
             cinemachineCamera.Follow = player.transform;
         }
         else
         {
             cinemachineCamera.Follow = null;
         }
+
+        if (right)
+        {
+            transposer.m_TrackedObjectOffset.x = 3f;
+        }
+        else
+        {
+            transposer.m_TrackedObjectOffset.x = -3f;
+        }
+
+
+       
     }
 
 }
