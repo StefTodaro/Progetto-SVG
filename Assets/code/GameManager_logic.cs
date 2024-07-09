@@ -70,7 +70,6 @@ public class GameManager_logic : MonoBehaviour
         cCounter = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
         transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>(); ;
         inc_obj = GameObject.FindGameObjectWithTag("inObjects");
-
     }
 
     //si inizializzano le variabili utili ad inizio livello non permanenti
