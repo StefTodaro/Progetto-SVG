@@ -947,8 +947,8 @@ MonoBehaviour:
   startPosition: {fileID: 0}
   endLevelTimer: 0
   endLevelMusic: {fileID: 8300000, guid: acf6ae393bb7dac4f815dc3a7dd4193a, type: 3}
-  indexLevel: 0
-  endLevel: 0
+  transition: {fileID: 0}
+  inactive: 0
 --- !u!1 &2477536198855762285
 GameObject:
   m_ObjectHideFlags: 0

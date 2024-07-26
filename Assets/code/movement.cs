@@ -2,15 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.Tilemaps;
+using UnityEngine.UIElements;
 using UnityEngine.XR;
 
 public class movement : MonoBehaviour
 {
     public float moveSpeed = 3.5f;
+    public float maxSpeed = 3.5f;
+    //velocità attuale del giocatore
+    private float actualVelocity;
+    private bool isMoving = false;
+   
+
     public float jumpForce = 6.5f;
-    public float slumForce = 8f;
+    private bool hasJumped = false;
+   
+
+    public float slamForce = 8f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator anim;
@@ -20,8 +31,6 @@ public class movement : MonoBehaviour
 
     public bool isSlamming;
     public bool canSlam=true;
-    public float slamTimer;
-    public float slamTimecharge = 0.75f;
 
     public Rigidbody2D rb;
     public  bool isGrounded;
@@ -64,6 +73,8 @@ public class movement : MonoBehaviour
         // Controlla se il personaggio è a terra
         anim.SetBool("onGround", isGrounded);
 
+        actualVelocity = rb.velocity.x;
+
         //controllo se il personaggio ha la per l'oscillazione e se sta oscillando
         if (GetComponent<slime_lizard_logic>() && GetComponent<slime_lizard_logic>().swing.isSwinging)
         {
@@ -76,20 +87,24 @@ public class movement : MonoBehaviour
 
         
             // Movimento orizzontale
-            if (!isSlamming && !isSwinging)
-            {
-                Movement();
-            }
+            
             anim.SetFloat("speed", Mathf.Abs(moveInput));
 
             // Salto
             if (isGrounded && Input.GetKeyDown(KeyCode.Space))
+             {
+            Jump();  
+            }
+        //in questo modo il giocatore può regolare l'altezza del salto rilasciando
+        //il tasto di input
+        if (hasJumped && Input.GetKeyUp(KeyCode.Space))
             {
-                Jump();
-                anim.SetBool("jump", true);
+            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y/1.5f);
+            hasJumped = false;
             }
 
-            if (!isGrounded)
+
+        if (!isGrounded)
             {
                 anim.SetBool("jump", true);
             }
@@ -111,9 +126,6 @@ public class movement : MonoBehaviour
                 Flip();
             }
         
-
-
-            SlamCharge();
 
             if (!isGrounded && Input.GetKeyDown(KeyCode.S) && canSlam)
             {
@@ -137,49 +149,63 @@ public class movement : MonoBehaviour
         
     }
 
+    private void FixedUpdate()
+    {
+        if (!isSwinging)
+        {
+            Movement();
+        }
+    }
+
     public void Movement()
     { //controlla che il giocatore non abbia terminato il livello
         if (!GameManager_logic.Instance.GetInactive())
         {
-            moveInput = Input.GetAxisRaw("Horizontal");
-            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+           
+            moveInput = Input.GetAxis("Horizontal");
+
+            //indica se il giocatore si sta muovemndo o meno
+            if (moveInput != 0)
+            {
+                isMoving = true;
+            }
+            else if (moveInput == 0)
+            {
+                isMoving = false;
+            }
+          
+                rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
+          
         }
-        else
-        {   
-            //se il livello è terminato il giocatore non potrà muoversi
-            rb.velocity = new Vector2(0, rb.velocity.y);
-        }
+
+      
     }
 
     public void Jump()
     {
-        if(jumpAudioClip!=null && !GameManager_logic.Instance.GetInactive())
-        SoundEffectManager.Instance.PlaySoundEffect(jumpAudioClip, transform, 0.5f);
-        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
-    }
 
+        //rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+        hasJumped = true;
+
+        if (jumpAudioClip != null && !GameManager_logic.Instance.GetInactive())
+            SoundEffectManager.Instance.PlaySoundEffect(jumpAudioClip, transform, 0.5f);
+
+        anim.SetBool("jump", true);
+
+    }
+  
 
     private void Slam()
     {
         canSlam = false;
         isSlamming = true;
-         rb.velocity += Vector2.down * slumForce;
+        rb.velocity = new Vector2(rb.velocity.x, -slamForce);
     }
 
-    public void SlamCharge()
-    {
-        if (!canSlam)
-        {
-            slamTimer += Time.deltaTime;
-            if (slamTimer >= slamTimecharge)
-            {
-                canSlam = true;
-                slamTimer = 0;
-            }
-        }
-    }
+   
     public void Flip()
-    {
+    {   
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         // Specchia lo sprite sull'asse x
         spriteRenderer.flipX = !spriteRenderer.flipX;
@@ -238,9 +264,9 @@ public class movement : MonoBehaviour
 
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
-        {   
+        {
             //controlli per l'istanziazione delle interazioni con il terreno
-            if (!collision.gameObject.CompareTag("Object"))
+            if (!collision.gameObject.CompareTag("Object") && rb.velocity.y<=0)
             {
                 Instantiate(landingEffect, transform.position, transform.rotation);
 
@@ -276,7 +302,6 @@ public class movement : MonoBehaviour
     {  
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
-            
             isGrounded = false;
            
         }
@@ -288,6 +313,12 @@ public class movement : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             isGrounded = true;
+
+            if (!canSlam)
+            {
+                canSlam = true;
+            }
+
         }
     }
 
@@ -322,6 +353,7 @@ public class movement : MonoBehaviour
 
             SoundEffectManager.Instance.PlaySoundEffect(hitAudioClip, transform, 0.4f);
             transformations.LosePower();
+           
             //attiva l'invulnerabilità così che sia attiva per tutte le trasformazioni
             transformations.ActivateInvulnerability();
             

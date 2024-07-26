@@ -43,6 +43,7 @@ public class Stomp : MonoBehaviour
             if (collision.GetComponent<movement>().isSlamming)
             {
                 collision.GetComponent<movement>().isSlamming = false;
+                collision.GetComponent<movement>().canSlam = true;
             }
 
 

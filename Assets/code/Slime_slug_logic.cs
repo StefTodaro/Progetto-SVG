@@ -46,6 +46,7 @@ public class Slime_slug_logic : MonoBehaviour
                 direction = -1;
             }
             RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.right*direction, 0.555f, LayerMask.GetMask("ground"));
+            Debug.DrawRay(transform.position, transform.right * direction, Color.red,0.56f);
             if (hit.collider != null && !hit.collider.CompareTag("platform") 
                && !hit.collider.CompareTag("Object"))
             {
@@ -95,6 +96,11 @@ public class Slime_slug_logic : MonoBehaviour
 
     }
 
+    public bool GetIsOnWall()
+    {
+        return isOnWall;
+    }
+
     private void FlipVertical()
     {
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -110,7 +116,7 @@ public class Slime_slug_logic : MonoBehaviour
         //si riporta lo sprite nelle condizioni originali
         if (!facingUp)
         {
-            FlipVertical();
+            //FlipVertical();
         }
         transform.rotation = Quaternion.Euler(rotation.x, rotation.y, 0);
 
@@ -153,19 +159,19 @@ public class Slime_slug_logic : MonoBehaviour
         }
 
         rb.gravityScale = 0;
-        vertical_movement = Input.GetAxis("Vertical");
+        vertical_movement = Input.GetAxis("Horizontal");
         mov.anim.SetFloat("speed", Mathf.Abs(vertical_movement));
-        rb.velocity = new Vector2(rb.velocity.x, vertical_movement * mov.moveSpeed);
+        transform.Translate(Vector2.up * vertical_movement * mov.moveSpeed * Time.deltaTime);
 
 
         if (vertical_movement < 0 && facingUp)
         {
-            FlipVertical();
+          // FlipVertical();
             facingUp = false;
         }
         else if (vertical_movement > 0 && !facingUp)
         {
-            FlipVertical();
+           // FlipVertical();
             facingUp = true;
 
         }
@@ -200,7 +206,7 @@ public class Slime_slug_logic : MonoBehaviour
             //per riportare il personaggio nella rotazione corretta anche se è girato verso il basso 
             if (!facingUp)
             {
-                FlipVertical();
+               // FlipVertical();
                 facingUp = true;
             }
         }

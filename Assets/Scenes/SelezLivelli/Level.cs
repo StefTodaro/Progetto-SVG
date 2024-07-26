@@ -66,7 +66,7 @@ public class Level : MonoBehaviour
         {
             StartLevel();
         }
-        
+
     }
 
 
@@ -99,7 +99,7 @@ public class Level : MonoBehaviour
                
                 SceneManager.sceneLoaded += OnSceneLoaded;
                 SceneManager.LoadScene(levelName);
-            
+
         }
     }
 

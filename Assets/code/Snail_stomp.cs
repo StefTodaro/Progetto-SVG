@@ -42,12 +42,15 @@ public class Snail_stomp : MonoBehaviour
             {
                
                 collision.GetComponent<movement>().isSlamming = false;
+               
 
                 if (!transformations.full && slime_form != null)
                 {
                     AddTransformation();
                     transformations.ChangeForm(transformations.GetCurrentTransformation());
                 }
+
+                collision.GetComponent<movement>().canSlam = true;
 
                 anim.SetBool("hit", true);
 

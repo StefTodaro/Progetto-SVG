@@ -259,7 +259,6 @@ public class Transformation_logic : MonoBehaviour
         var velocity = player.GetComponent<movement>().rb.velocity;
         var isSlamming = player.GetComponent<movement>().isSlamming;
         var canSlam = player.GetComponent<movement>().canSlam;
-        var slamTimer = player.GetComponent<movement>().slamTimer;
         var canBeHit = player.GetComponent<movement>().canBeHit;
         var invulnerabilityTimer = player.GetComponent<movement>().invulnerabilityTimer;
         var actualPosition = player.transform.position;
@@ -298,7 +297,6 @@ public class Transformation_logic : MonoBehaviour
         newTransformation.GetComponent<movement>().isSlamming = isSlamming;
         newTransformation.GetComponent<movement>().rb.velocity = velocity;
         newTransformation.GetComponent<movement>().canSlam = canSlam;
-        newTransformation.GetComponent<movement>().slamTimer = slamTimer;
         newTransformation.GetComponent<movement>().isGrounded = isGrounded;
         
 
