@@ -6207,6 +6207,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
+    - target: {fileID: 2477536198849659642, guid: 2fe139568dba6f64b9f46ed2b9922b5a, type: 3}
+      propertyPath: transition
+      value: 
+      objectReference: {fileID: 4210023796241879500, guid: 3a0ec4816c77b5d4d9b997c439530994, type: 3}
     - target: {fileID: 2477536198849659643, guid: 2fe139568dba6f64b9f46ed2b9922b5a, type: 3}
       propertyPath: m_Name
       value: GameManager

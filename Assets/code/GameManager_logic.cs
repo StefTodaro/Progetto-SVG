@@ -40,6 +40,7 @@ public class GameManager_logic : MonoBehaviour
     public AudioClip endLevelMusic;
 
 
+
     //booleano che indica se il gioco è inattivo
     public bool inactive=false;
 
@@ -76,7 +77,6 @@ public class GameManager_logic : MonoBehaviour
     public void StartLevel()
     {
         
-
         player = GameObject.FindGameObjectWithTag("Player");
         startPosition = GameObject.FindGameObjectWithTag("Start");
         checkpointPosition = startPosition.transform.position;
@@ -205,14 +205,15 @@ public class GameManager_logic : MonoBehaviour
     {
         audioSource = GameObject.FindGameObjectWithTag("gameMusic").GetComponent<AudioSource>();
 
-        inactive = true;
+       
         //se c'è la musica di fine livello allora prima di caricare la nuova scena 
         //aspetterà che finisca e suona una sola volta 
+        audioSource.Stop();
         if (endLevelMusic != null && !inactive)
         {
-            SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 0.75f);
+            SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 1f);
         }
-
+        inactive = true;
         endLevelTimer += Time.deltaTime;
       
 
@@ -224,7 +225,7 @@ public class GameManager_logic : MonoBehaviour
             SceneManager.sceneLoaded += OnSceneLoaded;
             SceneManager.LoadScene("Selezione Livelli");
            
-            audioSource.Stop();
+            
             cCounter.SaveCoinsAtLevel();
             coinsTaken.Clear();
             inc_obj.GetComponent<Incorporated_objects_list>().ClearInObject();
@@ -282,9 +283,8 @@ public class GameManager_logic : MonoBehaviour
         inactive = false;
 
         SceneManager.LoadScene("Selezione livelli");
-
     }
 
-
+    
 
 }

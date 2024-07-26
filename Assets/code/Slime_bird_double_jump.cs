@@ -8,7 +8,7 @@ public class Slime_bird_double_jump : MonoBehaviour
     public bool canDoubleJump = false;
     public Rigidbody2D rb;
     public Animator anim;
-    public float DoubleJumpForce = 5.5f;
+    public float doubleJumpForce = 5.5f;
     public bool jumped = false;
     //booleano che verifica se il personaggio sia su una cassa
     public bool onBox=false;
@@ -51,7 +51,7 @@ public class Slime_bird_double_jump : MonoBehaviour
 
     public void DoubleJump()
     {
-        rb.velocity = new Vector2(rb.velocity.x, DoubleJumpForce);
+        rb.velocity=new Vector2(rb.velocity.x,doubleJumpForce);
         SoundEffectManager.Instance.PlaySoundEffect(flapSound,transform,0.5f);
         anim.SetBool("doubleJump", false);
     }
