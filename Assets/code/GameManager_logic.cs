@@ -18,6 +18,8 @@ public class GameManager_logic : MonoBehaviour
     public Incorporated_objects_list objectList;
     public GameObject mainCamera;
 
+    //indica se il giocatore può muoversi o meno
+    private bool canMove = true;
     
     //monete del giocatore nel momento di attvazione del checkpoint
     public int checkpointCoins;
@@ -102,6 +104,18 @@ public class GameManager_logic : MonoBehaviour
     {
         return inactive;
     }
+
+
+    public bool GetCanMove()
+    {
+        return canMove;
+    }
+
+    public void SetCanMove(bool can)
+    {
+        canMove = can;
+    }
+
 
     //Metodo che restituisce il valore della variabile booleana restart
     public bool hasRestart()
@@ -198,14 +212,10 @@ public class GameManager_logic : MonoBehaviour
     }
 
    
-
-    
-   
     public void EndLevel()
     {
         audioSource = GameObject.FindGameObjectWithTag("gameMusic").GetComponent<AudioSource>();
 
-       
         //se c'è la musica di fine livello allora prima di caricare la nuova scena 
         //aspetterà che finisca e suona una sola volta 
         audioSource.Stop();
@@ -213,11 +223,10 @@ public class GameManager_logic : MonoBehaviour
         {
             SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 1f);
         }
+
         inactive = true;
         endLevelTimer += Time.deltaTime;
       
-
-        
 
         if (endLevelTimer > endLevelMusic.length)
         {
@@ -232,7 +241,6 @@ public class GameManager_logic : MonoBehaviour
             //si resettano le trasformazioni dello slime una volta caricata la mappa 
             transformations.ResetTransformation();
 
-
             //si resettano i checkpoint del livello
             ResetCheckpoints();
 
@@ -242,10 +250,7 @@ public class GameManager_logic : MonoBehaviour
             //a fine livello si salvano le trasformazioni e le monete
             cCounter.SaveCoins();
             transformations.SaveTransformations();
-
         }
-
-      
     }
 
 

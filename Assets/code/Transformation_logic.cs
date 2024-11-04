@@ -38,9 +38,9 @@ public class Transformation_logic : MonoBehaviour
 
 
     public float transformJump = 5f;
+    //tempo in cui il giocatore non può il personaggio 
+    public float timeout=0f;
    
-
-
 
 
 
@@ -59,7 +59,6 @@ public class Transformation_logic : MonoBehaviour
             }
 
         }
-
         transformationsUI = GameObject.FindGameObjectsWithTag("FormUI");
         //si definisce il cursore dei selezione della trasformazione e la posizione iniziale
         selector = GameObject.FindGameObjectWithTag("Selector");
@@ -134,7 +133,6 @@ public class Transformation_logic : MonoBehaviour
 
     public void SetCurrentTransformation(GameObject newForm)
     {
-      
         transformations[c].transformation=newForm;
     }
 
@@ -167,6 +165,8 @@ public class Transformation_logic : MonoBehaviour
         transformations[c].fromShop = fromShop; 
     }
 
+
+
     public void UpdateUI(int n)
     {
         foreach (Sprite sprite in transformationSprite)
@@ -180,6 +180,45 @@ public class Transformation_logic : MonoBehaviour
         }
     }
 
+
+
+
+    //contraccolpo dopo aver subito danni 
+    public void BackJump()
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        movement mov = player.GetComponent<movement>();
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        // Inizia la coroutine per il knockback
+        StartCoroutine(KnockbackCoroutine(mov, rb));
+    }
+
+
+
+    private IEnumerator KnockbackCoroutine(movement mov, Rigidbody2D rb)
+    {
+        // Disabilita il movimento del giocatore
+        GameManager_logic.Instance.SetCanMove(false);
+
+        // Applica la forza di knockback in base alla direzione
+        if (mov.facingRight)
+        {
+            rb.AddForce(new Vector2(-mov.moveSpeed, 0), ForceMode2D.Impulse);
+        }
+        else
+        {
+            rb.AddForce(new Vector2(mov.moveSpeed , 0), ForceMode2D.Impulse);
+        }
+       
+        // Tempo di inattività
+        yield return new WaitForSeconds(0.5f);
+
+        // Riabilita il movimento del giocatore
+        GameManager_logic.Instance.SetCanMove(true);
+    }
+
+
+    //funzione che si attiva dopo che lo slime perde una trasformazione
     public void ActivateInvulnerability()
     {
        GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -188,6 +227,7 @@ public class Transformation_logic : MonoBehaviour
         mov.rb.velocity = new Vector2(0, 6);
 
     }
+
 
     public void LosePower()
     {
@@ -199,6 +239,9 @@ public class Transformation_logic : MonoBehaviour
         //la forma attuale viene disattivata e vengono raccolti tutti i dati utili
         var isGrounded = player.GetComponent<movement>().isGrounded;
         var actualPosition = player.transform.position;
+        var facingRight= player.GetComponent<movement>().facingRight;
+        var spriteFlip=player.GetComponent<movement>().GetSpriteFlip();
+        
 
         player.SetActive(false);
 
@@ -209,7 +252,6 @@ public class Transformation_logic : MonoBehaviour
         }
 
         //si sostituisce la forma attuale con quella di base
-       
         bool found= false;
         GameObject newForm = baseSlime;
 
@@ -237,12 +279,24 @@ public class Transformation_logic : MonoBehaviour
             transformationsInScene.Add(newForm);
         }
 
-
         newForm.SetActive(true);
 
         newForm.GetComponent<movement>().isSwinging = false;
         newForm.transform.position = actualPosition;
         newForm.GetComponent<movement>().isGrounded = isGrounded;
+
+        //controllo per mantenere la corretta rotazione del personaggio
+        if (player.GetComponent<Slime_slug_logic>() && !player.GetComponent<Slime_slug_logic>().facingUp)
+        {
+            newForm.GetComponent<movement>().facingRight = facingRight;
+            newForm.GetComponent<movement>().SetSpriteFlip(spriteFlip);
+        }
+
+        else if(!player.GetComponent<Slime_slug_logic>())
+        {
+            newForm.GetComponent<movement>().facingRight = facingRight;
+            newForm.GetComponent<movement>().SetSpriteFlip(spriteFlip);
+        }
 
         //si applica la forza di salto dopo aver lasciato la trasformazione
         var rb = newForm.GetComponent<Rigidbody2D>();
@@ -260,6 +314,8 @@ public class Transformation_logic : MonoBehaviour
         var isSlamming = player.GetComponent<movement>().isSlamming;
         var canSlam = player.GetComponent<movement>().canSlam;
         var canBeHit = player.GetComponent<movement>().canBeHit;
+        var facingRight = player.GetComponent<movement>().facingRight;
+        var spriteFlip = player.GetComponent<movement>().GetSpriteFlip();
         var invulnerabilityTimer = player.GetComponent<movement>().invulnerabilityTimer;
         var actualPosition = player.transform.position;
 
@@ -292,6 +348,10 @@ public class Transformation_logic : MonoBehaviour
         newTransformation.transform.localScale = new Vector3(0.2f, 0.2f, 0);
         newTransformation.transform.position = actualPosition;
         newTransformation.GetComponent<movement>().canBeHit = canBeHit;
+
+        newTransformation.GetComponent<movement>().facingRight = facingRight;
+        newTransformation.GetComponent<movement>().SetSpriteFlip(spriteFlip);
+
         newTransformation.GetComponent<movement>().invulnerabilityTimer = invulnerabilityTimer;
         newTransformation.GetComponent<movement>().isGrounded = isGrounded;
         newTransformation.GetComponent<movement>().isSlamming = isSlamming;
@@ -322,6 +382,7 @@ public class Transformation_logic : MonoBehaviour
         transformationsInScene.Clear();
         ChangeForm(GetCurrentTransformation());
     }
+
 
     //salvataggio delle trasformazioni
     public void SaveTransformations()
@@ -371,7 +432,4 @@ public class Transformation_logic : MonoBehaviour
             }
         }
     }
-
-
-
 }
