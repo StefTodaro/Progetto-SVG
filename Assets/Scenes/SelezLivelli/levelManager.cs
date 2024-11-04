@@ -10,22 +10,14 @@ public class levelManager : MonoBehaviour
   
     void Start()
     {
-
         FindLevels();
         LoadMap();
-    }
-
-
-
-    void Update()
-    {
-      
     }
 
     //funzione per trovare i livelli nella mappa
     public void FindLevels()
     {
-        // Trova il GameObject con il tag "waypoint"
+        // Trova il GameObject con il tag "wayPoint"
         GameObject parent = GameObject.FindGameObjectWithTag("wayPoint");
 
         // Inizializza l'array con i figli del GameObject padre

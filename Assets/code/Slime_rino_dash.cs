@@ -81,6 +81,7 @@ public class Slime_rino_dash : MonoBehaviour
         //indica la durata del dash
         float dashTimer = 0f;
 
+        GameManager_logic.Instance.SetCanMove(false);
         while (dashTimer < dashDuration)
         {
             mov.anim.SetBool("isDashing", true);
@@ -100,6 +101,7 @@ public class Slime_rino_dash : MonoBehaviour
         isDashing = false;
         rb.velocity = Vector2.zero;
         mov.anim.SetBool("isDashing", false);
+        GameManager_logic.Instance.SetCanMove(true);
     }
 
     public void BreakObject(Collision2D collision)

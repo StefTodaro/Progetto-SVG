@@ -14,8 +14,6 @@ public class movement : MonoBehaviour
     public float maxSpeed = 3.5f;
     //velocità attuale del giocatore
     private float actualVelocity;
-    private bool isMoving = false;
-   
 
     public float jumpForce = 6.5f;
     private bool hasJumped = false;
@@ -31,6 +29,8 @@ public class movement : MonoBehaviour
 
     public bool isSlamming;
     public bool canSlam=true;
+
+    public bool canTurn = true;
 
     public Rigidbody2D rb;
     public  bool isGrounded;
@@ -51,8 +51,6 @@ public class movement : MonoBehaviour
     public AudioClip hitAudioClip;
     
 
-
-
     public bool canBeHit=true;
     //timer per far lampeggiare il personaggio quando colpito
     float flashTimer;
@@ -69,12 +67,9 @@ public class movement : MonoBehaviour
     }
 
     private void Update()
-    {
+    {   
         // Controlla se il personaggio è a terra
         anim.SetBool("onGround", isGrounded);
-
-        actualVelocity = rb.velocity.x;
-
         //controllo se il personaggio ha la per l'oscillazione e se sta oscillando
         if (GetComponent<slime_lizard_logic>() && GetComponent<slime_lizard_logic>().swing.isSwinging)
         {
@@ -85,26 +80,27 @@ public class movement : MonoBehaviour
             isSwinging = false;
         }
 
-        
+        if (GameManager_logic.Instance.GetCanMove())
+        {
             // Movimento orizzontale
-            
             anim.SetFloat("speed", Mathf.Abs(moveInput));
 
             // Salto
             if (isGrounded && Input.GetKeyDown(KeyCode.Space))
-             {
-            Jump();  
-            }
-        //in questo modo il giocatore può regolare l'altezza del salto rilasciando
-        //il tasto di input
-        if (hasJumped && Input.GetKeyUp(KeyCode.Space))
             {
-            rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y/1.5f);
-            hasJumped = false;
+                Jump();
+            }
+
+            //in questo modo il giocatore può regolare l'altezza del salto rilasciando
+            //il tasto di input
+            if (hasJumped && Input.GetKeyUp(KeyCode.Space))
+            {
+                rb.velocity = new Vector2(rb.velocity.x, rb.velocity.y / 1.5f);
+                hasJumped = false;
             }
 
 
-        if (!isGrounded)
+            if (!isGrounded)
             {
                 anim.SetBool("jump", true);
             }
@@ -113,19 +109,23 @@ public class movement : MonoBehaviour
                 anim.SetBool("jump", false);
             }
 
-            //rotazione del giocatore nella direzione di movimento
-            if (moveInput < 0 && facingRight)
-            {
-                facingRight = false;
-                Flip();
 
-            }
-            else if (moveInput > 0 && !facingRight)
+            if (canTurn)
             {
-                facingRight = true;
-                Flip();
+                //rotazione del giocatore nella direzione di movimento
+                if (moveInput < 0 && facingRight)
+                {
+                    facingRight = false;
+                    Flip();
+                }
+                else if (moveInput > 0 && !facingRight)
+                {
+                    facingRight = true;
+                    Flip();
+                }
             }
-        
+            
+
 
             if (!isGrounded && Input.GetKeyDown(KeyCode.S) && canSlam)
             {
@@ -146,39 +146,27 @@ public class movement : MonoBehaviour
             {
                 GetComponent<SpriteRenderer>().enabled = true;
             }
+        }
         
     }
 
     private void FixedUpdate()
     {
-        if (!isSwinging)
+        if (!isSwinging && GameManager_logic.Instance.GetCanMove())
         {
             Movement();
         }
     }
 
+
     public void Movement()
-    { //controlla che il giocatore non abbia terminato il livello
+    { //controlla che il giocatore si possa muovere
         if (!GameManager_logic.Instance.GetInactive())
         {
-           
             moveInput = Input.GetAxis("Horizontal");
-
-            //indica se il giocatore si sta muovemndo o meno
-            if (moveInput != 0)
-            {
-                isMoving = true;
-            }
-            else if (moveInput == 0)
-            {
-                isMoving = false;
-            }
           
-                rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-          
+            rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
         }
-
-      
     }
 
     public void Jump()
@@ -192,7 +180,6 @@ public class movement : MonoBehaviour
             SoundEffectManager.Instance.PlaySoundEffect(jumpAudioClip, transform, 0.5f);
 
         anim.SetBool("jump", true);
-
     }
   
 
@@ -203,13 +190,36 @@ public class movement : MonoBehaviour
         rb.velocity = new Vector2(rb.velocity.x, -slamForce);
     }
 
-   
+    //get e set della rotazione dello sprite
+    public bool GetSpriteFlip()
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        return spriteRenderer.flipX;
+    }
+
+    public void SetSpriteFlip(bool spriteFlip)
+    {
+        SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+        spriteRenderer.flipX =spriteFlip;
+    }
+
+    public void SetCanTurn(bool turn)
+    {
+        canTurn = turn;
+    }
+
+    public bool GetCanTurn()
+    {
+        return canTurn;
+    }
+
+
+
     public void Flip()
     {   
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
         // Specchia lo sprite sull'asse x
         spriteRenderer.flipX = !spriteRenderer.flipX;
-       
     }
 
     //effetua l'effetto lampeggiante 
@@ -257,9 +267,7 @@ public class movement : MonoBehaviour
 
         if (collision.gameObject.layer == LayerMask.NameToLayer("death") && !GameManager_logic.Instance.GetInactive())
         {
-            
             DieAndRespawn();
-
         }
 
 
@@ -353,10 +361,9 @@ public class movement : MonoBehaviour
 
             SoundEffectManager.Instance.PlaySoundEffect(hitAudioClip, transform, 0.4f);
             transformations.LosePower();
-           
             //attiva l'invulnerabilità così che sia attiva per tutte le trasformazioni
             transformations.ActivateInvulnerability();
-            
+            transformations.BackJump();
         }
         else
         {

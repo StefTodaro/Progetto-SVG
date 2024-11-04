@@ -42,9 +42,4 @@ public class agentMovement : MonoBehaviour
         }
     }
 
-    
-    // Update is called once per frame
-    void Update()
-    {
-    }
 }
