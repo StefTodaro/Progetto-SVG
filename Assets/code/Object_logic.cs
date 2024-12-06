@@ -55,6 +55,13 @@ public class Object_logic : MonoBehaviour
         {
             onGround=true;
         }
+
+        if (collision.gameObject.CompareTag("coin"))
+        {
+
+            Physics2D.IgnoreCollision(GetComponent<Collider2D>(),collision.collider);
+        }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision)
