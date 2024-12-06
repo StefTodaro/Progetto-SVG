@@ -18,7 +18,7 @@ public class Slime_stinger_shoot : MonoBehaviour
     {   
        
         // Verifica se è stato premuto il tasto sinistro del mouse
-        if ( Input.GetMouseButtonDown(0) && Time.time >nextShot 
+        if (Input.GetMouseButtonDown(0) && Time.time >nextShot 
             && !GameManager_logic.Instance.GetInactive())
         {
             // Calcola la direzione del mouse rispetto al giocatore

@@ -471,11 +471,15 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "Collect coins to buy items from \nthe shop\n\nRIGHT CLICK to continue..."
+      value: "Collect coins to buy items from \nthe shop.\n\nLEFT CLICK to continue..."
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -491,7 +495,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869647417522, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869647417523, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_RootOrder
@@ -786,16 +790,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356427, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: 'Press SPACE to jump
+      value: 'Press SPACE to jump.
+
+        The longer you press, the higher
+
+        you''ll
+        jump.
 
 
-        RIGHT CLICK to continue...'
+        LEFT CLICK to continue...'
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -1439,11 +1456,18 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "Press S to destroy a box \nwhile you are in air\n\nRIGHT CLICK to continue..."
+      value: 'Press S  while in air to crash boxes.
+
+
+        LEFT CLICK to continue...'
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -1780,11 +1804,15 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356427, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
       value: "Now you have the bird transformation \nthat allows you to double jump
         by \npressing space twice. You can discard \nthe transformation by pressing
-        SHIFT\nRIGHT CLICK to continue..."
+        SHIFT.\nLEFT CLICK to continue..."
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
@@ -1793,6 +1821,10 @@ PrefabInstance:
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -1875,11 +1907,20 @@ PrefabInstance:
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
       value: "You can also make higher jump by \nincorporating the box and \ndropping
-        it while you are jumping\nRIGHT CLICK to continue..."
+        it while you are jumping\nand use it as a platform to jump again,\nbut be
+        QUICK!\nLEFT CLICK to continue..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_fontSize
+      value: 26.78
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 26.78
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_isRightToLeft
@@ -2423,6 +2464,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356427, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356428, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_SizeDelta.y
       value: 451.4113
@@ -2437,8 +2482,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "You can stack the box to do higher jump. \nTake the box by pressing
-        RIGHT mouse and \ndrop it pressing CTRL\n\nRIGHT CLICK to continue..."
+      value: 'You can inglobe objects like boxes and
+
+        barrels by pressing
+        Right click. You can
+
+        inglobe up to 4 objects. you can release
+
+        one
+        object at a time by pressing CTRL.
+
+        LEFT CLICK to continue...'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -2528,13 +2586,17 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: 'You can switch the transformation by
+      value: 'You can switch form by
 
-        pressing q or e
+        pressing Q or E
 
 
-        RIGHT
-        CLICK to continue...'
+        LEFT CLICK
+        to continue...'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_IsActive
@@ -3127,13 +3189,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356427, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "You can press \"S\" to get off \nthe platform\n\nPress SPACE to continue..."
+      value: "You can press S to get off \n platforms\n\nLEFT CLICK to continue..."
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -3220,14 +3290,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356427, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356428, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 3.18
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "Now you have the bee transformation.\nThe bee allows you to fire projectiles
-        \nat other enemies by pressing\nLEFT mouse\nRIGHT CLICK to continue..."
+      value: "you now have the BEE form.\nThe bee form allows you to fire \nprojectiles
+        at enemies by pressing\nLEFT mouse.\nLEFT CLICK to continue..."
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
@@ -3236,6 +3310,10 @@ PrefabInstance:
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -3705,6 +3783,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cameraLocked: 0
   checkpointPos: {x: 0, y: 0}
+  transposer: {fileID: 0}
+  right: 0
 --- !u!114 &1609657549
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3891,10 +3971,27 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356428, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 2.2
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "Now you have the Rhino transformation.\nRhino has the special ability
-        to \nbreak walls by pressing LEFT Mouse\n\nRIGHT CLICK to continue..."
+      value: "Now you have the RHINO form.\nRhino form has the special ability to
+        dash \nand break walls by pressing LEFT Mouse\nwhile on ground.\nLEFT CLICK
+        to continue..."
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_fontSize
+      value: 28.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 28.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -4255,10 +4352,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356428, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 3.4
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "to kill an enemy you have to jump on \nhis head or, if you have\ntransformations,
-        use special abilities\nby pressing  the LEFT mouse\nRIGHT CLICK to continue..."
+      value: "To kill an enemy you have to jump on \nhis head. \n\nLEFT CLICK to
+        continue..."
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
@@ -4267,6 +4368,10 @@ PrefabInstance:
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_HorizontalAlignment
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name
@@ -68790,14 +68895,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1504156914}
     m_Modifications:
+    - target: {fileID: 5686797868522356427, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_text
-      value: "Welcome to the tutorial! \nPress ARROWS or WASD to move your \nplayer\n\nRIGHT
+      value: "Welcome to the tutorial! \nPress ARROWS or WASD to move around.\n\nLEFT
         CLICK to continue..."
       objectReference: {fileID: 0}
     - target: {fileID: 5686797868522356429, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_fontStyle
       value: 17
+      objectReference: {fileID: 0}
+    - target: {fileID: 5686797868795384972, guid: abace8880153057488634c57953611cf, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5686797869138893897, guid: abace8880153057488634c57953611cf, type: 3}
       propertyPath: m_Name

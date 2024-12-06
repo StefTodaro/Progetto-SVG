@@ -19,7 +19,7 @@ public class movement : MonoBehaviour
     private bool hasJumped = false;
    
 
-    public float slamForce = 8f;
+    public float slamForce = 9.5f;
     public Transform groundCheck;
     public LayerMask groundLayer;
     public Animator anim;
@@ -34,7 +34,7 @@ public class movement : MonoBehaviour
 
     public Rigidbody2D rb;
     public  bool isGrounded;
-    public bool facingRight;
+    public bool facingRight=true;
 
     public GameObject coinPrefab;
     public GameObject deathPanel;
@@ -80,7 +80,7 @@ public class movement : MonoBehaviour
             isSwinging = false;
         }
 
-        if (GameManager_logic.Instance.GetCanMove())
+        if (GameManager_logic.Instance.GetCanMove() && !GameManager_logic.Instance.GetInactive())
         {
             // Movimento orizzontale
             anim.SetFloat("speed", Mathf.Abs(moveInput));
@@ -152,7 +152,7 @@ public class movement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if (!isSwinging && GameManager_logic.Instance.GetCanMove())
+        if (!isSwinging && GameManager_logic.Instance.GetCanMove() && !GameManager_logic.Instance.GetInactive())
         {
             Movement();
         }
@@ -161,12 +161,9 @@ public class movement : MonoBehaviour
 
     public void Movement()
     { //controlla che il giocatore si possa muovere
-        if (!GameManager_logic.Instance.GetInactive())
-        {
             moveInput = Input.GetAxis("Horizontal");
           
             rb.velocity = new Vector2(moveInput * moveSpeed, rb.velocity.y);
-        }
     }
 
     public void Jump()
@@ -213,8 +210,6 @@ public class movement : MonoBehaviour
         return canTurn;
     }
 
-
-
     public void Flip()
     {   
         SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
@@ -241,6 +236,13 @@ public class movement : MonoBehaviour
             canBeHit = true;
             invulnerabilityTimer = 0f;
         }
+    }
+
+
+    //funzione per fermare il movimento dello slime
+    public void Stop()
+    {
+        rb.velocity = new Vector2(0, rb.velocity.y);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -274,7 +276,7 @@ public class movement : MonoBehaviour
         if (collision.gameObject.layer == LayerMask.NameToLayer("ground"))
         {
             //controlli per l'istanziazione delle interazioni con il terreno
-            if (!collision.gameObject.CompareTag("Object") && rb.velocity.y<=0)
+            if (!collision.gameObject.CompareTag("Object") && !isGrounded)
             {
                 Instantiate(landingEffect, transform.position, transform.rotation);
 
@@ -286,7 +288,7 @@ public class movement : MonoBehaviour
                 else
                 {
                     if (slamAudioClip != null)
-                        SoundEffectManager.Instance.PlaySoundEffect(slamAudioClip, transform, 1f);
+                        SoundEffectManager.Instance.PlaySoundEffect(slamAudioClip, transform, 0.5f);
                 }
             }
         }
@@ -326,7 +328,6 @@ public class movement : MonoBehaviour
             {
                 canSlam = true;
             }
-
         }
     }
 

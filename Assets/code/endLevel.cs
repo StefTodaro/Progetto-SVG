@@ -17,20 +17,15 @@ public class endLevel : MonoBehaviour
     
     void Start()
     {
-
-        //inc_obj = GameObject.FindGameObjectWithTag("inObjects").GetComponent<Incorporated_objects_list>();
-        //CoinCounterScript = GameObject.FindGameObjectWithTag("coinCounter").GetComponent<coinCounter>();
-        //transf_l = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>();
         anim.GetComponent<Animator>();
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && ! Completed)
         {
             anim.SetBool("end", true);
             Completed = true;
-            
         }
     }
 

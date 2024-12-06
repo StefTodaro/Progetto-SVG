@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEditor;
+using System.Transactions;
 
 
 
@@ -314,8 +315,8 @@ public class Transformation_logic : MonoBehaviour
         var isSlamming = player.GetComponent<movement>().isSlamming;
         var canSlam = player.GetComponent<movement>().canSlam;
         var canBeHit = player.GetComponent<movement>().canBeHit;
-        var facingRight = player.GetComponent<movement>().facingRight;
-        var spriteFlip = player.GetComponent<movement>().GetSpriteFlip();
+
+
         var invulnerabilityTimer = player.GetComponent<movement>().invulnerabilityTimer;
         var actualPosition = player.transform.position;
 
@@ -348,9 +349,6 @@ public class Transformation_logic : MonoBehaviour
         newTransformation.transform.localScale = new Vector3(0.2f, 0.2f, 0);
         newTransformation.transform.position = actualPosition;
         newTransformation.GetComponent<movement>().canBeHit = canBeHit;
-
-        newTransformation.GetComponent<movement>().facingRight = facingRight;
-        newTransformation.GetComponent<movement>().SetSpriteFlip(spriteFlip);
 
         newTransformation.GetComponent<movement>().invulnerabilityTimer = invulnerabilityTimer;
         newTransformation.GetComponent<movement>().isGrounded = isGrounded;

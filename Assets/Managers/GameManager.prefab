@@ -475,7 +475,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 0
-  m_Spacing: -16.98
+  m_Spacing: 16.98
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 0
@@ -947,7 +947,6 @@ MonoBehaviour:
   startPosition: {fileID: 0}
   endLevelTimer: 0
   endLevelMusic: {fileID: 8300000, guid: acf6ae393bb7dac4f815dc3a7dd4193a, type: 3}
-  transition: {fileID: 0}
   inactive: 0
 --- !u!1 &2477536198855762285
 GameObject:

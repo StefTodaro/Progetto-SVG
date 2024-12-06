@@ -4,8 +4,6 @@ using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.SceneManagement;
 
-
-
 public class Level : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -29,13 +27,12 @@ public class Level : MonoBehaviour
 
     void Start()
     {
-        
         anim = GetComponent<Animator>();
-        
     }
 
 
     public int index() { return levelIndex; }
+
 
     //Funzione per debug 
     public string status()
@@ -49,6 +46,8 @@ public class Level : MonoBehaviour
     }
 
     public bool isUnlocked() { return unlocked; }
+
+
     // Update is called once per frame
     void Update()
     {   
@@ -108,6 +107,7 @@ public class Level : MonoBehaviour
     {
        
         GameManager_logic.Instance.StartLevel();
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
    
@@ -163,6 +163,8 @@ public class Level : MonoBehaviour
     public void SetCurrentLevel()
     {
         PlayerPrefs.SetInt("currentLevel" , levelIndex);
+        PlayerPrefs.Save();
+        Debug.Log(" LIVELLO ATTUALE DEL CAZZO: " + (PlayerPrefs.GetInt("currentLevel")));
     }
 
     //metodo per salvare i livelli completati
@@ -170,5 +172,6 @@ public class Level : MonoBehaviour
     {
         //si salva il numero del livello
         PlayerPrefs.SetInt("level" + i, i);
+        PlayerPrefs.Save();
     }
 }

@@ -37,12 +37,11 @@ public class Slime_rino_dash : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
-
         if (canDash && Input.GetMouseButtonDown(0) && mov.isGrounded 
             && !GameManager_logic.Instance.GetInactive())
         {
             SoundEffectManager.Instance.PlaySoundEffect(dashSound, transform, 0.1f);
+            mov.anim.SetBool("isDashing", true);
             if (mov.facingRight)
             {
                 Instantiate(dashEffect, transform.position, transform.rotation);
@@ -84,7 +83,6 @@ public class Slime_rino_dash : MonoBehaviour
         GameManager_logic.Instance.SetCanMove(false);
         while (dashTimer < dashDuration)
         {
-            mov.anim.SetBool("isDashing", true);
             mov.moveInput = initialDirection;
             // Continua il movimento fino a quando il giocatore non raggiunge la posizione di destinazione o il dash non viene interrotto
             if (mov.facingRight)

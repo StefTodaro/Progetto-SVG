@@ -36,6 +36,8 @@ public class levelManager : MonoBehaviour
         FindLevels();
         //indice del livello corrente 
         int c = PlayerPrefs.GetInt("currentLevel");
+        Debug.Log(" LIVELLO ATTUALE DEL CAZZO: " + (PlayerPrefs.GetInt("currentLevel")));
+        Debug.Log(" C ATTUALE DEL CAZZO: " + c);
         children[c].GetComponent<Level>().complete();
         children[c].GetComponent<Level>().SaveLevelCompleted(c);
 
