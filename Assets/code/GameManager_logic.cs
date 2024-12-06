@@ -44,7 +44,7 @@ public class GameManager_logic : MonoBehaviour
 
 
     //booleano che indica se il gioco è inattivo
-    public bool inactive=false;
+    [SerializeField] private bool inactive=false;
 
     //Variabile per assicurarsi che il registro di "livello" sia stato settato 
     public static bool hasSetted = false;
@@ -53,6 +53,11 @@ public class GameManager_logic : MonoBehaviour
 
     private void Start()
     {
+
+        //cancella i dati delle ultime partite
+        //PlayerPrefs.DeleteAll();
+        //PlayerPrefs.Save();
+
         if (Instance == null)
         {
             Instance = this;
@@ -75,11 +80,20 @@ public class GameManager_logic : MonoBehaviour
         inc_obj = GameObject.FindGameObjectWithTag("inObjects");
     }
 
+    private void Update()
+    {
+        
+    }
+
     //si inizializzano le variabili utili ad inizio livello non permanenti
     public void StartLevel()
     {
-        
         player = GameObject.FindGameObjectWithTag("Player");
+        if (!canMove)
+        {
+            canMove = true;
+        }
+
         startPosition = GameObject.FindGameObjectWithTag("Start");
         checkpointPosition = startPosition.transform.position;
         transformations = GameObject.FindGameObjectWithTag("t_handler").GetComponent<Transformation_logic>(); ;
@@ -169,6 +183,7 @@ public class GameManager_logic : MonoBehaviour
             {
                 coinsTaken.Add(obj);
             }
+
         }
 
     }
@@ -224,7 +239,9 @@ public class GameManager_logic : MonoBehaviour
             SoundEffectManager.Instance.PlaySoundEffect(endLevelMusic, transform, 1f);
         }
 
-        inactive = true;
+        player = GameObject.FindGameObjectWithTag("Player");
+        player.GetComponent<movement>().Stop();
+        SetCanMove(false);
         endLevelTimer += Time.deltaTime;
       
 
@@ -259,13 +276,13 @@ public class GameManager_logic : MonoBehaviour
         //fa ripartire la musica una volta tornanti nella selezione livelli
         audioSource = GameObject.FindGameObjectWithTag("gameMusic").GetComponent<AudioSource>();
         audioSource.Play();
-
-        inactive = false;
        
         //si aggiornano i dati sui livelli completati
         levelManager lm = GameObject.FindGameObjectWithTag("levelManager").GetComponent<levelManager>();
         lm.SetCurrentLevelCompl();
 
+        // Rimuove il callback per evitare duplicati
+        SceneManager.sceneLoaded -= OnSceneLoaded;
 
     }
 

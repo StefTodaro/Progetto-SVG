@@ -5,9 +5,9 @@ using UnityEngine;
 public class UItutorial : MonoBehaviour
 {
     public GameObject plate;
-    private bool isPaused = false;
-    private bool isShown = false;
-    private bool repeat = true;
+    // private bool isPaused = false;
+    [SerializeField] private bool isShown = false;
+    [SerializeField] private bool repeat = true;
     
 
     // Start is called before the first frame update
@@ -19,7 +19,7 @@ public class UItutorial : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(isPaused && Input.GetMouseButtonDown(1))
+        if(isShown  && Input.GetMouseButtonDown(0))
         {
             HideTutorialMessage();
         }
@@ -29,10 +29,10 @@ public class UItutorial : MonoBehaviour
     public void HideTutorialMessage()
     {
         Time.timeScale = 1f;
-        isPaused = false;
         plate.SetActive(false);
+        GameManager_logic.Instance.SetInactive(false);
         repeat = false;
-       // isShown = false;
+        isShown = false;
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -44,12 +44,11 @@ public class UItutorial : MonoBehaviour
     {
         if (collision.CompareTag("Player"))
         {
-            if (!isShown && !isPaused && repeat)
+            if (!isShown && repeat)
             {
-                Debug.Log("triggersss");
                 Time.timeScale = 0f;
                 plate.SetActive(true);
-                isPaused = true;
+                GameManager_logic.Instance.SetInactive(true);
                 isShown = true;
             }
 

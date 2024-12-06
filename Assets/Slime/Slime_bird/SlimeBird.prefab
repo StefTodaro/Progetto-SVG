@@ -157,8 +157,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
+  maxSpeed: 3.5
   jumpForce: 6.5
-  slumForce: 8
+  slamForce: 8
   groundCheck: {fileID: 2527423760716626840}
   groundLayer:
     serializedVersion: 2
@@ -168,11 +169,10 @@ MonoBehaviour:
   isSwinging: 0
   isSlamming: 0
   canSlam: 1
-  slamTimer: 0.36826217
-  slamTimecharge: 0.75
+  canTurn: 1
   rb: {fileID: 2527423760716626842}
   isGrounded: 0
-  facingRight: 0
+  facingRight: 1
   coinPrefab: {fileID: 6499098341093493459, guid: c71e2cbf407e9414aa732ddebd3ce7f4, type: 3}
   deathPanel: {fileID: 2292367903836182519, guid: f2ad9f19263e9c94b8f527606fbd8235, type: 3}
   transformations: {fileID: 0}
@@ -180,7 +180,7 @@ MonoBehaviour:
   slimeDrops: {fileID: 2705813515532602711, guid: 4f42529042771fe4c98a5eef160715ec, type: 3}
   jumpAudioClip: {fileID: 8300000, guid: 4d0ef3c5e821e79418efc8e4a009883f, type: 3}
   landAudioClip: {fileID: 8300000, guid: 6574941522a8ae044b1c82701fe0892f, type: 3}
-  slamAudioClip: {fileID: 8300000, guid: 4bfd6d69363717843acc19f1ec98efc4, type: 3}
+  slamAudioClip: {fileID: 8300000, guid: ac078dc0c9e6ebb45b337b81bc92cb8d, type: 3}
   deathAudioClip: {fileID: 8300000, guid: 6a159f0823a059f4ba42bc50f6b3f80a, type: 3}
   hitAudioClip: {fileID: 8300000, guid: dd4954d0bf218744da6c0dcdc16d1a21, type: 3}
   canBeHit: 0
@@ -268,7 +268,7 @@ MonoBehaviour:
   canDoubleJump: 0
   rb: {fileID: 0}
   anim: {fileID: 0}
-  DoubleJumpForce: 6.5
+  doubleJumpForce: 5.5
   jumped: 0
   onBox: 0
   flapSound: {fileID: 8300000, guid: 4d0ef3c5e821e79418efc8e4a009883f, type: 3}

@@ -59,12 +59,9 @@ public class UItransformation : MonoBehaviour
        
     }
 
-    // Update is called once per frame
-    
-   
     public void closePanel()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(0))
         {
             Time.timeScale = 1f;
             if (plateBird.activeInHierarchy)

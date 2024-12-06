@@ -4963,8 +4963,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 3.5
+  maxSpeed: 3.5
   jumpForce: 6.5
-  slumForce: 8
+  slamForce: 8
   groundCheck: {fileID: 8979685145127967545}
   groundLayer:
     serializedVersion: 2
@@ -4974,8 +4975,7 @@ MonoBehaviour:
   isSwinging: 0
   isSlamming: 0
   canSlam: 1
-  slamTimer: 0
-  slamTimecharge: 0.75
+  canTurn: 1
   rb: {fileID: 8979685145127967547}
   isGrounded: 0
   facingRight: 0
@@ -4986,7 +4986,7 @@ MonoBehaviour:
   slimeDrops: {fileID: 2705813515532602711, guid: 4f42529042771fe4c98a5eef160715ec, type: 3}
   jumpAudioClip: {fileID: 8300000, guid: 4d0ef3c5e821e79418efc8e4a009883f, type: 3}
   landAudioClip: {fileID: 8300000, guid: 6574941522a8ae044b1c82701fe0892f, type: 3}
-  slamAudioClip: {fileID: 8300000, guid: 4bfd6d69363717843acc19f1ec98efc4, type: 3}
+  slamAudioClip: {fileID: 8300000, guid: ac078dc0c9e6ebb45b337b81bc92cb8d, type: 3}
   deathAudioClip: {fileID: 8300000, guid: 6a159f0823a059f4ba42bc50f6b3f80a, type: 3}
   hitAudioClip: {fileID: 8300000, guid: dd4954d0bf218744da6c0dcdc16d1a21, type: 3}
   canBeHit: 1
